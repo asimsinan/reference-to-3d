@@ -56,6 +56,26 @@
 - **Raised details over a photo texture** shift their labels unless each top takes the pixel along the camera's ray
   to the base surface.
 
+## One photo, a turned object
+- **Blender's camera shift for a principal point has a sign trap**: the model rendered far down and right of the
+  frame. With `sensor_fit` HORIZONTAL: `shift_x = -(cx - W/2) / W`, `shift_y = (cy - H/2) / W`.
+- **Mirroring the back (x -> -x) stripes the sides**: the photo's pixels next to the silhouette, stretched many
+  times, became horizontal ripples from every three-quarter view. Fold the angle round the axis: the photo's own
+  pixels within +-72 deg, the back their stretched mirror reaching the photo's centre at 180 deg.
+- **A rotationally symmetric top** sampled from one column caught a dark catch under the rim as a black ring.
+- **A mask cut by its box's edge, or joined to a thin dark line**, leaves the part's pixels in the inpainted body
+  texture as a smear (a tab's bottom 7 px; the lid's edge line in the tab's mask). Look at every mask over the
+  photo; open thin lines away and keep the biggest piece.
+
+## Real materials
+- **Polished metal reflects what is there**: in Blender's studio.exr (black curtains) a mirror lid rendered black;
+  in a plain white world all steel is flat grey. Product look: bright world, black cards seen only in reflections
+  (`visible_camera` off), a satin lid (roughness ~0.16). In the viewport use a built-in HDRI (interior.exr).
+- **Black plastic in a bright studio turns grey** at roughness 0.38; 0.5 and specular 0.3.
+- **The glTF exporter drops Gamma and Mix nodes**: a handle darkened with a Gamma node came out light in the .glb,
+  and a logo mixed by a Mix node would vanish. Bake adjustments into the images; check the .glb by reading its JSON
+  chunk (materials, which textures each uses).
+
 ## One room, one picture
 - **Per-vertex projected UVs on big faces slide**: UV interpolation is affine, the camera's mapping is not. Project
   in the shader (an empty at the camera, Texture Coordinate -> Object), exact on any face.
@@ -90,6 +110,8 @@
 - **Background Blender jobs collide** with other GPU work (a game, another render); a silently missing output file is
   the sign. Run one at a time.
 - **OpenCV's LSD returns (N,1,4) or (N,4)** depending on the version: `detect(g)[0].reshape(-1, 4)`.
+- **The first `uv run --with scikit-image` takes over 2 minutes** (a 120 s tool timeout moved it to the
+  background with nothing written yet); start such a step in the background and wait for it.
 - **`uv run --with matplotlib` can take minutes** to download on a fresh cache (a profile plot timed out at 120 s);
   draw quick plots with OpenCV (`cv2.polylines` on a white canvas) instead.
 - **Blender 5.x's EEVEE is `BLENDER_EEVEE`** (4.2-4.x: `BLENDER_EEVEE_NEXT`); check the enum, not a guess.

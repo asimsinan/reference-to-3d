@@ -13,6 +13,7 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Tek bir yerden görülen bir iç mekân resmi (araç kokpiti, oyun kamerası) | O yerden piksel piksel aynı görünen bir iç mekân |
 | Bir odanın tek fotoğrafı ya da render'ı | İçinde **dolaşılabilen** bir oda: kamera fotoğraftan çözülür, eşyalar 3B olur, görünmeyen taraflar fotoğrafın tekrar eden parçalarından kurulur |
 | Boyutları bilinen bir ürünün sıradan bir fotoğrafı (dizüstü bilgisayar, telefon, sandalye) | Gerçek ölçülerinde kurulmuş ürün; fotoğraf her yüzeye düzeltilerek yerleştirilir |
+| Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, her yanı saran fotoğraf; isterseniz fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik) |
 
 Sonuç **.blend** dosyası olarak kaydedilir (dokular dosyanın içinde). İsterseniz oyun motorları (Unity, Unreal,
 Godot, three.js) için **glTF/GLB** olarak da dışa aktarılır; tekerlek ve kapı gibi hareketli parçalar ayrı mesh olur.
@@ -97,6 +98,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Bu dört görünümden aracın 3B modelini yap."*
      - *"Resimdeki odayı modelle, içinde dolaşabilmek istiyorum."*
      - *"Fotoğraftaki dizüstü bilgisayarı 3B yap, MacBook Pro 14."*
+     - *"Ekteki resimdeki düdüklü tencereyi 3B modelle."*
      - *"Unity için GLB olarak dışa aktar, tekerlekler ayrı parça olsun."*
 
 ### Claude ne yapar?
@@ -140,10 +142,12 @@ reference-to-3d/
 ├── references/                  Claude'un gerektiğinde okuduğu ayrıntılı rehberler
 │   ├── single-view-interior.md  tek resimden iç mekân; dolaşılabilir odalar
 │   ├── single-photo-object.md   boyutu bilinen bir ürünün tek fotoğrafı
+│   ├── single-photo-revolved.md dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo)
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte iki eksiksiz örnek
+└── examples/                    betikleriyle birlikte üç eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
+    ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```
 

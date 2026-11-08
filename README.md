@@ -13,6 +13,7 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One picture of an interior seen from one place (a car's cockpit, a game camera) | An inside that is pixel-exact from that place |
 | One photo or render of a room | A room you can **walk through**: the camera solved from the photo, props in 3D, the unseen sides built from the photo's own repeating parts |
 | One ordinary photo of a product whose size is known (a laptop, a phone, a chair) | The product built to its real dimensions, the photo rectified onto each surface |
+| One photo of a turned object (a pot, a bottle, a vase) | Its profile turned round the axis, side handles as solid parts, the photo wrapped all round; on request real materials (steel, plastic) instead of the photo's light |
 
 Results are saved as a **.blend** file (textures packed inside) and, if you want, a **glTF/GLB** for game engines
 (Unity, Unreal, Godot, three.js), with moving parts such as wheels and doors as separate meshes.
@@ -96,6 +97,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Make a 3D model of this car from these four views."*
      - *"Model the room in this picture — I want to walk around inside it."*
      - *"Build this laptop in 3D from the photo, it is a MacBook Pro 14."*
+     - *"Model the pressure cooker in the attached photo."*
      - *"Export it as a GLB for Unity, with the wheels as separate parts."*
 
 ### What Claude will do
@@ -139,10 +141,12 @@ reference-to-3d/
 ├── references/                  detailed guides Claude reads when a case needs them
 │   ├── single-view-interior.md  one picture of an inside; rooms made walkable
 │   ├── single-photo-object.md   one photo of a product of known size
+│   ├── single-photo-revolved.md one photo of a turned object (pot, bottle, vase)
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    two complete worked examples with their scripts
+└── examples/                    three complete worked examples with their scripts
     ├── laptop-single-photo/     a laptop from one photo
+    ├── pressure-cooker-revolved/ a pressure cooker from one product photo
     └── laundromat-room/         a walkable laundromat from one render
 ```
 

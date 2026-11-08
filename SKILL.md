@@ -1,6 +1,6 @@
 ---
 name: reference-to-3d
-description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or one ordinary photo of a real product of known size, such as a laptop on a table) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
+description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or one ordinary photo of a real product of known size, such as a laptop on a table; or one photo of a turned object such as a pot, bottle or vase) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
 ---
 
 # Reference to 3D
@@ -32,6 +32,13 @@ angle, such as a lid's) from a few marked corners, build the product from its re
 surface the photo shows into its own texture through that camera; raised details (keys) take the photo's pixels
 along the camera's rays. Read `references/single-photo-object.md` (worked example and scripts in
 `examples/laptop-single-photo/`) and skip steps 1-3 below; steps 4, 6 and 7 still apply.
+
+**One photo of a turned object** (a pot, a bottle, a vase, a lamp, a cup; with handles, knobs or a spout on its
+sides) is a fourth case: the silhouette's two edges are its profile. Solve the camera from the ellipses of two of
+its circles (base, rim), lathe the profile measured through that camera, make each side part a rounded slab of its
+photo outline, and wrap the photo round the axis with the angle folded into the part the photo sees well (the back
+the front's mirror, the logo left off it). Read `references/single-photo-revolved.md` (worked example and scripts in
+`examples/pressure-cooker-revolved/`) and skip steps 1-3 below; steps 4, 6 and 7 still apply.
 
 ## 1. Read the reference before anything else
 
@@ -125,6 +132,11 @@ reference's own pixels).
 - **Parts the reference cannot carry**: wheels' tyres, glass, lamps, screens and interiors in real materials instead
   of projected pixels (a tyre's tread seen from ahead is not in any view; a lamp must light at night). Keep the
   reference's pixels where a view really shows the part (a rim from the side).
+- **Real materials instead of the reference's light**: polished metal, plastic, glass that react to the scene (the
+  photo's reflections are baked in and show the photographer's studio from every side). Keep printed matter as a
+  mask baked into the base colour and roughness maps, not as shader nodes: the glTF exporter drops Gamma and Mix
+  nodes. Polished metal needs something to reflect: a bright world and black cards that only reflections see.
+  `references/single-photo-revolved.md`, "Real materials".
 - **Printed matter**: logos, labels and lettering redrawn sharp (as vectors or a high-resolution image) when close-ups
   show the reference's pixels too soft.
 - **Wear**: dust, grime in creases, chipped edges, from shader nodes (ambient occlusion, pointiness, noise), as a thin
@@ -149,5 +161,7 @@ reference's own pixels).
 - `references/game-export.md` — game engine delivery (read before exporting for a game)
 - `references/single-view-interior.md` — one picture of an inside, made exact from one camera (a cockpit, a room)
 - `references/single-photo-object.md` — one photo of a product of known size: camera solve, rectified textures, raised details
+- `references/single-photo-revolved.md` — one photo of a turned object: camera from two ellipses, lathed profile, handle slabs, folded-angle texture, real materials
 - `examples/laundromat-room/` — a room from one render, made walkable (camera solve, proxies, layered plates, repeats, shader projection)
 - `examples/laptop-single-photo/` — the MacBook Pro 14 worked example (edge measuring, camera solve, overlay, rectify, key layout fit, Blender build, compare, glTF export)
+- `examples/pressure-cooker-revolved/` — a pressure cooker from one product photo (masks, camera from ellipses, profile, handle slabs, folded UVs, compare, steel/plastic version)
