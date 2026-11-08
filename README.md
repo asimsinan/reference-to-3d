@@ -1,0 +1,170 @@
+**English** | [Türkçe](README.tr.md)
+
+# reference-to-3d — a Claude Code skill
+
+Turn pictures into 3D models in Blender that look **exactly like the picture**.
+
+Instead of modelling "something like it" by eye, this skill makes Claude use the picture itself: its outlines for the
+shape, its pixels for the surface, and numbers (not impressions) to check the result against the picture.
+
+| You give | You get |
+|---|---|
+| A turnaround sheet or separate front / side / rear / top views (photos or concept art) | A model fitted to the outlines, textured with the views' own pixels |
+| One picture of an interior seen from one place (a car's cockpit, a game camera) | An inside that is pixel-exact from that place |
+| One photo or render of a room | A room you can **walk through**: the camera solved from the photo, props in 3D, the unseen sides built from the photo's own repeating parts |
+| One ordinary photo of a product whose size is known (a laptop, a phone, a chair) | The product built to its real dimensions, the photo rectified onto each surface |
+
+Results are saved as a **.blend** file (textures packed inside) and, if you want, a **glTF/GLB** for game engines
+(Unity, Unreal, Godot, three.js), with moving parts such as wheels and doors as separate meshes.
+
+---
+
+## 1. What you need
+
+| | |
+|---|---|
+| **Claude Code** | CLI, desktop app or IDE extension — [claude.com/claude-code](https://claude.com/claude-code) |
+| **Blender** | 4.2 or newer (tested with 5.2) — [blender.org](https://www.blender.org/download/) |
+| **uv** | Runs the Python scripts and installs their packages (numpy, OpenCV, …) on the fly — [docs.astral.sh/uv](https://docs.astral.sh/uv/getting-started/installation/) |
+
+Install uv with one line:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+On Windows (PowerShell):
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+```
+
+You do **not** need to install Python packages yourself; each script states its packages and `uv` fetches them.
+
+## 2. Install the skill into Claude Code
+
+A skill is just a folder with a `SKILL.md` file in it. Claude Code finds skills in two places:
+
+| Where | Available in | Use it when |
+|---|---|---|
+| `~/.claude/skills/reference-to-3d/` | **all** your projects | you want it everywhere (recommended) |
+| `<your-project>/.claude/skills/reference-to-3d/` | that project only | you want to share it with a team through the project's repository |
+
+### Option A — with git (recommended)
+
+macOS / Linux:
+
+```bash
+git clone https://github.com/asimsinan/reference-to-3d.git ~/.claude/skills/reference-to-3d
+```
+
+Windows (PowerShell):
+
+```powershell
+git clone https://github.com/asimsinan/reference-to-3d.git "$env:USERPROFILE\.claude\skills\reference-to-3d"
+```
+
+### Option B — without git
+
+1. On GitHub, click **Code → Download ZIP**.
+2. Unzip it.
+3. Rename the folder to `reference-to-3d` and move it into `~/.claude/skills/` (Windows: `%USERPROFILE%\.claude\skills\`).
+
+Either way, the result must be: `~/.claude/skills/reference-to-3d/SKILL.md` (the `SKILL.md` directly inside, not one
+folder deeper).
+
+### Check that it is installed
+
+Start a **new** Claude Code session (skills are read at start-up), then type `/` — `reference-to-3d` should appear in
+the list. You can also ask Claude: *"Which skills do you have?"*
+
+### Tell Claude where Blender is (only if it is not in the default place)
+
+The skill assumes Blender at `/Applications/Blender.app` on macOS. On Linux (`blender` on the PATH) and Windows, or
+for a different location, just say it once in the chat, or add one line to your project's `CLAUDE.md`, for example:
+
+```
+Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
+```
+
+## 3. Use it
+
+1. Put your picture(s) in your project folder, or paste/drag the image into the Claude Code chat.
+2. Ask for what you want. There are two ways:
+   - **Type the command:** `/reference-to-3d model the room in the picture`
+   - **Or just ask normally.** Claude loads the skill by itself when the request fits, for example:
+     - *"Make a 3D model of this car from these four views."*
+     - *"Model the room in this picture — I want to walk around inside it."*
+     - *"Build this laptop in 3D from the photo, it is a MacBook Pro 14."*
+     - *"Export it as a GLB for Unity, with the wheels as separate parts."*
+
+### What Claude will do
+
+1. **Read the picture**: name the views, solve the camera, find one real size (it may ask you, e.g. "how tall is the door?").
+2. **Build the shape**: fitted to the outlines, or measured through the solved camera.
+3. **Put the picture's own pixels on it**.
+4. **Measure** the result against the picture, view by view (outline overlap and colour difference in numbers), and
+   show you a **side-by-side comparison** (picture left, model right).
+5. **Fix** what you point at, one view at a time.
+6. **Save** the `.blend` (it opens ready to look at) and, if asked, a GLB.
+
+### Tips for good results
+
+- **Give one real size** if you know it (a door is 2.0 m, the van is 1.9 m tall). Everything else follows from it.
+- **Say where the model will be used**: a still render, a game engine, or walking through it.
+- **Look at the comparison sheets and say what is different**; that is how you get from "close" to "identical".
+- **Image-generation credits** (for filling sides no picture shows) are only spent after you approve; a free option
+  that builds those sides from the picture's own repeating parts is always offered first.
+
+### Limits to keep in mind
+
+- The picture's lighting and reflections are baked into the texture; they do not change with your scene's lights.
+- Surfaces that no picture shows are reasonable guesses, not the real thing; Claude says which ones.
+- From one picture of a room, the result is exact from that picture's camera; walking around shows repeated pieces
+  (the same window bay, the same machine) on a close look.
+
+## 4. What is inside
+
+```
+reference-to-3d/
+├── SKILL.md                     the instructions Claude follows (start here if you want to read how it works)
+├── scripts/                     tools Claude runs (each has its usage in its header)
+│   ├── split_sheet.py           turnaround sheet → named views and masks
+│   ├── hull.py, loft.py         shape from the outlines (any object / long objects)
+│   ├── textures.py, project.py  the views' pixels onto the model; renders, .blend, GLB export (Blender)
+│   ├── compare.py               outline overlap and colour difference per view, comparison sheets
+│   ├── solve_camera_vp.py       a room photo's camera from its lines (focal length, tilt, scale)
+│   ├── rectify_plane.py         one wall/floor of a room straightened out of the photo
+│   └── shot_ui.py               screenshots a .blend as it opens, to check what you will see
+├── references/                  detailed guides Claude reads when a case needs them
+│   ├── single-view-interior.md  one picture of an inside; rooms made walkable
+│   ├── single-photo-object.md   one photo of a product of known size
+│   ├── game-export.md           names, pivots and settings for game engines
+│   └── pitfalls.md              what went wrong before and why
+└── examples/                    two complete worked examples with their scripts
+    ├── laptop-single-photo/     a laptop from one photo
+    └── laundromat-room/         a walkable laundromat from one render
+```
+
+You do not need to run anything in `scripts/` or `examples/` yourself — Claude does. If you want to, each example's
+`README.md` lists its commands in order.
+
+## 5. Update
+
+If you installed with git:
+
+```bash
+cd ~/.claude/skills/reference-to-3d && git pull
+```
+
+Start a new Claude Code session afterwards.
+
+## 6. Troubleshooting
+
+| Problem | Fix |
+|---|---|
+| `/reference-to-3d` does not appear | Check that `SKILL.md` is at `~/.claude/skills/reference-to-3d/SKILL.md`, then start a new session. |
+| "Blender not found" | Tell Claude the full path to Blender (see section 2). |
+| `uv: command not found` | Install uv (section 1) and open a new terminal. |
+| The first run is slow | uv is downloading packages once (OpenCV, numpy); later runs are fast. |
+| The .blend opens grey | Switch the viewport to **Material Preview** (the third sphere icon at the top right of the 3D view). |
