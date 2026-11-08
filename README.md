@@ -15,6 +15,12 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One ordinary photo of a product whose size is known (a laptop, a phone, a chair) | The product built to its real dimensions, the photo rectified onto each surface |
 | One photo of a turned object (a pot, a bottle, a vase) | Its profile turned round the axis, side handles as solid parts, the photo wrapped all round; on request real materials (steel, plastic) instead of the photo's light |
 
+![A pressure cooker modelled from one product photo, rendered in polished steel from three sides](docs/showcase/pressure-cooker.jpg)
+
+*From one side-on product photo: the profile turned round the axis, the handles as solid parts, then real polished
+steel and plastic (Blender, Cycles). The views behind and above are not in the photo. How:
+[`examples/pressure-cooker-revolved/`](examples/pressure-cooker-revolved/).*
+
 Results are saved as a **.blend** file (textures packed inside) and, if you want, a **glTF/GLB** for game engines
 (Unity, Unreal, Godot, three.js), with moving parts such as wheels and doors as separate meshes.
 
@@ -138,6 +144,7 @@ reference-to-3d/
 │   ├── solve_camera_vp.py       a room photo's camera from its lines (focal length, tilt, scale)
 │   ├── rectify_plane.py         one wall/floor of a room straightened out of the photo
 │   └── shot_ui.py               screenshots a .blend as it opens, to check what you will see
+├── docs/showcase/               the images shown in this README
 ├── references/                  detailed guides Claude reads when a case needs them
 │   ├── single-view-interior.md  one picture of an inside; rooms made walkable
 │   ├── single-photo-object.md   one photo of a product of known size

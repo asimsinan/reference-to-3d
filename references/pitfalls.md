@@ -71,6 +71,8 @@
 - **Polished metal reflects what is there**: in Blender's studio.exr (black curtains) a mirror lid rendered black;
   in a plain white world all steel is flat grey. Product look: bright world, black cards seen only in reflections
   (`visible_camera` off), a satin lid (roughness ~0.16). In the viewport use a built-in HDRI (interior.exr).
+- **Steel seen from above mirrors the floor**, not the cards around it: flat white on a white floor, black on a
+  floor dark in reflections. Give the floor dark sectors round the object in glossy rays only.
 - **Black plastic in a bright studio turns grey** at roughness 0.38; 0.5 and specular 0.3.
 - **The glTF exporter drops Gamma and Mix nodes**: a handle darkened with a Gamma node came out light in the .glb,
   and a logo mixed by a Mix node would vanish. Bake adjustments into the images; check the .glb by reading its JSON

@@ -1,5 +1,7 @@
 # Worked example: a pressure cooker from one product photo
 
+![The steel version from three sides](../../docs/showcase/pressure-cooker.jpg)
+
 See `../../references/single-photo-revolved.md`. One 554 x 554 product photo (a stainless pressure cooker on white,
 seen from the side, a little from above); no size given (assumed ~27 cm across). The photo is not included (it is
 the maker's); the scripts are, with this photo's numbers in them (boxes, rows, profile points), marked "this photo".
@@ -15,6 +17,7 @@ read and write the current folder:
     uv run --with opencv-python-headless --with numpy python $EX/cmp.py out     # numbers + out/compare.png
     uv run --with opencv-python-headless --with numpy python $EX/pbr_maps.py   # logo mask, steel maps, darker handle
     Blender -b out/pressure_cooker.blend -P $EX/steel.py -- steel              # real materials, Cycles, .blend + .glb
+    Blender -b steel/pressure_cooker_steel.blend -P $EX/showcase.py -- show    # the three showcase views
 
 `cam.py` holds the camera (found by hand from two ellipses; its header shows the arithmetic). The first `prep.py`
 run installs scikit-image and can take over 2 minutes: run it in the background.

@@ -61,6 +61,12 @@ upsample 4x, smooth, and bake it into a base colour and a roughness map (dark sa
 shot: a bright world and black cards that only reflections see (`visible_camera` off), which draw the dark vertical
 bands that read as steel. In the viewport use a built-in HDRI (interior.exr) and hide the cards. `steel.py`.
 
+Cards in front serve a low camera only. From 20-25 deg above, polished steel mirrors the **floor**: a white floor
+made the body flat white, a floor dark in reflections made it black. What reads as steel from any side: the floor
+white to the camera but, in glossy rays (Light Path "Is Glossy Ray"), light with dark sectors round the object
+(smoothstep of sin(5 x angle)), which a cylinder shows as vertical dark bands; and a ring of tall black cards for
+the upper part. `showcase.py`.
+
 ## Faults found only by looking (each fixed)
 
 - **The camera's shift came out with the wrong sign**: the model sat far down and to the right of the frame. With

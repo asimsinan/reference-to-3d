@@ -15,6 +15,12 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Boyutları bilinen bir ürünün sıradan bir fotoğrafı (dizüstü bilgisayar, telefon, sandalye) | Gerçek ölçülerinde kurulmuş ürün; fotoğraf her yüzeye düzeltilerek yerleştirilir |
 | Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, her yanı saran fotoğraf; isterseniz fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik) |
 
+![Tek ürün fotoğrafından modellenen düdüklü tencere, cilalı çelik olarak üç yandan render](docs/showcase/pressure-cooker.jpg)
+
+*Yandan çekilmiş tek bir ürün fotoğrafından: eksen etrafında döndürülmüş profil, katı parçalar olarak saplar, sonra
+gerçek cilalı çelik ve plastik (Blender, Cycles). Arkadan ve üstten görünümler fotoğrafta yok. Nasıl yapıldığı:
+[`examples/pressure-cooker-revolved/`](examples/pressure-cooker-revolved/).*
+
 Sonuç **.blend** dosyası olarak kaydedilir (dokular dosyanın içinde). İsterseniz oyun motorları (Unity, Unreal,
 Godot, three.js) için **glTF/GLB** olarak da dışa aktarılır; tekerlek ve kapı gibi hareketli parçalar ayrı mesh olur.
 
@@ -139,6 +145,7 @@ reference-to-3d/
 │   ├── solve_camera_vp.py       bir oda fotoğrafının kamerasını çizgilerinden çözer (odak, eğim, ölçek)
 │   ├── rectify_plane.py         odanın bir duvarını/zeminini fotoğraftan düz görünecek şekilde çıkarır
 │   └── shot_ui.py               .blend dosyasını açıldığı haliyle ekran görüntüsüne alır
+├── docs/showcase/               bu README'deki görseller
 ├── references/                  Claude'un gerektiğinde okuduğu ayrıntılı rehberler
 │   ├── single-view-interior.md  tek resimden iç mekân; dolaşılabilir odalar
 │   ├── single-photo-object.md   boyutu bilinen bir ürünün tek fotoğrafı
