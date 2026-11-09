@@ -35,10 +35,13 @@ along the camera's rays. Read `references/single-photo-object.md` (worked exampl
 
 **One photo of a turned object** (a pot, a bottle, a vase, a lamp, a cup; with handles, knobs or a spout on its
 sides) is a fourth case: the silhouette's two edges are its profile. Solve the camera from the ellipses of two of
-its circles (base, rim), lathe the profile measured through that camera, make each side part a rounded slab of its
-photo outline, and wrap the photo round the axis with the angle folded into the part the photo sees well (the back
-the front's mirror, the logo left off it). Read `references/single-photo-revolved.md` (worked example and scripts in
-`examples/pressure-cooker-revolved/`) and skip steps 1-3 below; steps 4, 6 and 7 still apply.
+its circles (base, rim), lathe the profile measured through that camera, make each side part a rounded slab or
+(bar-like handles) a swept tube of its photo outline, and wrap the photo round the axis with the angle folded into
+the part the photo sees well (the back the front's mirror, the logo left off it); a cup's inside from what the
+opening shows. Read `references/single-photo-revolved.md` and skip steps 1-3 below; steps 4, 6 and 7 still apply.
+Two worked examples: `examples/pressure-cooker-revolved/` (a product shot on white, level camera read by hand) and
+`examples/mug-revolved/` (a phone photo on a table: GrabCut mask, pitched camera by least squares, hollow inside,
+tube handle, porcelain version).
 
 ## 1. Read the reference before anything else
 
@@ -115,8 +118,8 @@ the front, each texture fitted to the model's own outline (`project.py` does thi
 
 - **Blender file**: `project.py ... --blend model.blend --pack` (textures inside: it opens anywhere). It opens
   framed on the model in Material Preview; Z → Rendered shows the scene's own lights. **Before handing over any
-  .blend, open it with the interface and screenshot what the user will see** (`scripts/shot_ui.py`:
-  `Blender model.blend --factory-startup -P scripts/shot_ui.py -- ui.png`): a file written by a render script opened as a tangle of camera frustums and light lines round a
+  .blend, open it with the interface and screenshot what the user will see** (`scripts/shot_ui.py`, absolute paths:
+  `Blender "$PWD/model.blend" --factory-startup -P scripts/shot_ui.py -- "$PWD/ui.png"`): a file written by a render script opened as a tangle of camera frustums and light lines round a
   31 cm laptop on a 4 m floor, far away and grey. Remove the render shots' cameras, put the model under one parent
   in its own collection and lights/floor/camera in another, scale the floor to the object, select the model.
 - **Game asset**: `project.py ... --export model.glb [--emission] [--decimate 0.1]` (a visual hull is dense: thin it) bakes each mesh to its own UV texture (so a
@@ -161,7 +164,8 @@ reference's own pixels).
 - `references/game-export.md` — game engine delivery (read before exporting for a game)
 - `references/single-view-interior.md` — one picture of an inside, made exact from one camera (a cockpit, a room)
 - `references/single-photo-object.md` — one photo of a product of known size: camera solve, rectified textures, raised details
-- `references/single-photo-revolved.md` — one photo of a turned object: camera from two ellipses, lathed profile, handle slabs, folded-angle texture, real materials
+- `references/single-photo-revolved.md` — one photo of a turned object: camera from two ellipses (level by hand, or pitched by least squares), lathed profile, handle slabs or swept tubes, folded-angle texture, a hollow inside, real materials (steel, glazed ceramic)
 - `examples/laundromat-room/` — a room from one render, made walkable (camera solve, proxies, layered plates, repeats, shader projection)
 - `examples/laptop-single-photo/` — the MacBook Pro 14 worked example (edge measuring, camera solve, overlay, rectify, key layout fit, Blender build, compare, glTF export)
 - `examples/pressure-cooker-revolved/` — a pressure cooker from one product photo (masks, camera from ellipses, profile, handle slabs, folded UVs, compare, steel/plastic version)
+- `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)

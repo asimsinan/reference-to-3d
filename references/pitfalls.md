@@ -66,8 +66,29 @@
 - **A mask cut by its box's edge, or joined to a thin dark line**, leaves the part's pixels in the inpainted body
   texture as a smear (a tab's bottom 7 px; the lid's edge line in the tab's mask). Look at every mask over the
   photo; open thin lines away and keep the biggest piece.
+- **A close phone photo is pitched**: a level camera could not fit a mug whose rim was seen at 10 deg and base at 30.
+  Solve pitch, distance, height and focal by least squares on the rim's and base's contours; F is weakly determined
+  there, so pick it by the phone's lens. Add the rim's front point by hand: the mask cannot see white on white.
+- **The lowest rows of a silhouette are the base's front, not tangent rays**: a profile read from them came out
+  30 px too wide at the bottom. Fit the base corner separately.
+- **A spline evaluated outside its data** blew a tangent-ray profile iteration up (r of 10^28): search each ray only
+  near its closest approach to the axis and clip the fit to its range.
+- **The fold stretches a glossy body's reflections of its own handle** into a ghost (a D on the mug behind its
+  handle): fold less on the handle's side (50 deg).
+- **Marching-cubes slabs show the mask's pixel steps as ridges** across a bar-like handle; nearest-pixel margin fill
+  adds streaks perpendicular to the edge. A swept tube along the mask's skeleton and a normalized-convolution fill
+  fixed both. A mask seen from above holds the part's upper face: build from where both faces project inside it,
+  then thicken (x1.12) and flare the roots; a skeleton's tips taper to nothing.
+- **An inside textured by a per-face visibility test** shows staircase patches; project every inside vertex (near
+  half mirrored to the far) into a texture that is the photo inside the opening and a plain colour outside it. The
+  lip's inner half must take the inside's texture, or the back of the rim shows a white band.
 
 ## Real materials
+- **A real material on a photo-lit model is set by measuring**: interior.exr at 1.0 plus area lights rendered a white
+  mug all white on a white table. Compare the same boxes (body left, middle, right; the table) with the photo and set
+  exposure and the key/fill ratio from the numbers.
+- **Detail kept as photo / blurred photo** brings the photo's edge shading back as dark rings (silhouette, lip,
+  opening): trust the ratio only away from them.
 - **Polished metal reflects what is there**: in Blender's studio.exr (black curtains) a mirror lid rendered black;
   in a plain white world all steel is flat grey. Product look: bright world, black cards seen only in reflections
   (`visible_camera` off), a satin lid (roughness ~0.16). In the viewport use a built-in HDRI (interior.exr).
@@ -124,3 +145,9 @@
 - **A helper named like a standard module** (`inspect.py`, `json.py`) in the folder a Python tool runs from replaces
   that module: `pygltflib` failed with "No module named 'bpy'" because a Blender helper was called `inspect.py`. Name
   helpers distinctly and run checks with `python -I`.
+
+## Tools
+- **`shot_ui.py` given a relative output path** wrote no file (the screenshot resolves it elsewhere); pass absolute
+  paths for both the .blend and the PNG.
+- **Long jobs: keep the inputs and scripts outside the scratchpad** (a work folder next to the deliverables); a
+  session restart once wiped an attached photo and a whole pipeline.

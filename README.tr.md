@@ -13,12 +13,21 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Tek bir yerden görülen bir iç mekân resmi (araç kokpiti, oyun kamerası) | O yerden piksel piksel aynı görünen bir iç mekân |
 | Bir odanın tek fotoğrafı ya da render'ı | İçinde **dolaşılabilen** bir oda: kamera fotoğraftan çözülür, eşyalar 3B olur, görünmeyen taraflar fotoğrafın tekrar eden parçalarından kurulur |
 | Boyutları bilinen bir ürünün sıradan bir fotoğrafı (dizüstü bilgisayar, telefon, sandalye) | Gerçek ölçülerinde kurulmuş ürün; fotoğraf her yüzeye düzeltilerek yerleştirilir |
-| Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, her yanı saran fotoğraf; isterseniz fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik) |
+| Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, bir kabın içi, her yanı saran fotoğraf; isterseniz fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik, porselen) |
+
+![Bir kupa: referans telefon fotoğrafı, ardından aynı kameradan, arkadan, kulp tarafından ve üstten model](docs/showcase/mug.jpg)
+
+*Solda referans: masadaki bir kupanın sıradan bir telefon fotoğrafı. Gerisi model, gerçek porselen olarak (Blender,
+Cycles): önce fotoğrafın kendi kamerasından, sonra fotoğrafın hiç göstermediği yanlardan. Kamera ağzın ve tabanın
+dış çizgilerinden çözüldü, profil eksen etrafında döndürüldü, kulp kendi dış çizgisi boyunca süpürüldü; fotoğrafın
+kamerasından bakınca dış çizgi 0,982 (IoU), fotoğraf dokulu sürümün renkleri 1,4/255 farkla örtüşüyor. Nasıl
+yapıldığı: [`examples/mug-revolved/`](examples/mug-revolved/).*
 
 ![Tek ürün fotoğrafından modellenen düdüklü tencere, cilalı çelik olarak üç yandan render](docs/showcase/pressure-cooker.jpg)
 
 *Yandan çekilmiş tek bir ürün fotoğrafından: eksen etrafında döndürülmüş profil, katı parçalar olarak saplar, sonra
-gerçek cilalı çelik ve plastik (Blender, Cycles). Arkadan ve üstten görünümler fotoğrafta yok. Nasıl yapıldığı:
+gerçek cilalı çelik ve plastik (Blender, Cycles). Arkadan ve üstten görünümler fotoğrafta yok (üreticinin ürün
+fotoğrafı depoya konmadı). Nasıl yapıldığı:
 [`examples/pressure-cooker-revolved/`](examples/pressure-cooker-revolved/).*
 
 Sonuç **.blend** dosyası olarak kaydedilir (dokular dosyanın içinde). İsterseniz oyun motorları (Unity, Unreal,
@@ -105,6 +114,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Resimdeki odayı modelle, içinde dolaşabilmek istiyorum."*
      - *"Fotoğraftaki dizüstü bilgisayarı 3B yap, MacBook Pro 14."*
      - *"Ekteki resimdeki düdüklü tencereyi 3B modelle."*
+     - *"Ekteki bardağı 3d modelle, sonra gerçek porselen yap."*
      - *"Unity için GLB olarak dışa aktar, tekerlekler ayrı parça olsun."*
 
 ### Claude ne yapar?
@@ -149,12 +159,13 @@ reference-to-3d/
 ├── references/                  Claude'un gerektiğinde okuduğu ayrıntılı rehberler
 │   ├── single-view-interior.md  tek resimden iç mekân; dolaşılabilir odalar
 │   ├── single-photo-object.md   boyutu bilinen bir ürünün tek fotoğrafı
-│   ├── single-photo-revolved.md dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo)
+│   ├── single-photo-revolved.md dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa)
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte üç eksiksiz örnek
+└── examples/                    betikleriyle birlikte dört eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
+    ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```
 

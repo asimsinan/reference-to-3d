@@ -1,5 +1,6 @@
 """Open a .blend with the interface, screenshot the window after ~6 s, quit: what the user will see on opening it.
-Run: Blender file.blend --factory-startup -P shot_ui.py -- out.png"""
+Run: Blender "$PWD/file.blend" --factory-startup -P shot_ui.py -- "$PWD/out.png"
+Use absolute paths for both: with a relative output path no PNG appeared where expected."""
 import bpy
 import sys
 OUT=sys.argv[sys.argv.index("--")+1] if "--" in sys.argv else "ui.png"

@@ -13,12 +13,21 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One picture of an interior seen from one place (a car's cockpit, a game camera) | An inside that is pixel-exact from that place |
 | One photo or render of a room | A room you can **walk through**: the camera solved from the photo, props in 3D, the unseen sides built from the photo's own repeating parts |
 | One ordinary photo of a product whose size is known (a laptop, a phone, a chair) | The product built to its real dimensions, the photo rectified onto each surface |
-| One photo of a turned object (a pot, a bottle, a vase) | Its profile turned round the axis, side handles as solid parts, the photo wrapped all round; on request real materials (steel, plastic) instead of the photo's light |
+| One photo of a turned object (a pot, a bottle, a vase, a mug) | Its profile turned round the axis, side handles as solid parts, a cup's inside, the photo wrapped all round; on request real materials (steel, plastic, porcelain) instead of the photo's light |
+
+![A mug: the reference phone photo, then the model from the same camera, from behind, from the handle's side and from above](docs/showcase/mug.jpg)
+
+*Left, the reference: one ordinary phone photo of a mug on a desk. The rest is the model, in real porcelain
+(Blender, Cycles): from the photo's own camera, then from sides the photo never shows. The camera was solved from the
+rim's and base's outlines, the profile turned round the axis, the handle swept along its outline; seen from the
+photo's camera the outline matches to 0.982 (IoU) and the photo-textured version's colours to 1.4/255. How:
+[`examples/mug-revolved/`](examples/mug-revolved/).*
 
 ![A pressure cooker modelled from one product photo, rendered in polished steel from three sides](docs/showcase/pressure-cooker.jpg)
 
 *From one side-on product photo: the profile turned round the axis, the handles as solid parts, then real polished
-steel and plastic (Blender, Cycles). The views behind and above are not in the photo. How:
+steel and plastic (Blender, Cycles). The views behind and above are not in the photo (the maker's product photo
+itself is not included). How:
 [`examples/pressure-cooker-revolved/`](examples/pressure-cooker-revolved/).*
 
 Results are saved as a **.blend** file (textures packed inside) and, if you want, a **glTF/GLB** for game engines
@@ -104,6 +113,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Model the room in this picture — I want to walk around inside it."*
      - *"Build this laptop in 3D from the photo, it is a MacBook Pro 14."*
      - *"Model the pressure cooker in the attached photo."*
+     - *"Model the mug in this photo, then make it real porcelain."*
      - *"Export it as a GLB for Unity, with the wheels as separate parts."*
 
 ### What Claude will do
@@ -148,12 +158,13 @@ reference-to-3d/
 ├── references/                  detailed guides Claude reads when a case needs them
 │   ├── single-view-interior.md  one picture of an inside; rooms made walkable
 │   ├── single-photo-object.md   one photo of a product of known size
-│   ├── single-photo-revolved.md one photo of a turned object (pot, bottle, vase)
+│   ├── single-photo-revolved.md one photo of a turned object (pot, bottle, vase, mug)
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    three complete worked examples with their scripts
+└── examples/                    four complete worked examples with their scripts
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
+    ├── mug-revolved/            a porcelain mug from one phone photo
     └── laundromat-room/         a walkable laundromat from one render
 ```
 
