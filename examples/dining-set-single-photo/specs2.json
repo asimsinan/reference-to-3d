@@ -1,0 +1,6 @@
+{"near_short_top":{"kind":"h","p0":[245,413.2],"p1":[465,442.8],"sense":"x","half":4,"step":10},
+ "near_short_bot":{"kind":"h","p0":[260,427.1],"p1":[465,455.7],"sense":"x","half":4,"step":10},
+ "near_long_top":{"kind":"h","p0":[565,424],"p1":[735,339],"sense":"x","half":4,"step":8},
+ "near_long_bot":{"kind":"h","p0":[565,438],"p1":[735,353],"sense":"x","half":7,"step":8},
+ "far_long":{"kind":"h","p0":[270,388],"p1":[480,323.5],"sense":"x","half":6,"step":10,"skip":[[340,402]]},
+ "far_short":{"kind":"h","p0":[658,313.1],"p1":[730,318.9],"sense":"x","half":4,"step":6}}

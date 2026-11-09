@@ -17,6 +17,7 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, bir kabın içi, her yanı saran fotoğraf, ardından fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik, porselen) |
 | Boyutunu bilmediğiniz bir ürünün önden ve yandan iki sıradan fotoğrafı (masa telefonu, yazıcı, su ısıtıcı) | İki kamera ve tek gövde fotoğrafların kenarlarından birlikte çözülür, her parça bir fotoğrafın gösterdiğinden biçimlenir (ahizenin kavisi, kademeler, kablonun çıktığı yer), ardından fotoğrafların baskıları korunarak gerçek malzemeler |
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
+| Üstünde eşyalar olan bir mobilya takımının, odasıyla birlikte tek ürün fotoğrafı (masa, bank, tabureler, bardaklar, tabak, mumlar, bitki) | Her parça fotoğrafa oturtulur (oturaklar minderlerinin silüetine, açılı ayaklar, her nesne durduğu yerde ve neyin üstünde duruyorsa onun üstünde), malzemeler fotoğrafın kendi piksellerinden alınır, çevresindeki oda kurulur ve ışık fotoğrafın renklerine olduğu kadar kontrastına da oturtulur |
 
 ![Bir ofis ve koridoru: üst sırada telefon fotoğrafları, alt sırada her fotoğrafın çözülen kamerasından model](docs/showcase/office-room.jpg)
 
@@ -58,6 +59,20 @@ ağızdan, altın banttan ve ayaktan birlikte çözüldü; vazonun üzerine aç�
 desen bunlardan, fotoğrafın ışığı ve yansımaları olmadan çepeçevre yeniden kuruldu. Fotoğrafın kamerasından silüet
 0,988 (IoU), fotoğraf dokulu gövde 1,0/255 ile örtüşüyor; kullanıcının iki düzeltmesi (dar kalan ağız, soluk renkler)
 örneğin README'sinde. Nasıl yapıldığı: [`examples/vase-checker-revolved/`](examples/vase-checker-revolved/).*
+
+![Bir yemek takımı: referans ürün fotoğrafı, ardından aynı kameradan, çaprazdan, bank tarafından ve arkadan model](docs/showcase/dining-set.jpg)
+
+*Solda referans: açılır tablalı meşe bir yemek masasının, bir bank ve iki taburesiyle, altlıklar üstünde iki bardak,
+iki muffinli ahşap bir kâse, küre bir mum, silindir bir mum ve küçük bir bitkiyle, tül perdeli pencereli bir odadaki
+1000 x 1000'lik tek ürün fotoğrafı. Gerisi model (Blender, Cycles): fotoğrafın kamerasından, sonra fotoğrafın hiç
+göstermediği yanlardan. Kamera, masa tablasının kenarlarından ve ayakların tabanlarından, terazide ve optik merkezi
+kaydırılmış olarak (düzeltilmiş bir ürün çekimi) çözüldü; her oturak minderinin silüetine oturtuldu, her nesne masaya
+değdiği yerden ve neyin üstünde durduğuyla yerleştirildi. Bütün malzemeler fotoğrafın kendi piksellerinden geliyor
+(meşenin paleti, damar aralığı ve kontrastı etek tahtalarından, ayaklar açılarak, kumaş minderlerden), oda
+fotoğraftan kuruldu ve ışık fotoğrafın renklerine olduğu kadar kontrastına da oturtuldu: bölgeler 10/255 içinde,
+mobilyanın kontrastı fotoğrafın 49'una karşı 40 (önce 25). Kullanıcının düzeltmeleri ve bunlardan çıkan kural
+(malzeme yalnızca referanstan, fark kalmayana kadar karşılaştır) `references/single-photo-scene.md` içinde. Nasıl
+yapıldığı: [`examples/dining-set-single-photo/`](examples/dining-set-single-photo/).*
 
 ![Kalemleri, makası, kaşığı ve yapıştırıcısıyla tel kafes bir kalemlik: referans telefon fotoğrafı, ardından aynı kameradan, sağdan, arkadan ve üstten model](docs/showcase/pen-holder.jpg)
 
@@ -219,14 +234,16 @@ reference-to-3d/
 │   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
 │   ├── two-photo-object.md      boyutu bilinmeyen bir ürünün önden ve yandan iki fotoğrafı (masa telefonu)
 │   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
+│   ├── single-photo-scene.md    üstünde eşyalar olan bir mobilya takımı ve odası, tek ürün fotoğrafından
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte dokuz eksiksiz örnek
+└── examples/                    betikleriyle birlikte on eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
     ├── cologne-bottle-revolved/ tek kırpılmış telefon fotoğrafından şeffaf bir kolonya spreyi
     ├── vase-checker-revolved/   tek ürün fotoğrafından el boyaması damalı bir vazo
+    ├── dining-set-single-photo/ tek ürün fotoğrafından masa üstü eşyalarıyla bir yemek takımı ve odası
     ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
     ├── desk-phone-two-photos/   önden ve yandan iki telefon fotoğrafından kablolu bir masa telefonu
     ├── office-room-multiphoto/  on beş telefon fotoğrafından gezilebilir bir ofis ve koridor

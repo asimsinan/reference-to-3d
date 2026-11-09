@@ -17,6 +17,7 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One photo of a turned object (a pot, a bottle, a vase, a mug) | Its profile turned round the axis, side handles as solid parts, a cup's inside, the photo wrapped all round, then real materials (steel, plastic, porcelain) instead of the photo's light |
 | Two ordinary photos of a product whose size you do not know, front and side (a desk phone, a printer, a kettle) | Both cameras and one body solved together from the photos' edges, every part shaped from what a photo shows (the handset's arc, steps, where the cord leaves), then real materials with the photos' printing kept |
 | One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
+| One product photo of a furniture set with things on it, in its room (a table, a bench, stools, cups, a plate, candles, a plant) | Every piece fitted to the photo (seats to their cushions' outlines, splayed legs, each object standing where it stands and on what it stands), materials taken from the photo's own pixels, the room around it, and the light fitted to the photo's contrast as well as its colours |
 
 ![An office and its corridor: top row, phone photos; bottom row, the model rendered from each photo's solved camera](docs/showcase/office-room.jpg)
 
@@ -61,6 +62,20 @@ columns of squares, and the pattern was rebuilt all round from them without the 
 from the photo's camera the outline matches to 0.988 (IoU) and the photo-textured body to 1.0/255; the user's two
 corrections (a mouth too narrow, colours too dull) are in the example's README. How:
 [`examples/vase-checker-revolved/`](examples/vase-checker-revolved/).*
+
+![A dining set: the reference product photo, then the model from the same camera, from three-quarters, from the bench's side and from behind](docs/showcase/dining-set.jpg)
+
+*Left, the reference: one 1000 x 1000 product photo of a flip-top oak dining table with a bench and two stools, two
+cups on coasters, a wooden bowl with two muffins, a sphere candle, a pillar candle and a small plant, in a room with a
+sheer-curtained window. The rest is the model (Blender, Cycles): from the photo's camera, then from sides the photo
+never shows. The camera was solved level with its optical centre shifted (a corrected product shot) from the table
+top's edges and the legs' feet; each seat is fitted to its cushion's outline, every object is placed by where it
+touches the table and on what it stands. Every material comes from the photo's own pixels (the oak's palette, band
+spacing and contrast from the aprons, the legs unrolled, the linen from the cushions), the room is modelled from the
+photo, and the light is fitted to the photo's contrast as well as its colours: regions within 10/255, furniture
+contrast 40 against the photo's 49 (from 25 before). The user's corrections, and the rule they led to (materials only
+from the reference, compare until nothing differs), are in `references/single-photo-scene.md`. How:
+[`examples/dining-set-single-photo/`](examples/dining-set-single-photo/).*
 
 ![A wire-mesh pen holder with pens, scissors, a spoon and a glue stick: the reference phone photo, then the model from the same camera, from the right, from behind and from above](docs/showcase/pen-holder.jpg)
 
@@ -221,14 +236,16 @@ reference-to-3d/
 │   ├── single-photo-container.md one photo of a container with things in it (a pen holder); see-through mesh walls
 │   ├── two-photo-object.md      two photos (front, side) of a product of unknown size (a desk phone)
 │   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
+│   ├── single-photo-scene.md    one product photo of a furniture set with things on it, and its room
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    nine complete worked examples with their scripts
+└── examples/                    ten complete worked examples with their scripts
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
     ├── mug-revolved/            a porcelain mug from one phone photo
     ├── cologne-bottle-revolved/ a clear cologne spray bottle from one cropped phone photo
     ├── vase-checker-revolved/   a hand-painted checkered vase from one product photo
+    ├── dining-set-single-photo/ a dining set with tabletop objects and its room from one product photo
     ├── pen-holder-mesh/         a wire-mesh pen holder with its contents from one phone photo
     ├── desk-phone-two-photos/   a corded desk phone from a front and a side phone photo
     ├── office-room-multiphoto/  a walkable office and corridor from fifteen phone photos

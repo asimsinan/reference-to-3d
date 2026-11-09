@@ -1,6 +1,6 @@
 ---
 name: reference-to-3d
-description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or several phone photos of a real room taken from different places, made walkable with the corridor outside and an openable door; or one ordinary photo of a real product of known size, such as a laptop on a table; or two photos (front and side) of a product whose size is unknown, such as a desk phone; or one photo of a turned object such as a pot, bottle or vase; or one photo of a container with things in it, such as a pen holder with pens) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "klasörde odanın fotoları var, 3d modelle, gezinebilir olsun", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
+description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or several phone photos of a real room taken from different places, made walkable with the corridor outside and an openable door; or one ordinary photo of a real product of known size, such as a laptop on a table; or two photos (front and side) of a product whose size is unknown, such as a desk phone; or one photo of a turned object such as a pot, bottle or vase; or one photo of a container with things in it, such as a pen holder with pens; or one product photo of a furniture set with objects on it and its room, such as a table with a bench, stools, cups and a plate) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "klasörde odanın fotoları var, 3d modelle, gezinebilir olsun", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
 ---
 
 # Reference to 3D
@@ -9,6 +9,34 @@ A reference picture is the most precise description of a look anyone will ever g
 it" by eye and tuning colours by hand plateaus far from the picture (on one van model the mean colour difference
 stalled at 26/255 after many rounds, and the user rightly rejected it twice). What gets to "identical" is to use the
 reference itself: its silhouettes for the shape, its pixels for the surface, and numbers, not impressions, to judge.
+
+## The bar: identical, and the loop that gets there (read first, every time)
+
+The user's goal is a model **identical to the reference**, not one that resembles it. Two rules follow, and the user
+had to state both after a delivery (2026-11-09, a dining set from one product photo: "bir daha gerçek dışı, average
+color, ya da procedurally material olan şey üretme. Birebir aynı olması hedef" and "bu karşılaştırma arada fark
+kalmayıncaya, gerçeğiyle birebir eşlene kadar devam etmeliydi"):
+
+1. **Every material comes from the reference's own pixels.** Colour, grain, weave, speckle, gloss: take them from the
+   reference (rectified or unrolled exemplars of that surface, light divided out, grown into a seamless tile; the
+   palette mapped by luminance quantiles of the reference's pixels; band spacing and contrast measured on them). A
+   flat average colour, an invented procedural texture, or a texture "in the right colour" is never the material.
+   Procedural detail is allowed only below the reference's resolution (pores finer than its pixels) and only on top of
+   the reference-derived pattern; check every tile at the reference's resolution next to its exemplar.
+   `references/single-photo-scene.md`, "Materials from the photo".
+2. **Compare until nothing differs, then compare again.** After every build render from the reference's camera and
+   put the reference and the render side by side, as the whole frame and as close-up crops of every object and
+   material (a border render at 4x through the same camera). Measure, per region and per object: mean colour,
+   contrast (lightness spread), the dark and light ends (5th and 95th percentiles), saturation; draw every part's
+   outline over the reference (object-ID render) for shape and placement. Fix the largest difference, render,
+   measure again. **Do not hand over while a difference is visible or measurable**: keep iterating without being
+   asked. Matching region averages is not "identical" (the dining set matched 13/255 on averages while its contrast
+   was half the photo's: the user saw it as "soluk" at once). If a difference cannot be closed, say which one, with
+   its numbers and why, never "close enough".
+
+The user checks what you skipped: a cup standing off its coaster, a handle turned the wrong way, a plate, muffins and
+a plant in the wrong shape, a matte sphere that is glossy in the photo, a whole render paler than the photo. Each was
+visible in a side-by-side crop that had not been made. Make it before they do.
 
 The scripts are in `scripts/`. Every one takes `--help`-style docs in its header; read the header before first use.
 Python ones run with `uv run --with ...` (the header names the packages); `project.py` runs inside Blender
@@ -48,6 +76,15 @@ width; fit a part that moved between the shots to each photo and both. Read `ref
 (worked example `examples/desk-phone-two-photos/`). When one photo leaves a height or slope unreadable, ask for the
 side photo instead of shipping a prior. Every part's shape comes from a photo (plan, side arc, steps, where a cord
 leaves); nothing is added because such products "usually" have it.
+
+**One product photo of a furniture set with things on it** (a table with chairs, a bench and stools; cups, a plate,
+candles, a plant on the table; a room around it) is a seventh case: a level camera with its principal point solved
+from the table top's edge lines and the leg feet, each seat fitted to its cushion's silhouette as a rounded box,
+splayed legs from their image axes and feet, every object on the top placed by its base pixel on the top plane and
+its relations to the others enforced (a cup stands on its coaster), every material taken from the photo's pixels,
+the room (floor, walls, curtains, the window) modelled from the photo because it lights and reflects into every
+material, and the light fitted to the photo's contrast as well as its colours. Read
+`references/single-photo-scene.md` (worked example `examples/dining-set-single-photo/`).
 
 **One photo of a container with things in it** (a pen holder with pens and scissors, a vase with flowers, a basket, a
 jar; the container itself turned, its wall possibly a see-through mesh) is a fifth case, built on the fourth: the
@@ -126,7 +163,9 @@ Show the user the comparison sheet (reference left, model right), not just the m
 difference, measure that region (mean colours of the same box in both, or the difference image), find its cause, fix
 the cause, measure again. Causes seen so far, in `references/pitfalls.md`; read it when a number does not move.
 
-Do not claim "identical" from a feeling. Say which views match how well, in numbers, and what still differs and why.
+Do not claim "identical" from a feeling. Say which views match how well, in numbers, and what still differs and why. This step
+is a loop, not a check: it ends when no difference remains (see "The bar: identical" above), not when the numbers
+look good.
 
 Then look closer than the comparison views do, the way the model will really be seen: close-ups of the parts people
 get near (wheels, lamps, handles, labels), and, for a vehicle or a room someone sits in, the view from the seat. The
@@ -166,6 +205,11 @@ motion, a reference made from nothing) are still offers.
 - **Parts the reference cannot carry**: wheels' tyres, glass, lamps, screens and interiors in real materials instead
   of projected pixels (a tyre's tread seen from ahead is not in any view; a lamp must light at night). Keep the
   reference's pixels where a view really shows the part (a rim from the side).
+- **Real materials are the reference's materials**: their colours, textures and gloss come from the reference's pixels
+  (rule 1 above), each material's albedo calibrated by measuring the same regions in the reference and the render
+  under a light fitted to the reference's contrast, not only its averages. Model what surrounds the object in the
+  reference (floor, walls, window, curtains) when it lights or reflects into the materials: a studio world turned
+  the dining set's wood flat and its lacquer dull. `references/single-photo-scene.md`.
 - **Real materials instead of the reference's light**: polished metal, plastic, glass that react to the scene (the
   photo's reflections are baked in and show the photographer's studio from every side). Keep printed matter as a
   mask baked into the base colour and roughness maps, not as shader nodes: the glTF exporter drops Gamma and Mix
@@ -207,4 +251,6 @@ motion, a reference made from nothing) are still offers.
 - `references/multi-photo-room.md` — a real room from many phone photos, walkable with the corridor and an openable door: joint room + camera solve (shared furniture, lens priors), late photos by PnP or vanishing point, rectified/homography textures, books as leaning prisms, devices from side profiles, colour calibration, viewer testing, and what the user rejected
 - `examples/office-room-multiphoto/` — the office + corridor pipeline (obs/fit bundle adjustment, camlib rectify, pnp, corridor solves, prep_* textures, build/build_detail Blender scene, shots/sheet/calib checks, finalize, three.js walk viewer)
 - `examples/vase-checker-revolved/` — a checkered porcelain vase from one product photo (GrabCut + hand-read rim, pitched camera with the foot fitted jointly, binned profile, unwrap to (angle, z), 360 deg checker albedo, gold bands, mirror tray, colour by measuring then by the user's eye)
+- `references/single-photo-scene.md` — a furniture set with objects on it and its room from one product photo: level camera with principal point from edge lines and feet, cushions by silhouette fit, splayed legs, objects by base pixels with contact relations, materials from the photo's pixels (exemplars, quilting, quantile palettes), room from the photo, light fitted to contrast, per-material albedo calibration, the compare-until-identical loop
+- `examples/dining-set-single-photo/` — the dining set (table, bench, two stools, cups, coasters, plate, muffins, candles, plant) pipeline: edges/solve, cushion and leg fits, prep -> scene.json, extract2/oak2/floor/env textures and room, build (match/id/final), tune2 light fit, albedo_cal, cstats/calib/idov checks, final.sh
 - `examples/cologne-bottle-revolved/` — a clear PET cologne spray bottle from one cropped phone photo (level camera with the principal point solved, edges only where the background differs, per-part tilt, de-shaded cylindrical label, double-walled glass with liquid, photo clean plate as refraction backdrop, exposure by measuring)

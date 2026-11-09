@@ -251,3 +251,21 @@ The rim's dark gold edge next to saturated red was labelled background: the mask
 rim rows only, the camera solve (rim fixed as the size) then shrank the mouth and the user saw "the mouth is too
 narrow". The neck below was right. Check the rim rows of the mask on a zoomed grid against the photo before solving,
 and fill hand-read edge points where they differ (`fix_rim_mask.py` pattern).
+
+## One product photo of a furniture set (dining set, 2026-11-09)
+- **Procedural or average-colour materials are a fault, not a draft**: the user rejected them outright. Take every
+  material from the reference's pixels; see `single-photo-scene.md`, "Materials from the photo".
+- **Region averages hide flat light**: means at 13/255 with half the photo's contrast. Fit and report spread and the
+  5th/95th percentiles too; look at a lightness-difference map.
+- **Depth along the view is the weak direction on a table top** (~1 cm per pixel): objects placed separately lose
+  their contact (a cup off its coaster). Enforce the relation, then check both outlines.
+- **Default orientations of asymmetric parts are guesses** (a handle "to the left"): read them on a crop.
+- **Quilting a thin strip of figured wood repeats in bands**; a grazing, sheen-covered surface has no grain to give.
+- **BGR vs RGB**: a target colour in RGB applied to an OpenCV image turned the textures blue.
+- **One-line edits to a Blender script can swallow the next statement into an `if`**
+  (`if MODE=="id": a; film_transparent=True` made the match render opaque): check renders' alpha after edits.
+- **Blender 5 node names**: `ShaderNodeTexWave` (not `ShaderNodeWaveTexture`). Looks for the Standard view
+  transform: "Very High Contrast", "High Contrast", "Medium High Contrast", "Medium Contrast"; pass them through zsh
+  with underscores (a space split the argument).
+- **`json.dump` refuses numpy float32**: cast before saving a tuner's results, or the run's last minutes are lost.
+- **A room changes the showcase cameras**: views placed outside the walls render the walls' backs.
