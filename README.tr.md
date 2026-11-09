@@ -14,7 +14,19 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Bir odanın tek fotoğrafı ya da render'ı | İçinde **dolaşılabilen** bir oda: kamera fotoğraftan çözülür, eşyalar 3B olur, görünmeyen taraflar fotoğrafın tekrar eden parçalarından kurulur |
 | Boyutları bilinen bir ürünün sıradan bir fotoğrafı (dizüstü bilgisayar, telefon, sandalye) | Gerçek ölçülerinde kurulmuş ürün; fotoğraf her yüzeye düzeltilerek yerleştirilir |
 | Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, bir kabın içi, her yanı saran fotoğraf, ardından fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik, porselen) |
+| Boyutunu bilmediğiniz bir ürünün önden ve yandan iki sıradan fotoğrafı (masa telefonu, yazıcı, su ısıtıcı) | İki kamera ve tek gövde fotoğrafların kenarlarından birlikte çözülür, her parça bir fotoğrafın gösterdiğinden biçimlenir (ahizenin kavisi, kademeler, kablonun çıktığı yer), ardından fotoğrafların baskıları korunarak gerçek malzemeler |
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
+
+![Kablolu bir masa telefonu: önden ve yandan referans fotoğraflar, ardından ön fotoğrafın kamerasından, çaprazdan, arkadan ve üstten model](docs/showcase/desk-phone.jpg)
+
+*Üstte soldaki ikisi referans: krem rengi bir masa telefonunun önden ve ahize tarafından iki telefon fotoğrafı; ölçü
+yok, EXIF yok. Gerisi model, gerçek malzemelerle (fotoğrafın baskıları korunmuş krem ABS, yazılarıyla parlak siyah
+tuşlar; Blender, Cycles): ön fotoğrafın kamerasından, sonra iki fotoğrafın da göstermediği taraflardan. İki kamera ve
+tek gövde, fotoğrafların düz kenarlarından ve iki fotoğrafta da görünen tuşlardan birlikte çözüldü (yan fotoğraf,
+tek ön fotoğrafın çözemediğini düzeltti: 16/47 mm'lik bir kama değil, 23/31 mm'lik bir gövde); ahizenin kavisi,
+gövdenin kademesi ve kablonun çıkışı yan fotoğraftan okundu. Ön fotoğrafın kamerasından fotoğraf dokulu sürüm
+6.7/255 (medyan 0.3) farkla örtüşüyor; gerçek malzemeli sürümün ön yüzü %1 içinde. Nasıl:
+[`examples/desk-phone-two-photos/`](examples/desk-phone-two-photos/).*
 
 ![Şeffaf bir kolonya spreyi: referans telefon fotoğrafı, ardından aynı kameradan, çaprazdan, arkadan ve üstten model](docs/showcase/cologne-bottle.jpg)
 
@@ -136,6 +148,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Ekteki resimdeki düdüklü tencereyi 3B modelle."*
      - *"Kalemliği içindekilerle 3B modelle."*
      - *"Fotoğraftaki kolonyayı 3B modelle."*
+     - *"Bu masa telefonunu modelle, biri önden biri yandan iki fotoğraf."*
      - *"Ekteki bardağı 3d modelle, sonra gerçek porselen yap."*
      - *"Unity için GLB olarak dışa aktar, tekerlekler ayrı parça olsun."*
 
@@ -183,14 +196,16 @@ reference-to-3d/
 │   ├── single-photo-object.md   boyutu bilinen bir ürünün tek fotoğrafı
 │   ├── single-photo-revolved.md dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa)
 │   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
+│   ├── two-photo-object.md      boyutu bilinmeyen bir ürünün önden ve yandan iki fotoğrafı (masa telefonu)
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte altı eksiksiz örnek
+└── examples/                    betikleriyle birlikte yedi eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
     ├── cologne-bottle-revolved/ tek kırpılmış telefon fotoğrafından şeffaf bir kolonya spreyi
     ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
+    ├── desk-phone-two-photos/   önden ve yandan iki telefon fotoğrafından kablolu bir masa telefonu
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```
 

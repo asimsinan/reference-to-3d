@@ -1,6 +1,6 @@
 ---
 name: reference-to-3d
-description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or one ordinary photo of a real product of known size, such as a laptop on a table; or one photo of a turned object such as a pot, bottle or vase; or one photo of a container with things in it, such as a pen holder with pens) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
+description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or one ordinary photo of a real product of known size, such as a laptop on a table; or two photos (front and side) of a product whose size is unknown, such as a desk phone; or one photo of a turned object such as a pot, bottle or vase; or one photo of a container with things in it, such as a pen holder with pens) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
 ---
 
 # Reference to 3D
@@ -32,6 +32,14 @@ angle, such as a lid's) from a few marked corners, build the product from its re
 surface the photo shows into its own texture through that camera; raised details (keys) take the photo's pixels
 along the camera's rays. Read `references/single-photo-object.md` (worked example and scripts in
 `examples/laptop-single-photo/`) and skip steps 1-3 below; steps 4, 6 and 7 still apply.
+
+**Two ordinary photos of a product whose size is unknown** (a desk phone, a printer, a kettle: front and side, no
+EXIF, no published dimensions) is the third case with a second camera: solve both cameras and one body together
+from the photos' straight edges (as image lines, not corners) and features seen in both (buttons), fix only the
+width; fit a part that moved between the shots to each photo and both. Read `references/two-photo-object.md`
+(worked example `examples/desk-phone-two-photos/`). When one photo leaves a height or slope unreadable, ask for the
+side photo instead of shipping a prior. Every part's shape comes from a photo (plan, side arc, steps, where a cord
+leaves); nothing is added because such products "usually" have it.
 
 **One photo of a container with things in it** (a pen holder with pens and scissors, a vase with flowers, a basket, a
 jar; the container itself turned, its wall possibly a see-through mesh) is a fifth case, built on the fourth: the
@@ -181,6 +189,8 @@ motion, a reference made from nothing) are still offers.
 - `examples/laundromat-room/` — a room from one render, made walkable (camera solve, proxies, layered plates, repeats, shader projection)
 - `examples/laptop-single-photo/` — the MacBook Pro 14 worked example (edge measuring, camera solve, overlay, rectify, key layout fit, Blender build, compare, glTF export)
 - `examples/pressure-cooker-revolved/` — a pressure cooker from one product photo (masks, camera from ellipses, profile, handle slabs, folded UVs, compare, steel/plastic version)
+- `references/two-photo-object.md` — two photos (front, side) of a product of unknown size: joint two-camera solve from edge lines and shared features, parts that moved between shots, shapes read from the photos (plan, side arc, steps, parting-line ribbon), de-lit albedo without shadows, exposure by measuring
+- `examples/desk-phone-two-photos/` — a corded desk phone from a front and a side phone photo (edge-line and key measuring, joint solve, handset fit, side-photo features, match/final/PBR builds, Cycles showcase)
 - `references/single-photo-container.md` — a container with contents from one photo: camera with roll, items by base-plane intersection, see-through mesh wall, one RGBA wall texture for glTF
 - `examples/pen-holder-mesh/` — a wire-mesh pen holder with four pens, scissors, a spoon and a glue stick from one phone photo (circle + wall-tangent camera solve, lattice pitch from the unwrapped photo, percentile un-meshing, real-material version)
 - `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)

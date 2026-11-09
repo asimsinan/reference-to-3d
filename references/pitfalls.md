@@ -109,6 +109,23 @@
   fully covered pixels for thin parts.
 - **A tile with one stain** repeats the stain at its period; flatten and calm concrete before tiling.
 
+## Two photos, size unknown (the desk phone)
+- **One photo cannot separate a top's slope, the camera's pitch and the body's height**: every slope 0-18 deg fitted
+  the front photo within 0.6 px; the 10 deg prior made a 16/47 mm wedge of a 23/31 mm phone. Ask for a side photo.
+- **A second camera solved only from a flat wall floats**: its lines slide along themselves (the side camera came out
+  10 mm above the table). Add features both photos see (two buttons) as shared 3D unknowns.
+- **Bounds 1e-6 apart make scipy's least_squares crawl** (minutes instead of 2 s): drop unused parameters from the
+  vector instead of pinning them.
+- **An invented feature is a fault even if the real product "usually" has it**: a cord socket on the handset's end;
+  the photo showed the cord leaving the base's wall. Place features from the photo that shows them, or leave them out.
+- **A groove cut into a lofted mesh breaks at every change of section** and renders thick; a parting line is a thin
+  separate ribbon following the surface.
+- **Scaling a lofted part's whole section to round its ends lifts its bottom** off what it rests on; round the top only.
+- **De-lit albedo keeps shadows**: keys' own shadows (black smudges beside them), a part's shadow on a rim (read as a
+  dent). Use the plain material wherever the photo has no printing.
+- **Mid-turn image attachments are not written to disk**: a photo sent while a turn was running could be seen but not
+  read by the scripts. Ask for it again in a new message, then copy it into the work folder at once.
+
 ## Rendering for comparison
 - **Use the Standard view transform and emission** to get the reference's pixels back; AgX/Filmic pale bright blues to
   white and change every colour.
