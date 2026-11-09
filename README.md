@@ -12,10 +12,22 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | A turnaround sheet or separate front / side / rear / top views (photos or concept art) | A model fitted to the outlines, textured with the views' own pixels |
 | One picture of an interior seen from one place (a car's cockpit, a game camera) | An inside that is pixel-exact from that place |
 | One photo or render of a room | A room you can **walk through**: the camera solved from the photo, props in 3D, the unseen sides built from the photo's own repeating parts |
+| Several ordinary phone photos of a real room, taken from different places (an office, a flat) | The whole room and every camera solved together, the corridor outside, a door that opens, every object modelled from a photo of it (books leaning as on the shelf, a rotary phone, a printer), and a walk-through viewer in one HTML file |
 | One ordinary photo of a product whose size is known (a laptop, a phone, a chair) | The product built to its real dimensions, the photo rectified onto each surface |
 | One photo of a turned object (a pot, a bottle, a vase, a mug) | Its profile turned round the axis, side handles as solid parts, a cup's inside, the photo wrapped all round, then real materials (steel, plastic, porcelain) instead of the photo's light |
 | Two ordinary photos of a product whose size you do not know, front and side (a desk phone, a printer, a kettle) | Both cameras and one body solved together from the photos' edges, every part shaped from what a photo shows (the handset's arc, steps, where the cord leaves), then real materials with the photos' printing kept |
 | One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
+
+![An office and its corridor: top row, phone photos; bottom row, the model rendered from each photo's solved camera](docs/showcase/office-room.jpg)
+
+*Top, six of the fifteen phone photos (no EXIF, 1x and 0.5x lenses): the corridor, the door from the corridor, the
+room from the window and from the door, the bookcase, the printer. Bottom, the model from the same solved cameras
+(Blender, Cycles). One parametric room (2.55 x 5.38 x 2.81 m) and all cameras were solved together from hand-read
+corners and furniture seen in several photos; the corridor, the door leaf on its hinge, the bookcase with each book
+as its own leaning volume, the rotary phone, the desk phone, the laptop and the printer are each modelled from a
+photo of them, and the whole thing walks in a browser (WASD, the door opens with E). The user's corrections over five
+rounds are written up in `references/multi-photo-room.md`. How:
+[`examples/office-room-multiphoto/`](examples/office-room-multiphoto/).*
 
 ![A corded desk phone: the front and side reference photos, then the model from the front photo's camera, from three-quarters, from behind and from above](docs/showcase/desk-phone.jpg)
 
@@ -197,15 +209,17 @@ reference-to-3d/
 │   ├── single-photo-revolved.md one photo of a turned object (pot, bottle, vase, mug)
 │   ├── single-photo-container.md one photo of a container with things in it (a pen holder); see-through mesh walls
 │   ├── two-photo-object.md      two photos (front, side) of a product of unknown size (a desk phone)
+│   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    seven complete worked examples with their scripts
+└── examples/                    eight complete worked examples with their scripts
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
     ├── mug-revolved/            a porcelain mug from one phone photo
     ├── cologne-bottle-revolved/ a clear cologne spray bottle from one cropped phone photo
     ├── pen-holder-mesh/         a wire-mesh pen holder with its contents from one phone photo
     ├── desk-phone-two-photos/   a corded desk phone from a front and a side phone photo
+    ├── office-room-multiphoto/  a walkable office and corridor from fifteen phone photos
     └── laundromat-room/         a walkable laundromat from one render
 ```
 

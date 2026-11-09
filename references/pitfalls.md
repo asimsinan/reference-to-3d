@@ -221,3 +221,27 @@
   projected pixels streak there.
 - **Items standing in a container**: a bottom pixel on the base plane fixes an item's (x, y) outright (ray ∩ plane);
   the top pixel at the same depth gives its height and lean. Solving for a given length instead picked wrong roots.
+
+## A real office + corridor from 15 phone photos, walkable (2026-11)
+- **Room length drifted 5 → 7 m** between fits with small residuals: square-on photos trade focal length against
+  distance. Pin with lens-class focal priors (1x vs 0.5x) and shared furniture as unknowns in the same fit.
+- **A stand-in object is a defect, not a step**: flower spheres, a box phone, a generic chair, a heightfield
+  figurine — each was rejected angrily ("basit temsil istemiyorum", "saçma sapan modeller"). Model from a photo of the
+  object, or ask for one, or say it is a guess.
+- **The bookcase photo also landed on the back panel's inner face** (a helper mapped every -x-facing face): every
+  object appeared twice, once as a picture behind. Exclude back panels from photo projection.
+- **One lean for a whole shelf** pushed upright books through the side panel. Read leaning and upright groups per
+  shelf and clamp each top to its neighbour and the panel.
+- **Planar photo projection on a round object's sides** brings background pixels (a black patch on a ball); give
+  round objects their own material texture. `bmesh.ops.create_uvsphere(calc_uvs=True)` needs the UV layer to exist
+  first (`bm.loops.layers.uv.verify()` before the op), or the texture shows as flat colour.
+- **Dial/label textures gain-matched from a wrong sample box turned green**: cut them straight from the sharpest
+  photo and check the crop by eye; check orientation (a dial came out mirrored, then upside down: flip v, not u).
+- **A layout guessed from one photo was wrong**: the double glass door was the corridor's end wall, not the far wall.
+  Ask the user for photos that settle the layout; they had them.
+- **Overlapping coplanar boxes render black in Cycles** (a frame casing over its lining); objects that intersect
+  (chair into desk by 9 cm, pen through a panel) are found by bounding-box checks, not by the photo views.
+- **three.js renames objects** (spaces → underscores): match with `Door.pivot`, not `Door pivot`. A hidden browser
+  pane stops requestAnimationFrame: step the viewer's `update(dt)` from javascript to test walking and collisions.
+- **The user finds defects from the walk viewer at odd angles**, never in the photo-camera views: render close-ups
+  from low, oblique, side and below-shelf angles before delivering.

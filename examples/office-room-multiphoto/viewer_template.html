@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Oda — gezinti</title>
+<style>
+  :root { --ink:#f4f2ee; --panel:rgba(20,20,22,.62); }
+  html,body { margin:0; height:100%; background:#111; overflow:hidden; font:14px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; color:var(--ink); }
+  canvas { display:block; touch-action:none; }
+  #hud { position:fixed; left:16px; bottom:16px; background:var(--panel); padding:10px 14px; border-radius:10px; max-width:calc(100% - 32px); backdrop-filter:blur(6px); }
+  #hud b { font-weight:600; }
+  #start { position:fixed; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(0,0,0,.45); cursor:pointer; }
+  #start div { background:var(--panel); padding:18px 22px; border-radius:12px; text-align:center; max-width:340px; }
+  #start h1 { font-size:18px; margin:0 0 6px; font-weight:600; }
+  #joy { position:fixed; left:24px; bottom:96px; width:110px; height:110px; border-radius:50%; background:rgba(255,255,255,.12); display:none; }
+  #knob { position:absolute; left:35px; top:35px; width:40px; height:40px; border-radius:50%; background:rgba(255,255,255,.5); }
+  #views { position:fixed; right:16px; top:16px; display:flex; gap:6px; flex-wrap:wrap; justify-content:flex-end; max-width:60%; }
+  #views button { background:var(--panel); color:var(--ink); border:0; padding:7px 10px; border-radius:8px; font:inherit; cursor:pointer; }
+  #views button:hover { background:rgba(60,60,64,.8); }
+</style>
+</head>
+<body>
+<div id="views"></div>
+<div id="hud"><b>W A S D</b> / oklar: yürü · <b>fare</b>: bak · <b>E</b> ya da tıkla: kapıyı aç/kapat · <b>Shift</b>: hızlı · <b>Esc</b>: imleci bırak</div>
+<div id="start"><div><h1>Koridordasın</h1>Tıkla, fareyle etrafa bak, klavyeyle yürü. Kapıyı <b>E</b> tuşuyla ya da kapıya bakıp tıklayarak aç/kapat.<br>Telefonda: sol alttaki daireyle yürü, sağ yarıda sürükleyerek bak, kapı için sağ üstteki düğme.</div></div>
+<div id="joy"><div id="knob"></div></div>
+<script type="importmap">
+{ "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+               "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/" } }
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RectAreaLightUniformsLib } from 'three/addons/lights/RectAreaLightUniformsLib.js';
+
+const GLB_B64 = "__GLB__";
+const ROOM = __ROOM__;          // metres, Blender frame (x across, y along, z up)
+const B = (x, y, z) => new THREE.Vector3(x, z, -y);   // Blender -> three (glTF is Y-up)
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.AgXToneMapping; renderer.toneMappingExposure = 1.0;
+document.body.appendChild(renderer.domElement);
+const scene = new THREE.Scene(); scene.background = new THREE.Color(0x101012);
+const camera = new THREE.PerspectiveCamera(72, innerWidth / innerHeight, 0.03, 50);
+camera.rotation.order = 'YXZ';
+
+RectAreaLightUniformsLib.init();
+scene.add(new THREE.HemisphereLight(0xf2f4f8, 0x6a5040, 1.15));
+const amb = new THREE.AmbientLight(0xffffff, 0.35); scene.add(amb);
+function rect(color, intensity, w, h, pos, target) {
+  const l = new THREE.RectAreaLight(color, intensity, w, h); l.position.copy(pos); l.lookAt(target); scene.add(l); return l;
+}
+// daylight through the two windows (facing into the room), the two ceiling fittings (facing down)
+rect(0xfff4e6, 9, ROOM.xA0 - ROOM.xA1, 1.2, B((ROOM.xA0 + ROOM.xA1) / 2, 0.06, 1.65), B((ROOM.xA0 + ROOM.xA1) / 2, 2, 1.2));
+rect(0xfff4e6, 9, ROOM.xB0 - ROOM.xB1, 1.2, B((ROOM.xB0 + ROOM.xB1) / 2, 0.06, 1.65), B((ROOM.xB0 + ROOM.xB1) / 2, 2, 1.2));
+rect(0xfffaf0, 7, 0.16, 1.2, B(ROOM.xl, (ROOM.yl0 + ROOM.yl1) / 2, ROOM.H - 0.08), B(ROOM.xl, (ROOM.yl0 + ROOM.yl1) / 2, 0));
+rect(0xfffaf0, 6, 0.16, 1.2, B(1.40, 1.15, ROOM.H - 0.08), B(1.40, 1.15, 0));
+for (const cx of [2.39, 5.8, 9.16, 12.6, 16.0, 19.4]) rect(0xfff6ee, 3, 1.2, 0.15, B(cx, 6.63, 2.94), B(cx, 6.63, 0));
+// corridor windows daylight
+for (let k = 0; k < 6; k++) { const cx = 6.5 + k * 2.6; rect(0xfffaf2, 7, 2.4, 1.4, B(cx, 8.15, 1.75), B(cx, 5.0, 1.4)); }
+rect(0xf4f8ff, 4, 2.0, 2.4, B(-0.2, 6.9, 1.4), B(3.0, 6.9, 1.2));
+
+const obstacles = [];
+const bin = Uint8Array.from(atob(GLB_B64), c => c.charCodeAt(0));
+new GLTFLoader().parse(bin.buffer, '', gltf => {
+  const root = gltf.scene; scene.add(root);
+  root.traverse(o => {
+    if (!o.isMesh) return;
+    const m = o.material;
+    if (/Outdoor|end_wall|end wall|windows view/i.test(m.name)) m.emissiveIntensity = /Outdoor/.test(m.name) ? 1.2 : 0.6;
+    if (/Blind/.test(m.name)) m.emissiveIntensity = 0.55;
+    if (m.name === 'Glass') { m.transparent = true; m.opacity = 0.12; m.depthWrite = false; }
+    if (/Corridor_window_glass|Corridor window glass/.test(m.name)) { m.transparent = true; m.opacity = 0.55; m.depthWrite = false; }
+    if (/Clear_acrylic|Clear acrylic|Bottle|Finger_wheel|Finger wheel/.test(m.name)) { m.transparent = true; m.opacity = 0.35; m.depthWrite = false; }
+    if (/Fluorescent/.test(m.name)) m.emissiveIntensity = 2.5;
+    if (/photo/.test(m.name)) { m.transparent = true; m.depthWrite = false; o.renderOrder = 2; }
+    if (m.map) m.map.anisotropy = renderer.capabilities.getMaxAnisotropy();
+  });
+  // collision boxes: every top-level part that stands on the floor (walls, furniture), not decals or lamps
+  const oda = root.getObjectByName('Oda') || root;
+  oda.children.forEach(c => {
+    if (/Floor|Ceiling|photo|Light|Skirting|Flower|Clock|Laptop|Mug|phone|Pencil|Door.pivot|Threshold|Outdoor|Blind|Glass|Dado|blue|moulding|plate|sign|board|Frame|stop|Hinge/i.test(c.name)) return;
+    const b = new THREE.Box3().setFromObject(c);
+    if (b.min.y < 1.0 && b.max.y > 0.25) obstacles.push(b);
+  });
+  door = root.getObjectByName('Door_pivot') || root.getObjectByName('Door pivot');
+  leaf = root.getObjectByName('Door_leaf') || root.getObjectByName('Door leaf');
+  if (door) { doorOpenAngle = door.rotation.y; doorTarget = doorOpenAngle; }
+  window.__room = { camera, obstacles, root, door, update, toggleDoor, go, keys, render: () => renderer.render(scene, camera), hide: () => { document.getElementById('start').style.display = 'none'; }, get leafBox() { return leafBox(); } };
+  go(VIEWS[0]);
+});
+// ---------------- the door: hinge rotation, opens into the room
+let door = null, leaf = null, doorOpenAngle = -1.31, doorTarget = 0;
+function toggleDoor() { if (!door) return; doorTarget = Math.abs(doorTarget) < 0.05 ? doorOpenAngle : 0; }
+function leafBox() { return leaf ? new THREE.Box3().setFromObject(leaf) : null; }
+addEventListener('keydown', e => { if (e.code === 'KeyE') toggleDoor(); });
+const ray = new THREE.Raycaster();
+renderer.domElement.addEventListener('mousedown', () => {
+  if (document.pointerLockElement !== renderer.domElement || !leaf) return;
+  ray.setFromCamera(new THREE.Vector2(0, 0), camera); ray.far = 2.2;
+  if (ray.intersectObject(leaf, true).length) toggleDoor();
+});
+
+const VIEWS = [
+  { n: 'Koridor', p: [0.95, 6.95], yaw: 180, pitch: -4 },
+  { n: 'Kapıdan', p: [1.0, 4.95], yaw: 180, pitch: -8 },
+  { n: 'Masadan', p: [1.0, 0.75], yaw: 0, pitch: -6 },
+  { n: 'Kitaplık', p: [0.8, 3.2], yaw: -62, pitch: -6 },
+  { n: 'Sol duvar', p: [2.0, 3.6], yaw: 118, pitch: -6 },
+];
+const vb = document.getElementById('views');
+VIEWS.forEach(v => { const b = document.createElement('button'); b.textContent = v.n; b.onclick = e => { e.stopPropagation(); go(v); }; vb.appendChild(b); });
+{ const b = document.createElement('button'); b.textContent = 'Kapı aç/kapat'; b.onclick = e => { e.stopPropagation(); toggleDoor(); }; vb.appendChild(b); }
+const EYE = 1.62, RAD = 0.22;
+let yaw = 0, pitch = 0;
+function go(v) {   // yaw 0 = looking towards the door wall (+y in Blender)
+  camera.position.copy(B(v.p[0], v.p[1], EYE)); yaw = THREE.MathUtils.degToRad(v.yaw); pitch = THREE.MathUtils.degToRad(v.pitch);
+}
+
+// ---------------- input
+const keys = {};
+addEventListener('keydown', e => { keys[e.code] = true; });
+addEventListener('keyup', e => { keys[e.code] = false; });
+const start = document.getElementById('start');
+const isTouch = matchMedia('(pointer: coarse)').matches;
+start.onclick = () => { start.style.display = 'none'; if (!isTouch) renderer.domElement.requestPointerLock(); };
+renderer.domElement.addEventListener('click', () => { if (!isTouch && document.pointerLockElement !== renderer.domElement) renderer.domElement.requestPointerLock(); });
+addEventListener('mousemove', e => {
+  if (document.pointerLockElement === renderer.domElement) { yaw -= e.movementX * 0.0022; pitch -= e.movementY * 0.0022; }
+});
+// touch: left joystick moves, right half looks
+const joy = document.getElementById('joy'), knob = document.getElementById('knob');
+if (isTouch) joy.style.display = 'block';
+let jv = { x: 0, y: 0 }, jid = null, lid = null, lx = 0, ly = 0;
+renderer.domElement.addEventListener('touchstart', e => {
+  for (const t of e.changedTouches) {
+    if (t.clientX < innerWidth / 2 && jid === null) jid = t.identifier;
+    else if (lid === null) { lid = t.identifier; lx = t.clientX; ly = t.clientY; }
+  }
+}, { passive: true });
+renderer.domElement.addEventListener('touchmove', e => {
+  for (const t of e.changedTouches) {
+    if (t.identifier === jid) {
+      const r = joy.getBoundingClientRect(); let dx = t.clientX - (r.left + 55), dy = t.clientY - (r.top + 55);
+      const l = Math.hypot(dx, dy), m = 45; if (l > m) { dx *= m / l; dy *= m / l; }
+      jv = { x: dx / m, y: -dy / m }; knob.style.left = 35 + dx + 'px'; knob.style.top = 35 + dy + 'px';
+    } else if (t.identifier === lid) { yaw -= (t.clientX - lx) * 0.005; pitch -= (t.clientY - ly) * 0.005; lx = t.clientX; ly = t.clientY; }
+  }
+}, { passive: true });
+renderer.domElement.addEventListener('touchend', e => {
+  for (const t of e.changedTouches) {
+    if (t.identifier === jid) { jid = null; jv = { x: 0, y: 0 }; knob.style.left = knob.style.top = '35px'; }
+    if (t.identifier === lid) lid = null;
+  }
+}, { passive: true });
+
+// ---------------- movement with collision (circle against floor-plan boxes)
+function leafHit(p) {
+  if (!door) return false;                                   // the leaf runs 0.89 m along the hinge pivot's local x
+  door.updateWorldMatrix(true, false);
+  const a = new THREE.Vector3(0, 0, -0.02).applyMatrix4(door.matrixWorld), b = new THREE.Vector3(0.89, 0, -0.02).applyMatrix4(door.matrixWorld);
+  const dx = b.x - a.x, dz = b.z - a.z;
+  const tt = Math.max(0, Math.min(1, ((p.x - a.x) * dx + (p.z - a.z) * dz) / (dx * dx + dz * dz)));
+  return Math.hypot(p.x - (a.x + tt * dx), p.z - (a.z + tt * dz)) < RAD + 0.03;
+}
+function blocked(p) {
+  if (leafHit(p)) return true;
+  for (const b of obstacles) {
+    const cx = Math.max(b.min.x, Math.min(p.x, b.max.x)), cz = Math.max(b.min.z, Math.min(p.z, b.max.z));
+    if (Math.hypot(p.x - cx, p.z - cz) < RAD) return true;
+  }
+  return false;
+}
+const clock = new THREE.Clock();
+function tick() { update(Math.min(clock.getDelta(), 0.05)); renderer.render(scene, camera); requestAnimationFrame(tick); }
+function update(dt) {
+  if (door) { const d = doorTarget - door.rotation.y; door.rotation.y += Math.sign(d) * Math.min(Math.abs(d), dt * 2.2); }
+  pitch = Math.max(-1.45, Math.min(1.45, pitch));
+  camera.rotation.set(pitch, yaw, 0);   // yaw 0 faces -z in three = +y in Blender (the door)
+  let f = (keys.KeyW || keys.ArrowUp ? 1 : 0) - (keys.KeyS || keys.ArrowDown ? 1 : 0) + jv.y;
+  let s = (keys.KeyD || keys.ArrowRight ? 1 : 0) - (keys.KeyA || keys.ArrowLeft ? 1 : 0) + jv.x;
+  const sp = (keys.ShiftLeft || keys.ShiftRight ? 2.6 : 1.4) * dt;
+  if (f || s) {
+    const fw = new THREE.Vector3(-Math.sin(yaw), 0, -Math.cos(yaw));
+    const rt = new THREE.Vector3(-fw.z, 0, fw.x);  // right of the view
+    const mv = fw.multiplyScalar(f).add(rt.multiplyScalar(s)); if (mv.length() > 1) mv.normalize(); mv.multiplyScalar(sp);
+    const p = camera.position.clone();
+    const px = p.clone(); px.x += mv.x; if (!blocked(px)) p.x = px.x;      // slide along walls
+    const pz = p.clone(); pz.z += mv.z; if (!blocked(pz)) p.z = pz.z;
+    camera.position.copy(p);
+  }
+}
+addEventListener('resize', () => { camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); renderer.setSize(innerWidth, innerHeight); });
+tick();
+</script>
+</body>
+</html>

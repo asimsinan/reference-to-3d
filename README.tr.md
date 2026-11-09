@@ -12,10 +12,21 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Bir turnaround sayfası ya da ayrı ön / yan / arka / üst görünümler (fotoğraf veya konsept çizim) | Çizgilere oturtulmuş, görünümlerin kendi pikselleriyle kaplanmış bir model |
 | Tek bir yerden görülen bir iç mekân resmi (araç kokpiti, oyun kamerası) | O yerden piksel piksel aynı görünen bir iç mekân |
 | Bir odanın tek fotoğrafı ya da render'ı | İçinde **dolaşılabilen** bir oda: kamera fotoğraftan çözülür, eşyalar 3B olur, görünmeyen taraflar fotoğrafın tekrar eden parçalarından kurulur |
+| Gerçek bir odanın farklı yerlerden çekilmiş birkaç sıradan telefon fotoğrafı (bir ofis, bir daire) | Odanın tamamı ve bütün kameralar birlikte çözülür; dışarıdaki koridor, açılıp kapanan kapı, her nesne kendi fotoğrafından modellenir (raftaki gibi yaslanan kitaplar, çevirmeli telefon, yazıcı) ve tek HTML dosyasında gezinme görüntüleyicisi |
 | Boyutları bilinen bir ürünün sıradan bir fotoğrafı (dizüstü bilgisayar, telefon, sandalye) | Gerçek ölçülerinde kurulmuş ürün; fotoğraf her yüzeye düzeltilerek yerleştirilir |
 | Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, bir kabın içi, her yanı saran fotoğraf, ardından fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik, porselen) |
 | Boyutunu bilmediğiniz bir ürünün önden ve yandan iki sıradan fotoğrafı (masa telefonu, yazıcı, su ısıtıcı) | İki kamera ve tek gövde fotoğrafların kenarlarından birlikte çözülür, her parça bir fotoğrafın gösterdiğinden biçimlenir (ahizenin kavisi, kademeler, kablonun çıktığı yer), ardından fotoğrafların baskıları korunarak gerçek malzemeler |
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
+
+![Bir ofis ve koridoru: üst sırada telefon fotoğrafları, alt sırada her fotoğrafın çözülen kamerasından model](docs/showcase/office-room.jpg)
+
+*Üstte on beş telefon fotoğrafından altısı (EXIF yok, 1x ve 0.5x lensler): koridor, koridordan kapı, pencereden ve
+kapıdan oda, kitaplık, yazıcı. Altta aynı çözülen kameralardan model (Blender, Cycles). Tek parametrik oda
+(2,55 × 5,38 × 2,81 m) ve bütün kameralar, elle okunan köşelerden ve birden çok fotoğrafta görünen eşyalardan birlikte
+çözüldü; koridor, menteşesinde dönen kapı kanadı, her kitabı ayrı ve yaslanan bir hacim olan kitaplık, çevirmeli
+telefon, masa telefonu, dizüstü ve yazıcı kendi fotoğraflarından modellendi; hepsi tarayıcıda gezilebiliyor (WASD,
+kapı E ile açılıyor). Kullanıcının beş tur boyunca yaptığı düzeltmeler `references/multi-photo-room.md` içinde. Nasıl:
+[`examples/office-room-multiphoto/`](examples/office-room-multiphoto/).*
 
 ![Kablolu bir masa telefonu: önden ve yandan referans fotoğraflar, ardından ön fotoğrafın kamerasından, çaprazdan, arkadan ve üstten model](docs/showcase/desk-phone.jpg)
 
@@ -197,15 +208,17 @@ reference-to-3d/
 │   ├── single-photo-revolved.md dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa)
 │   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
 │   ├── two-photo-object.md      boyutu bilinmeyen bir ürünün önden ve yandan iki fotoğrafı (masa telefonu)
+│   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte yedi eksiksiz örnek
+└── examples/                    betikleriyle birlikte sekiz eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
     ├── cologne-bottle-revolved/ tek kırpılmış telefon fotoğrafından şeffaf bir kolonya spreyi
     ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
     ├── desk-phone-two-photos/   önden ve yandan iki telefon fotoğrafından kablolu bir masa telefonu
+    ├── office-room-multiphoto/  on beş telefon fotoğrafından gezilebilir bir ofis ve koridor
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```
 
