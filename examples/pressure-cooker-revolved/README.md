@@ -1,10 +1,11 @@
 # Worked example: a pressure cooker from one product photo
 
-![The steel version from three sides](../../docs/showcase/pressure-cooker.jpg)
+![The reference photo, then the steel version from three sides](../../docs/showcase/pressure-cooker.jpg)
 
 See `../../references/single-photo-revolved.md`. One 554 x 554 product photo (a stainless pressure cooker on white,
-seen from the side, a little from above); no size given (assumed ~27 cm across). The photo is not included (it is
-the maker's); the scripts are, with this photo's numbers in them (boxes, rows, profile points), marked "this photo".
+seen from the side, a little from above); no size given (assumed ~27 cm across). The photo is the
+showcase's left panel; the scripts are here, with the numbers of a 554 x 554 copy of it in them (boxes, rows,
+profile points), marked "this photo". Another size or crop needs those numbers read again.
 
 Run the scripts by their path (`$EX` = this folder) from a working folder holding the photo as `photo.jpg`; they
 read and write the current folder:

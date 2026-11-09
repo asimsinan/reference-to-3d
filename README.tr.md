@@ -23,11 +23,11 @@ dış çizgilerinden çözüldü, profil eksen etrafında döndürüldü, kulp k
 kamerasından bakınca dış çizgi 0,982 (IoU), fotoğraf dokulu sürümün renkleri 1,4/255 farkla örtüşüyor. Nasıl
 yapıldığı: [`examples/mug-revolved/`](examples/mug-revolved/).*
 
-![Tek ürün fotoğrafından modellenen düdüklü tencere, cilalı çelik olarak üç yandan render](docs/showcase/pressure-cooker.jpg)
+![Bir düdüklü tencere: referans ürün fotoğrafı, ardından cilalı çelik model üç yandan](docs/showcase/pressure-cooker.jpg)
 
-*Yandan çekilmiş tek bir ürün fotoğrafından: eksen etrafında döndürülmüş profil, katı parçalar olarak saplar, sonra
-gerçek cilalı çelik ve plastik (Blender, Cycles). Arkadan ve üstten görünümler fotoğrafta yok (üreticinin ürün
-fotoğrafı depoya konmadı). Nasıl yapıldığı:
+*Solda referans: yandan çekilmiş tek bir ürün fotoğrafı. Gerisi model: eksen etrafında döndürülmüş profil, katı
+parçalar olarak saplar, sonra gerçek cilalı çelik ve plastik (Blender, Cycles). Üstten ve arkadan görünümler
+fotoğrafta yok. Nasıl yapıldığı:
 [`examples/pressure-cooker-revolved/`](examples/pressure-cooker-revolved/).*
 
 Sonuç **.blend** dosyası olarak kaydedilir (dokular dosyanın içinde). İsterseniz oyun motorları (Unity, Unreal,

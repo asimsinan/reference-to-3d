@@ -23,11 +23,11 @@ rim's and base's outlines, the profile turned round the axis, the handle swept a
 photo's camera the outline matches to 0.982 (IoU) and the photo-textured version's colours to 1.4/255. How:
 [`examples/mug-revolved/`](examples/mug-revolved/).*
 
-![A pressure cooker modelled from one product photo, rendered in polished steel from three sides](docs/showcase/pressure-cooker.jpg)
+![A pressure cooker: the reference product photo, then the model in polished steel from three sides](docs/showcase/pressure-cooker.jpg)
 
-*From one side-on product photo: the profile turned round the axis, the handles as solid parts, then real polished
-steel and plastic (Blender, Cycles). The views behind and above are not in the photo (the maker's product photo
-itself is not included). How:
+*Left, the reference: one side-on product photo. The rest is the model: the profile turned round the axis, the
+handles as solid parts, then real polished steel and plastic (Blender, Cycles). The views from above and behind are
+not in the photo. How:
 [`examples/pressure-cooker-revolved/`](examples/pressure-cooker-revolved/).*
 
 Results are saved as a **.blend** file (textures packed inside) and, if you want, a **glTF/GLB** for game engines
