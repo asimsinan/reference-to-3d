@@ -6,7 +6,7 @@ and right edges. What it does not show is everything behind the silhouette and e
 build side parts (handles, spouts, knobs) as rounded slabs or swept tubes of their photo outlines, and wrap the photo
 round the axis with the angle folded into the part the photo sees well.**
 
-Two worked examples; where they differ, the steps below say which fits your photo:
+Three worked examples; where they differ, the steps below say which fits your photo:
 - **A product shot on white with a level camera**: a stainless pressure cooker, one 554 x 554 product photo, no size
   given. `examples/pressure-cooker-revolved/`. From the photo's camera: silhouette IoU 0.98, mean colour difference
   8.3/255 over the model (median 1.0, body 1.5); a second version in real materials (polished steel, plastic). About
@@ -15,6 +15,12 @@ Two worked examples; where they differ, the steps below say which fits your phot
   1500 x 2000 phone photo, no size given. `examples/mug-revolved/` (camera, profile, base and handle mostly automatic
   where the cooker's were read by hand; a hollow inside; a loop handle). From the photo's camera: IoU 0.982, mean
   colour difference 1.4/255 (body 0.2, inside 3.1, handle 4.4); a second version in real porcelain.
+- **A cropped phone photo of a clear bottle**: a 100 ml PET cologne spray bottle with a wrap-around label, a black
+  ribbed collar and a smoked cap, on a table, one 1500 x 2000 photo that is a crop (the principal point came out at
+  row 173). `examples/cologne-bottle-revolved/`. Level camera with the principal point solved, silhouette edges
+  only where the background differs, the sprayer head's own tilt, a de-shaded cylindrical label. Photo-projected:
+  IoU 0.966, 2.3/255; real materials (double-walled clear PET, liquid, printed label, smoked cap) within 5 levels of
+  the photo on the label, cap and collar.
 
 ## Steps
 
@@ -33,6 +39,15 @@ Two worked examples; where they differ, the steps below say which fits your phot
    seen through a handle's hole, was left in the hole: inside the hole, low saturation is object.
    A side part's mask can then be the silhouette minus the **lathed body's own silhouette**, rendered alone from the
    solved camera (steps 3-4 first): no hand-drawn boxes.
+   **A transparent body** (a clear bottle) has no mask: GrabCut finds the opaque parts (cap, collar, label) and
+   nothing of the clear PET over a same-toned table (the bottle's right edge was invisible for 500 rows), and what
+   it sees through the base (the thick grey bottom) is not the outer wall. Take each straight part's edge only on
+   the rows where the background differs (the left edge against the dark table edge, the right edge where the floor
+   showed behind it), fit a line per edge and extend it; treat inner features seen through the plastic (the foot
+   ring) as circles with their own radius, never as the silhouette. Judge the IoU on the rows the mask is good on.
+   **A sticker's edges are not level circles**: the wrap-around label sat skewed, its edge arcs were asymmetric (a
+   sag of 42 px read from the left side, 29 from the right) and a soft printed band gave a flat-bottomed arc. Use
+   moulded features for the camera (a collar's bottom rim, the shoulder's outline, the foot ring, straight edges).
 3. **The camera from two circles.**
    *Level camera, read by hand (product shot).* A level camera at (D, 0, Hc), focal F px, principal point (cx, cy)
    (a level camera keeps the verticals vertical; the crop's offset is the principal point). Under perspective a
@@ -54,6 +69,21 @@ Two worked examples; where they differ, the steps below say which fits your phot
    pen holder's 1.1 deg was (without it the rim's left and right edge points disagreed by 13 px and the wall's two
    sides fitted opposite tapers): solve it whenever the two sides disagree, and get its sign right in Blender
    (`references/single-photo-container.md`).
+   *Level camera, cropped frame, least squares (the cologne bottle).* **Check the straight edges' convergence
+   first.** A cylinder's apparent width is set by its depth along the optical axis, so a level camera shows a
+   straight body at one width whatever its height, and the sags of its circles then come from the camera's height
+   alone. The bottle's edges stayed parallel (332 -> 337 px over 560 rows) while its circles sagged more the lower
+   they sat (collar bottom b/a 0.18, foot ring 0.40): a pitched camera with the principal point at the centre cannot
+   do that (it would have narrowed the base 5 % or put the horizon far below the frame), and an afternoon went into
+   trying. The photo was a crop: free the principal row CY (the edges' convergence tells pitch from CY, so keep both
+   in the solve), fix CX, and let F come from the sags' ratio at two heights with the known radius (3480 px here,
+   D 0.42 m, camera 0.19 m up, pitch 2.5 deg). `examples/cologne-bottle-revolved/solve3.py`: body edges as tangent
+   rays, each part's top and bottom circle side points (tangent rays on a near-cylinder constrain radii, not
+   heights: without them the collar's top and bottom inverted), the collar's bottom arc, the shoulder's outline and
+   the foot ring as a feature circle; multi-start over pitch and F from the same x0 (chaining starts biased the
+   scan), and read the overlay before believing the rms. **A part askew on the body** (the sprayer head leaned
+   1.6 deg more than the body) gets its own rotation about the viewing axis at the joint, or it contaminates the
+   camera's roll; set it to zero in the product model and say so.
 4. **The profile.** *Level camera:* for each clean row (no handle, no base ring), the half width hw gives
    r = hw (D - x_t) / F with x_t = r^2 / D (the silhouette is where the ray grazes the surface, a little in front of
    the axis; iterate), and z from the row at x_t. Fit what is simple (the cooker's wall was linear:
@@ -141,6 +171,23 @@ was all white. Render the photo's camera only, compare the mean of the same body
 table box with the photo, and set exposure (AgX: -1.6) and the key/fill ratio until each is within a few levels.
 `porcelain.py`.
 
+**Clear plastic with a printed label** (the cologne bottle): a double-walled lathe (PET 0.6 mm, IOR 1.57, roughness
+0.03, transmission 1), the liquid as its own solid overlapping the inner wall by 0.05 mm (IOR 1.36), a dip tube and
+an actuator inside, the cap a 1 mm smoked shell (base 0.10, transmission 0.7), black plastic 0.008 / roughness 0.5.
+The label is a cylindrical texture (u = angle with the front at 0.5, v = z / height) rectified from the photo through
+the fold, with the cylinder's shading divided out **per column**: the median of a print-free cream band of the label
+along each column, smoothed, normalised to its 97th percentile (shading on a cylinder depends on the angle only, so
+a coloured band survives where the mug's photo / blurred-photo ratio would flatten it). Transmission (1 - mask) and
+roughness (0.03 / 0.55) go in as image maps on the same UVs, never through Mix nodes, so the .glb keeps paper on
+clear PET; the inner wall and the bottom take the plain PET material. `prep_pbr.py`, `real.py`.
+**The comparison render of a transparent object needs the room behind it**: project a *clean plate* (the object
+filled out of the photo) through the camera with Window texture coordinates (per-vertex UVs on a big quad are not
+projective) onto a backdrop at the room's real depth (3 m) and a ground plane at the table. With the raw photo the
+glass refracted the photo's own collar into the clear band (-61 levels); with the backdrop at 0.6 m the refracted
+rays landed on the floor. Use the Standard view transform: AgX dimmed the emission backdrop 30 %. Set the lights by
+the numbers (key from the photo's bright side, EXPO 1.0 -> 0.4 here) until the label, cap and collar boxes are
+within a few levels; the clear band will stay off, and that is right.
+
 ## Faults found only by looking (each fixed)
 
 - **The camera's shift came out with the wrong sign**: the model sat far down and to the right of the frame. With
@@ -160,6 +207,12 @@ table box with the photo, and set exposure (AgX: -1.6) and the key/fill ratio un
   (step 2); the profile iteration diverging, the base 30 px too wide (step 4); staircase patches inside and a white
   band at the back of the rim (step 7); the D ghost and the handle's stripes (step 6); the handle's root a thin
   tail (step 5); the first porcelain render all white ("Real materials").
+- The bottle's: the camera solved with pitch and the image centre wandered (D 0.15-0.6 m) and inverted the collar's
+  heights (step 3); a fillet built on the wrong side of the top still fitted with its radius at the bound and the
+  body 12 mm short (a parameter at a bound is a bug); the clear PET's right edge and the base's outline were not
+  where the mask said (step 2); the label's arcs were skewed (step 2); the glass refracted the photo's own bottle
+  ("Real materials"); the smoked cap stays speckled in Blender's Material Preview whatever the render method, the
+  sample count or the raytracing flag (EEVEE transmission); the Cycles render is clean: not fixed, told the user.
 
 ## What this method cannot do (say so)
 

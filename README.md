@@ -16,6 +16,17 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One photo of a turned object (a pot, a bottle, a vase, a mug) | Its profile turned round the axis, side handles as solid parts, a cup's inside, the photo wrapped all round, then real materials (steel, plastic, porcelain) instead of the photo's light |
 | One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
 
+![A clear cologne spray bottle: the reference phone photo, then the model from the same camera, from three-quarters, from behind and from above](docs/showcase/cologne-bottle.jpg)
+
+*Left, the reference: one phone photo of a 100 ml cologne spray bottle on a desk. The rest is the model in real
+materials (clear PET with the liquid inside, the label as paper printed on it, black ribbed collar, smoked cap;
+Blender, Cycles): from the photo's camera, then from sides the photo never shows. The camera was solved from the
+body's straight edges and the circles of the collar, shoulder and base (the photo turned out to be a crop from a
+level camera), the label rectified round the cylinder with the photo's shading divided out, the crooked sprayer head
+set straight; seen from the photo's camera the photo-textured version matches to 0.966 (IoU) and 2.3/255, and the
+real-material version's label, cap and collar are within 5 levels of the photo. How:
+[`examples/cologne-bottle-revolved/`](examples/cologne-bottle-revolved/).*
+
 ![A wire-mesh pen holder with pens, scissors, a spoon and a glue stick: the reference phone photo, then the model from the same camera, from the right, from behind and from above](docs/showcase/pen-holder.jpg)
 
 *Left, the reference: one phone photo of a mesh pen holder on a desk. The rest is the model in real materials
@@ -125,6 +136,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Model the pressure cooker in the attached photo."*
      - *"Model the mug in this photo, then make it real porcelain."*
      - *"Model the pen holder in this photo with everything in it."*
+     - *"Model the cologne bottle in this photo."*
      - *"Export it as a GLB for Unity, with the wheels as separate parts."*
 
 ### What Claude will do
@@ -173,10 +185,11 @@ reference-to-3d/
 │   ├── single-photo-container.md one photo of a container with things in it (a pen holder); see-through mesh walls
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    five complete worked examples with their scripts
+└── examples/                    six complete worked examples with their scripts
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
     ├── mug-revolved/            a porcelain mug from one phone photo
+    ├── cologne-bottle-revolved/ a clear cologne spray bottle from one cropped phone photo
     ├── pen-holder-mesh/         a wire-mesh pen holder with its contents from one phone photo
     └── laundromat-room/         a walkable laundromat from one render
 ```

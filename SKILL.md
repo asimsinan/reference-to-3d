@@ -49,7 +49,8 @@ the part the photo sees well (the back the front's mirror, the logo left off it)
 opening shows. Read `references/single-photo-revolved.md` and skip steps 1-3 below; steps 4, 6 and 7 still apply.
 Two worked examples: `examples/pressure-cooker-revolved/` (a product shot on white, level camera read by hand) and
 `examples/mug-revolved/` (a phone photo on a table: GrabCut mask, pitched camera by least squares, hollow inside,
-tube handle, porcelain version).
+tube handle, porcelain version), `examples/cologne-bottle-revolved/` (a clear PET spray bottle: a cropped photo
+from a level camera, transparent body, skewed label, a head askew on the body, real materials with a printed label).
 
 ## 1. Read the reference before anything else
 
@@ -176,10 +177,11 @@ motion, a reference made from nothing) are still offers.
 - `references/game-export.md` — game engine delivery (read before exporting for a game)
 - `references/single-view-interior.md` — one picture of an inside, made exact from one camera (a cockpit, a room)
 - `references/single-photo-object.md` — one photo of a product of known size: camera solve, rectified textures, raised details
-- `references/single-photo-revolved.md` — one photo of a turned object: camera from two ellipses (level by hand, or pitched by least squares), lathed profile, handle slabs or swept tubes, folded-angle texture, a hollow inside, real materials (steel, glazed ceramic)
+- `references/single-photo-revolved.md` — one photo of a turned object: camera from two ellipses (level by hand, or pitched by least squares), lathed profile, handle slabs or swept tubes, folded-angle texture, a hollow inside, real materials (steel, glazed ceramic, clear plastic with a printed label); a level camera on a cropped frame, transparent bodies, parts askew on each other
 - `examples/laundromat-room/` — a room from one render, made walkable (camera solve, proxies, layered plates, repeats, shader projection)
 - `examples/laptop-single-photo/` — the MacBook Pro 14 worked example (edge measuring, camera solve, overlay, rectify, key layout fit, Blender build, compare, glTF export)
 - `examples/pressure-cooker-revolved/` — a pressure cooker from one product photo (masks, camera from ellipses, profile, handle slabs, folded UVs, compare, steel/plastic version)
 - `references/single-photo-container.md` — a container with contents from one photo: camera with roll, items by base-plane intersection, see-through mesh wall, one RGBA wall texture for glTF
 - `examples/pen-holder-mesh/` — a wire-mesh pen holder with four pens, scissors, a spoon and a glue stick from one phone photo (circle + wall-tangent camera solve, lattice pitch from the unwrapped photo, percentile un-meshing, real-material version)
 - `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)
+- `examples/cologne-bottle-revolved/` — a clear PET cologne spray bottle from one cropped phone photo (level camera with the principal point solved, edges only where the background differs, per-part tilt, de-shaded cylindrical label, double-walled glass with liquid, photo clean plate as refraction backdrop, exposure by measuring)

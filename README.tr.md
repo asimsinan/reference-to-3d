@@ -16,6 +16,16 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, bir kabın içi, her yanı saran fotoğraf, ardından fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik, porselen) |
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
 
+![Şeffaf bir kolonya spreyi: referans telefon fotoğrafı, ardından aynı kameradan, çaprazdan, arkadan ve üstten model](docs/showcase/cologne-bottle.jpg)
+
+*Solda referans: masadaki 100 ml'lik bir kolonya spreyinin tek telefon fotoğrafı. Gerisi model, gerçek malzemelerle
+(içinde sıvısıyla şeffaf PET, üzerine basılı kâğıt etiket, siyah tırtıklı bilezik, füme kapak; Blender, Cycles):
+fotoğrafın kamerasından, sonra fotoğrafın hiç göstermediği yanlardan. Kamera gövdenin düz kenarlarından ve bilezik,
+omuz ve taban çemberlerinden çözüldü (fotoğrafın, yere paralel bir kameradan kırpılmış olduğu ortaya çıktı), etiket
+silindire açılıp fotoğrafın gölgesi arındırıldı, yamuk takılı püskürtücü başlık düzeltildi; fotoğrafın kamerasından
+fotoğraf dokulu sürüm 0,966 (IoU) ve 2,3/255 ile, gerçek malzemeli sürümün etiketi, kapağı ve bileziği fotoğrafa 5
+seviye içinde uyuyor. Nasıl yapıldığı: [`examples/cologne-bottle-revolved/`](examples/cologne-bottle-revolved/).*
+
 ![Kalemleri, makası, kaşığı ve yapıştırıcısıyla tel kafes bir kalemlik: referans telefon fotoğrafı, ardından aynı kameradan, sağdan, arkadan ve üstten model](docs/showcase/pen-holder.jpg)
 
 *Solda referans: masadaki tel kafes bir kalemliğin tek telefon fotoğrafı. Gerisi model, gerçek malzemelerle (siyah
@@ -125,6 +135,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Fotoğraftaki dizüstü bilgisayarı 3B yap, MacBook Pro 14."*
      - *"Ekteki resimdeki düdüklü tencereyi 3B modelle."*
      - *"Kalemliği içindekilerle 3B modelle."*
+     - *"Fotoğraftaki kolonyayı 3B modelle."*
      - *"Ekteki bardağı 3d modelle, sonra gerçek porselen yap."*
      - *"Unity için GLB olarak dışa aktar, tekerlekler ayrı parça olsun."*
 
@@ -174,10 +185,11 @@ reference-to-3d/
 │   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte beş eksiksiz örnek
+└── examples/                    betikleriyle birlikte altı eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
+    ├── cologne-bottle-revolved/ tek kırpılmış telefon fotoğrafından şeffaf bir kolonya spreyi
     ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```

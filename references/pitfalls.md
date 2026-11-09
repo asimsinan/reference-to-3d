@@ -152,6 +152,40 @@
 - **Long jobs: keep the inputs and scripts outside the scratchpad** (a work folder next to the deliverables); a
   session restart once wiped an attached photo and a whole pipeline.
 
+## A clear cologne spray bottle with a label (one cropped phone photo, 2026-11)
+- **Parallel silhouette edges plus sagging circles mean a level camera and a cropped frame, not a pitched one.**
+  Depth along the optical axis sets a cylinder's apparent width; a level camera shows a straight body at one width
+  whatever its height, and the circles' sags come from the camera's height alone. Three solvers and an afternoon
+  went into pitched models before this was written down. Check the straight edges' convergence first; free the
+  principal row CY when the edges say level and the horizon is not where the image centre is.
+- **Tangent rays on a near-cylinder constrain its radii, not its heights**: a collar's top and bottom came out
+  inverted. Give each part its top and bottom circle side points. Start every focal-length trial from the same x0;
+  chaining starts biased the scan. A parameter sitting at its bound (a fillet at 12 mm, the body 12 mm short) is a
+  bug until proved otherwise: here the fillet's discs had been placed above the top instead of below it.
+- **A transparent body has no mask**: GrabCut finds cap, collar and label; the clear wall over a same-toned table
+  has no edge for hundreds of rows, and what shows through the base (the thick grey bottom) is not the outer wall.
+  A first solve shrank the base radius to it. Measure edges only where the background differs, fit lines, extend
+  them; inner features are circles of their own radius; judge IoU on the rows the mask is good on.
+- **A sticker's edges are not level circles**: the wrap-around label was skewed; its arcs read 42 px of sag from
+  the left and 29 from the right, and a soft printed band gave a flat-bottomed arc. Solve the camera from moulded
+  features (collar rim, shoulder outline, foot ring, straight edges).
+- **Parts askew on each other** (a sprayer head 1.6 deg off the body) need their own tilt in the solve, or they
+  corrupt the camera's roll and shift the body's predicted edges 24 px at the base; straighten them in the model.
+- **A glass object's comparison render refracts whatever is behind it**: the raw photo as backdrop put the photo's
+  own collar into the clear band (-61 levels); use a clean plate (the object filled out) projected with Window
+  coordinates onto a backdrop at the room's real depth (3 m) and a ground plane; a backdrop at 0.6 m sent the
+  refracted rays to the floor. AgX dims an emission backdrop 30 %: Standard.
+- **A label's shading divides out per column**: on a cylinder the photo's shading depends on the angle only, so the
+  median of a print-free band per column (smoothed, normalised to the 97th percentile) flattens it without flattening
+  a coloured band, where a photo / blurred-photo ratio would. Transmission and roughness as image maps on the same
+  cylindrical UVs keep the label through glTF.
+- **EEVEE's Material Preview speckles dark transmissive materials** (a smoked cap) whatever the surface render
+  method, viewport samples or raytracing flag; the Cycles render is clean. Say so instead of fiddling.
+- **A lathe profile with two consecutive points on the axis** (a shell's outer and inner top) crashes a ring-pair
+  lathe; skip pairs of single vertices.
+- **`uv run` inside another project's folder resolves that project's pyproject** (and failed on its pins): pass
+  `--no-project`, or run from the work folder. **`echo =====` fails in zsh** (`=cmd` expansion); quote separators.
+
 ## A wire-mesh pen holder with its contents (one phone photo, 2026-11)
 - **The Blender camera's roll had the wrong sign**: the whole model sat ~12 px to the right of the photo while
   cam.py's own projection was right. With roll as `r' = cos ρ r + sin ρ up` in cam.py, the Blender camera is
