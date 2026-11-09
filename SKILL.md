@@ -86,6 +86,14 @@ the room (floor, walls, curtains, the window) modelled from the photo because it
 material, and the light fitted to the photo's contrast as well as its colours. Read
 `references/single-photo-scene.md` (worked example `examples/dining-set-single-photo/`).
 
+**One photo of a vehicle of a known type** (an airliner, a car, a ship; often an AI image whose proportions are not
+quite the real type's) is an eighth case: the type's real dimensions become priors with sigmas, the camera is solved
+from points on known geometry (tips, wheel contacts, the fin's top) plus the silhouette of a part whose section is
+known (the fuselage), the vehicle is a set of parameters (rings, aerofoil stations, a winglet arc) fitted to the
+photo's silhouette by rasterising it in numpy, the photo is unwrapped onto every part through a depth test and
+mirrored to the unseen side, and the sun is solved from the vehicle's shadow. Read
+`references/single-photo-vehicle.md` (worked example `examples/airliner-single-photo/`).
+
 **One photo of a container with things in it** (a pen holder with pens and scissors, a vase with flowers, a basket, a
 jar; the container itself turned, its wall possibly a see-through mesh) is a fifth case, built on the fourth: the
 container's camera from its circles plus a roll parameter, each item standing on the base placed by intersecting
@@ -252,5 +260,7 @@ motion, a reference made from nothing) are still offers.
 - `examples/office-room-multiphoto/` — the office + corridor pipeline (obs/fit bundle adjustment, camlib rectify, pnp, corridor solves, prep_* textures, build/build_detail Blender scene, shots/sheet/calib checks, finalize, three.js walk viewer)
 - `examples/vase-checker-revolved/` — a checkered porcelain vase from one product photo (GrabCut + hand-read rim, pitched camera with the foot fitted jointly, binned profile, unwrap to (angle, z), 360 deg checker albedo, gold bands, mirror tray, colour by measuring then by the user's eye)
 - `references/single-photo-scene.md` — a furniture set with objects on it and its room from one product photo: level camera with principal point from edge lines and feet, cushions by silhouette fit, splayed legs, objects by base pixels with contact relations, materials from the photo's pixels (exemplars, quilting, quantile palettes), room from the photo, light fitted to contrast, per-material albedo calibration, the compare-until-identical loop
+- `references/single-photo-vehicle.md` — one photo of a vehicle of a known type: dimensions as priors, camera from known points plus a fuselage silhouette, parametric parts fitted by numpy rasterising, photo onto UVs through a depth test with mirrored partners, sun from the shadow, light passes fitted linearly, albedo gain maps, what an AI picture's light can refuse
+- `examples/airliner-single-photo/` — the 737-800 at sunset: solve (points + silhouette), secs/geom parametric aircraft, fit_wing/fit_body, bake + texbuild, sunfit, ground tile and sky, albedo + calfit + albedo_cal, deliver (.blend, .glb)
 - `examples/dining-set-single-photo/` — the dining set (table, bench, two stools, cups, coasters, plate, muffins, candles, plant) pipeline: edges/solve, cushion and leg fits, prep -> scene.json, extract2/oak2/floor/env textures and room, build (match/id/final), tune2 light fit, albedo_cal, cstats/calib/idov checks, final.sh
 - `examples/cologne-bottle-revolved/` — a clear PET cologne spray bottle from one cropped phone photo (level camera with the principal point solved, edges only where the background differs, per-part tilt, de-shaded cylindrical label, double-walled glass with liquid, photo clean plate as refraction backdrop, exposure by measuring)

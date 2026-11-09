@@ -18,6 +18,7 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | Two ordinary photos of a product whose size you do not know, front and side (a desk phone, a printer, a kettle) | Both cameras and one body solved together from the photos' edges, every part shaped from what a photo shows (the handset's arc, steps, where the cord leaves), then real materials with the photos' printing kept |
 | One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
 | One product photo of a furniture set with things on it, in its room (a table, a bench, stools, cups, a plate, candles, a plant) | Every piece fitted to the photo (seats to their cushions' outlines, splayed legs, each object standing where it stands and on what it stands), materials taken from the photo's own pixels, the room around it, and the light fitted to the photo's contrast as well as its colours |
+| One photo of a vehicle of a known type (an airliner, a car, a ship), even an AI image | The camera solved with the type's real dimensions as priors, every part (wings, winglets, tail cone, fin, engines, gear) fitted to the photo's outline, the photo unwrapped onto each part and mirrored to the side it does not show, then real materials, the ground and the sky taken from the photo, and the sun solved from the shadow |
 
 ![An office and its corridor: top row, phone photos; bottom row, the model rendered from each photo's solved camera](docs/showcase/office-room.jpg)
 
@@ -62,6 +63,20 @@ columns of squares, and the pattern was rebuilt all round from them without the 
 from the photo's camera the outline matches to 0.988 (IoU) and the photo-textured body to 1.0/255; the user's two
 corrections (a mouth too narrow, colours too dull) are in the example's README. How:
 [`examples/vase-checker-revolved/`](examples/vase-checker-revolved/).*
+
+![An airliner: the reference picture, then the model from the same camera, and from the right, the front and behind](docs/showcase/airliner.jpg)
+
+*Top left, the reference: one 1770 x 1187 picture (most likely AI) of a white Boeing 737-800 with blended winglets on
+a concrete apron at sunset. Top right and below, the model in real materials (Blender, Cycles): from the picture's
+camera, then from the right, the front and behind, which the picture never shows. The camera was solved from the
+wingtips, the stabiliser and fin tips, the wheels' ground contacts and the fuselage's outline, with the type's
+dimensions as priors; then about 40 shape parameters (wing, winglets, nose, tail cone, fin, stabiliser) were fitted to the
+picture's silhouette by rasterising the model in numpy (edges within 1-4 px). The picture was unwrapped onto every
+part through a depth test and mirrored onto the unseen side; the concrete, the sky and the sun's direction (from the
+plane's shadow) come from the picture. From its camera the photo-textured version differs by 3.0/255 and the
+real-material one by 9.0/255; what is left (the stabiliser's and wings' tops) is the picture's own light, which no
+single sun matches, measured in the example's README. How:
+[`examples/airliner-single-photo/`](examples/airliner-single-photo/).*
 
 ![A dining set: the reference product photo, then the model from the same camera, from three-quarters, from the bench's side and from behind](docs/showcase/dining-set.jpg)
 
@@ -237,9 +252,11 @@ reference-to-3d/
 │   ├── two-photo-object.md      two photos (front, side) of a product of unknown size (a desk phone)
 │   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
 │   ├── single-photo-scene.md    one product photo of a furniture set with things on it, and its room
+│   ├── single-photo-vehicle.md  one photo of a vehicle of a known type (an airliner)
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    ten complete worked examples with their scripts
+└── examples/                    eleven complete worked examples with their scripts
+    ├── airliner-single-photo/   a 737 airliner on an apron from one picture
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
     ├── mug-revolved/            a porcelain mug from one phone photo

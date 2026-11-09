@@ -18,6 +18,7 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Boyutunu bilmediğiniz bir ürünün önden ve yandan iki sıradan fotoğrafı (masa telefonu, yazıcı, su ısıtıcı) | İki kamera ve tek gövde fotoğrafların kenarlarından birlikte çözülür, her parça bir fotoğrafın gösterdiğinden biçimlenir (ahizenin kavisi, kademeler, kablonun çıktığı yer), ardından fotoğrafların baskıları korunarak gerçek malzemeler |
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
 | Üstünde eşyalar olan bir mobilya takımının, odasıyla birlikte tek ürün fotoğrafı (masa, bank, tabureler, bardaklar, tabak, mumlar, bitki) | Her parça fotoğrafa oturtulur (oturaklar minderlerinin silüetine, açılı ayaklar, her nesne durduğu yerde ve neyin üstünde duruyorsa onun üstünde), malzemeler fotoğrafın kendi piksellerinden alınır, çevresindeki oda kurulur ve ışık fotoğrafın renklerine olduğu kadar kontrastına da oturtulur |
+| Tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı, otomobil, gemi), yapay zekâ görseli bile olsa | Tipin gerçek ölçüleri ön bilgi olarak kullanılıp çözülen kamera; her parça (kanatlar, winglet'ler, kuyruk konisi, dikey stabilize, motorlar, iniş takımı) fotoğrafın silüetine oturtulur, fotoğraf her parçaya açılır ve görünmeyen tarafa aynalanır; ardından gerçek malzemeler, fotoğraftan alınan zemin ve gökyüzü, gölgeden çözülen güneş |
 
 ![Bir ofis ve koridoru: üst sırada telefon fotoğrafları, alt sırada her fotoğrafın çözülen kamerasından model](docs/showcase/office-room.jpg)
 
@@ -59,6 +60,19 @@ ağızdan, altın banttan ve ayaktan birlikte çözüldü; vazonun üzerine aç�
 desen bunlardan, fotoğrafın ışığı ve yansımaları olmadan çepeçevre yeniden kuruldu. Fotoğrafın kamerasından silüet
 0,988 (IoU), fotoğraf dokulu gövde 1,0/255 ile örtüşüyor; kullanıcının iki düzeltmesi (dar kalan ağız, soluk renkler)
 örneğin README'sinde. Nasıl yapıldığı: [`examples/vase-checker-revolved/`](examples/vase-checker-revolved/).*
+
+![Bir yolcu uçağı: referans görsel, ardından aynı kameradan, sağdan, önden ve arkadan model](docs/showcase/airliner.jpg)
+
+*Sol üstte referans: gün batımında beton apronda duran, blended winglet'li beyaz bir Boeing 737-800'ün 1770 x 1187'lik
+tek görseli (büyük olasılıkla yapay zekâ üretimi). Sağ üstte ve altta gerçek malzemeli model (Blender, Cycles):
+görselin kamerasından, sonra görselin hiç göstermediği sağdan, önden ve arkadan. Kamera; kanat uçlarından, yatay ve
+dikey stabilize uçlarından, tekerleklerin yere değdiği noktalardan ve gövdenin silüetinden, tipin ölçüleri ön bilgi
+olarak çözüldü; ardından 40 kadar biçim parametresi (kanat, winglet'ler, burun, kuyruk konisi, dikey ve yatay stabilize)
+model numpy'da rasterleştirilerek görselin silüetine oturtuldu (kenarlar 1-4 px içinde). Görsel derinlik testiyle her
+parçaya açıldı, görünmeyen tarafa aynalandı; beton, gökyüzü ve güneşin yönü (uçağın gölgesinden) görselden geliyor.
+Görselin kamerasından foto-dokulu sürüm 3,0/255, gerçek malzemeli sürüm 9,0/255 farklı; kalan fark (yatay stabilize ve
+kanatların üstü) görselin kendi ışığından: tek bir güneş onu veremiyor, sayılarıyla örneğin README'sinde. Nasıl
+yapıldığı: [`examples/airliner-single-photo/`](examples/airliner-single-photo/).*
 
 ![Bir yemek takımı: referans ürün fotoğrafı, ardından aynı kameradan, çaprazdan, bank tarafından ve arkadan model](docs/showcase/dining-set.jpg)
 
@@ -235,9 +249,11 @@ reference-to-3d/
 │   ├── two-photo-object.md      boyutu bilinmeyen bir ürünün önden ve yandan iki fotoğrafı (masa telefonu)
 │   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
 │   ├── single-photo-scene.md    üstünde eşyalar olan bir mobilya takımı ve odası, tek ürün fotoğrafından
+│   ├── single-photo-vehicle.md  tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı)
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte on eksiksiz örnek
+└── examples/                    betikleriyle birlikte on bir eksiksiz örnek
+    ├── airliner-single-photo/   apronda bir 737 yolcu uçağı, tek görselden
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
