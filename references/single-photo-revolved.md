@@ -50,8 +50,10 @@ Two worked examples; where they differ, the steps below say which fits your phot
    point** read off a zoomed grid (white on white, the mask cannot give it): without it the elevation was off by 8 px
    there. F is weakly determined (fits at 1700-2300 px differed by 0.1 px rms): print that scan and pick by the
    phone's lens (an iPhone photo 1500 px wide: 1x ~1130 px, 2x ~2050 px; portrait-mode blur means 2x). An uncropped
-   phone photo has its principal point at the centre. A 0.3 deg roll was not worth a parameter: compare the body's
-   rendered silhouette with the photo's and add roll only if the difference shrinks clearly.
+   phone photo has its principal point at the centre. Roll: the mug's 0.3 deg was not worth a parameter, but the
+   pen holder's 1.1 deg was (without it the rim's left and right edge points disagreed by 13 px and the wall's two
+   sides fitted opposite tapers): solve it whenever the two sides disagree, and get its sign right in Blender
+   (`references/single-photo-container.md`).
 4. **The profile.** *Level camera:* for each clean row (no handle, no base ring), the half width hw gives
    r = hw (D - x_t) / F with x_t = r^2 / D (the silhouette is where the ray grazes the surface, a little in front of
    the axis; iterate), and z from the row at x_t. Fit what is simple (the cooker's wall was linear:
@@ -111,10 +113,11 @@ Two worked examples; where they differ, the steps below say which fits your phot
 9. **Deliver** the tidy .blend (Material Preview, framed, model and studio in collections) and a .glb; open it and
    look (`scripts/shot_ui.py`, with absolute paths).
 
-## Real materials, when asked
+## Real materials (always: the second half of the deliverable)
 
 The photo's reflections are baked in: the object shows the photographer's room from every side and does not react
-to a scene. Offer the swap (it moves away from the photo's pixels, so ask).
+to a scene. Make the swap without asking (SKILL.md step 7): the photo-projected version is the fit check, the
+real-material version is what the user keeps.
 
 **Steel** (the cooker): polished stainless (metallic 1, roughness 0.08), the lid satin (0.16), the base matte (0.3),
 handles black plastic (roughness 0.5, specular 0.3) with the photo's details on their faces, darkened. Keep the

@@ -13,7 +13,17 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Tek bir yerden görülen bir iç mekân resmi (araç kokpiti, oyun kamerası) | O yerden piksel piksel aynı görünen bir iç mekân |
 | Bir odanın tek fotoğrafı ya da render'ı | İçinde **dolaşılabilen** bir oda: kamera fotoğraftan çözülür, eşyalar 3B olur, görünmeyen taraflar fotoğrafın tekrar eden parçalarından kurulur |
 | Boyutları bilinen bir ürünün sıradan bir fotoğrafı (dizüstü bilgisayar, telefon, sandalye) | Gerçek ölçülerinde kurulmuş ürün; fotoğraf her yüzeye düzeltilerek yerleştirilir |
-| Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, bir kabın içi, her yanı saran fotoğraf; isterseniz fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik, porselen) |
+| Dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa) | Eksen etrafında döndürülmüş profil, katı parçalar olarak yan saplar, bir kabın içi, her yanı saran fotoğraf, ardından fotoğrafın ışığı yerine gerçek malzemeler (çelik, plastik, porselen) |
+| İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
+
+![Kalemleri, makası, kaşığı ve yapıştırıcısıyla tel kafes bir kalemlik: referans telefon fotoğrafı, ardından aynı kameradan, sağdan, arkadan ve üstten model](docs/showcase/pen-holder.jpg)
+
+*Solda referans: masadaki tel kafes bir kalemliğin tek telefon fotoğrafı. Gerisi model, gerçek malzemelerle (siyah
+boyalı tel, çelik, kalemlerin kendi baskıları; Blender, Cycles): önce fotoğrafın kamerasından, sonra fotoğrafın hiç
+göstermediği yanlardan. Kamera ağız ve taban çemberleriyle duvar kenarlarından çözüldü, kafesin göz aralığı
+silindire açılmış fotoğraftan ölçüldü, her eşya ayağının tabana değdiği yere yerleştirildi; fotoğrafın kamerasından
+bakınca kalemliğin dış çizgisi 0,988 (IoU), ağız üstündeki kalemler 3,7/255 farkla örtüşüyor. Nasıl yapıldığı:
+[`examples/pen-holder-mesh/`](examples/pen-holder-mesh/).*
 
 ![Bir kupa: referans telefon fotoğrafı, ardından aynı kameradan, arkadan, kulp tarafından ve üstten model](docs/showcase/mug.jpg)
 
@@ -114,6 +124,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Resimdeki odayı modelle, içinde dolaşabilmek istiyorum."*
      - *"Fotoğraftaki dizüstü bilgisayarı 3B yap, MacBook Pro 14."*
      - *"Ekteki resimdeki düdüklü tencereyi 3B modelle."*
+     - *"Kalemliği içindekilerle 3B modelle."*
      - *"Ekteki bardağı 3d modelle, sonra gerçek porselen yap."*
      - *"Unity için GLB olarak dışa aktar, tekerlekler ayrı parça olsun."*
 
@@ -160,12 +171,14 @@ reference-to-3d/
 │   ├── single-view-interior.md  tek resimden iç mekân; dolaşılabilir odalar
 │   ├── single-photo-object.md   boyutu bilinen bir ürünün tek fotoğrafı
 │   ├── single-photo-revolved.md dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa)
+│   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte dört eksiksiz örnek
+└── examples/                    betikleriyle birlikte beş eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
+    ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```
 

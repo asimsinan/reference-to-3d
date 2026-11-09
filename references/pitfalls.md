@@ -151,3 +151,22 @@
   paths for both the .blend and the PNG.
 - **Long jobs: keep the inputs and scripts outside the scratchpad** (a work folder next to the deliverables); a
   session restart once wiped an attached photo and a whole pipeline.
+
+## A wire-mesh pen holder with its contents (one phone photo, 2026-11)
+- **The Blender camera's roll had the wrong sign**: the whole model sat ~12 px to the right of the photo while
+  cam.py's own projection was right. With roll as `r' = cos ρ r + sin ρ up` in cam.py, the Blender camera is
+  `Euler(pi/2 - TH, 0, pi/2) @ Rotation(+ρ, 'Z')`. Print `world_to_camera_view` of a few known points against
+  `cam.proj` before trusting any render.
+- **A see-through mesh wall**: a lathed cylinder with an alpha-clipped diamond lattice (cell pitch measured on the
+  photo unwrapped onto the cylinder, 3.0 x 3.6 mm here), the wire colour from the photo's low percentile, the
+  contents behind it textured from a high-percentile (not max: a max filter spread every specular line of the
+  silver pens into white) filter of the photo that removes the wires. Tune the strand width against the photo's
+  blurred wall tones, region by region.
+- **glTF needs colour and alpha in one image with one UV set**: two UV maps (photo colour + tiled lattice alpha)
+  exported as a merged 1500 x 2000 image and the lattice was lost. Bake the wall to one RGBA texture (u = angle,
+  v = height) before exporting.
+- **The rim's back carried the pens' pixels** (hidden from the photo's camera, visible from above): inpaint
+  everything brighter than the ring out of the ring's texture. Likewise the items' tops and bottoms: a plain colour,
+  projected pixels streak there.
+- **Items standing in a container**: a bottom pixel on the base plane fixes an item's (x, y) outright (ray ∩ plane);
+  the top pixel at the same depth gives its height and lean. Solving for a given length instead picked wrong roots.

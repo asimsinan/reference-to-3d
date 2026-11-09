@@ -1,6 +1,6 @@
 ---
 name: reference-to-3d
-description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or one ordinary photo of a real product of known size, such as a laptop on a table; or one photo of a turned object such as a pot, bottle or vase) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
+description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or one ordinary photo of a real product of known size, such as a laptop on a table; or one photo of a turned object such as a pot, bottle or vase; or one photo of a container with things in it, such as a pen holder with pens) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
 ---
 
 # Reference to 3D
@@ -32,6 +32,14 @@ angle, such as a lid's) from a few marked corners, build the product from its re
 surface the photo shows into its own texture through that camera; raised details (keys) take the photo's pixels
 along the camera's rays. Read `references/single-photo-object.md` (worked example and scripts in
 `examples/laptop-single-photo/`) and skip steps 1-3 below; steps 4, 6 and 7 still apply.
+
+**One photo of a container with things in it** (a pen holder with pens and scissors, a vase with flowers, a basket, a
+jar; the container itself turned, its wall possibly a see-through mesh) is a fifth case, built on the fourth: the
+container's camera from its circles plus a roll parameter, each item standing on the base placed by intersecting
+its bottom pixel's ray with the base plane, a mesh wall as an alpha-clipped lattice whose pitch is measured on the
+photo unwrapped onto the cylinder, the contents behind the mesh textured from a percentile filter that removes the
+wires. Read `references/single-photo-container.md` (worked example `examples/pen-holder-mesh/`) after the fourth
+case's reference; steps 4, 6 and 7 still apply.
 
 **One photo of a turned object** (a pot, a bottle, a vase, a lamp, a cup; with handles, knobs or a spout on its
 sides) is a fourth case: the silhouette's two edges are its profile. Solve the camera from the ellipses of two of
@@ -128,10 +136,14 @@ the front, each texture fitted to the model's own outline (`project.py` does thi
 - Say what the method cannot do: the reference's lighting and reflections are baked into the texture (it will not
   react to a night scene like a real material), and surfaces no view shows are guesses.
 
-## 7. Finishing, when it is wanted
+## 7. Finishing
 
-These go beyond "like the picture"; offer them, do not add them unasked (each moves the model away from the
-reference's own pixels).
+**The real-material version is part of the deliverable, not an offer.** The user said so (2026-11-09, a cologne
+bottle: "bana yaptıktan sonra gerçek malzeme sürümü yapıyım mı diye sorma zaten bu olması gereken bişey"). Do the
+photo-projected version first, for the fit check and its numbers, then go straight on to real materials and deliver
+both, the real-material file as the main one. Also straighten accidental askewness seen in the photo (a crooked
+sprayer head): in a product model the user reads it as a flaw. The other items below (printed matter redrawn, wear,
+motion, a reference made from nothing) are still offers.
 - **Parts the reference cannot carry**: wheels' tyres, glass, lamps, screens and interiors in real materials instead
   of projected pixels (a tyre's tread seen from ahead is not in any view; a lamp must light at night). Keep the
   reference's pixels where a view really shows the part (a rim from the side).
@@ -168,4 +180,6 @@ reference's own pixels).
 - `examples/laundromat-room/` — a room from one render, made walkable (camera solve, proxies, layered plates, repeats, shader projection)
 - `examples/laptop-single-photo/` — the MacBook Pro 14 worked example (edge measuring, camera solve, overlay, rectify, key layout fit, Blender build, compare, glTF export)
 - `examples/pressure-cooker-revolved/` — a pressure cooker from one product photo (masks, camera from ellipses, profile, handle slabs, folded UVs, compare, steel/plastic version)
+- `references/single-photo-container.md` — a container with contents from one photo: camera with roll, items by base-plane intersection, see-through mesh wall, one RGBA wall texture for glTF
+- `examples/pen-holder-mesh/` — a wire-mesh pen holder with four pens, scissors, a spoon and a glue stick from one phone photo (circle + wall-tangent camera solve, lattice pitch from the unwrapped photo, percentile un-meshing, real-material version)
 - `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)

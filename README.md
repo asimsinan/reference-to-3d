@@ -13,7 +13,17 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One picture of an interior seen from one place (a car's cockpit, a game camera) | An inside that is pixel-exact from that place |
 | One photo or render of a room | A room you can **walk through**: the camera solved from the photo, props in 3D, the unseen sides built from the photo's own repeating parts |
 | One ordinary photo of a product whose size is known (a laptop, a phone, a chair) | The product built to its real dimensions, the photo rectified onto each surface |
-| One photo of a turned object (a pot, a bottle, a vase, a mug) | Its profile turned round the axis, side handles as solid parts, a cup's inside, the photo wrapped all round; on request real materials (steel, plastic, porcelain) instead of the photo's light |
+| One photo of a turned object (a pot, a bottle, a vase, a mug) | Its profile turned round the axis, side handles as solid parts, a cup's inside, the photo wrapped all round, then real materials (steel, plastic, porcelain) instead of the photo's light |
+| One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
+
+![A wire-mesh pen holder with pens, scissors, a spoon and a glue stick: the reference phone photo, then the model from the same camera, from the right, from behind and from above](docs/showcase/pen-holder.jpg)
+
+*Left, the reference: one phone photo of a mesh pen holder on a desk. The rest is the model in real materials
+(black painted wire, steel, the pens' own printing; Blender, Cycles): from the photo's camera, then from sides the
+photo never shows. The camera was solved from the rim's and base's circles and the wall's edges, the mesh's cell
+pitch measured on the photo unwrapped onto the cylinder, each item placed where its foot meets the base; seen from
+the photo's camera the holder's outline matches to 0.988 (IoU) and the pens above the rim to 3.7/255. How:
+[`examples/pen-holder-mesh/`](examples/pen-holder-mesh/).*
 
 ![A mug: the reference phone photo, then the model from the same camera, from behind, from the handle's side and from above](docs/showcase/mug.jpg)
 
@@ -114,6 +124,7 @@ Blender is at C:\Program Files\Blender Foundation\Blender 5.2\blender.exe
      - *"Build this laptop in 3D from the photo, it is a MacBook Pro 14."*
      - *"Model the pressure cooker in the attached photo."*
      - *"Model the mug in this photo, then make it real porcelain."*
+     - *"Model the pen holder in this photo with everything in it."*
      - *"Export it as a GLB for Unity, with the wheels as separate parts."*
 
 ### What Claude will do
@@ -159,12 +170,14 @@ reference-to-3d/
 │   ├── single-view-interior.md  one picture of an inside; rooms made walkable
 │   ├── single-photo-object.md   one photo of a product of known size
 │   ├── single-photo-revolved.md one photo of a turned object (pot, bottle, vase, mug)
+│   ├── single-photo-container.md one photo of a container with things in it (a pen holder); see-through mesh walls
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    four complete worked examples with their scripts
+└── examples/                    five complete worked examples with their scripts
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
     ├── mug-revolved/            a porcelain mug from one phone photo
+    ├── pen-holder-mesh/         a wire-mesh pen holder with its contents from one phone photo
     └── laundromat-room/         a walkable laundromat from one render
 ```
 
