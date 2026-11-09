@@ -51,6 +51,17 @@ set straight; seen from the photo's camera the photo-textured version matches to
 real-material version's label, cap and collar are within 5 levels of the photo. How:
 [`examples/cologne-bottle-revolved/`](examples/cologne-bottle-revolved/).*
 
+![A hand-painted checkered vase: the reference product photo, then the model from the same camera, from three-quarters, from behind and from above](docs/showcase/vase.jpg)
+
+*Left, the reference: one 600 x 900 product photo of a hand-painted checkered porcelain vase with a gold rim and a
+gold band, on a mirror tray in front of red flowers. The rest is the model in real materials (glazed porcelain, gold
+leaf as metal; Blender, Cycles): from the photo's camera, then from sides the photo never shows. The camera was
+solved from the rim, the gold band and the foot together; the photo unwrapped onto the vase showed ten straight
+columns of squares, and the pattern was rebuilt all round from them without the photo's light and reflections. Seen
+from the photo's camera the outline matches to 0.988 (IoU) and the photo-textured body to 1.0/255; the user's two
+corrections (a mouth too narrow, colours too dull) are in the example's README. How:
+[`examples/vase-checker-revolved/`](examples/vase-checker-revolved/).*
+
 ![A wire-mesh pen holder with pens, scissors, a spoon and a glue stick: the reference phone photo, then the model from the same camera, from the right, from behind and from above](docs/showcase/pen-holder.jpg)
 
 *Left, the reference: one phone photo of a mesh pen holder on a desk. The rest is the model in real materials
@@ -212,11 +223,12 @@ reference-to-3d/
 │   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    eight complete worked examples with their scripts
+└── examples/                    nine complete worked examples with their scripts
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
     ├── mug-revolved/            a porcelain mug from one phone photo
     ├── cologne-bottle-revolved/ a clear cologne spray bottle from one cropped phone photo
+    ├── vase-checker-revolved/   a hand-painted checkered vase from one product photo
     ├── pen-holder-mesh/         a wire-mesh pen holder with its contents from one phone photo
     ├── desk-phone-two-photos/   a corded desk phone from a front and a side phone photo
     ├── office-room-multiphoto/  a walkable office and corridor from fifteen phone photos

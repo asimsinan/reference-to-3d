@@ -63,10 +63,12 @@ its circles (base, rim), lathe the profile measured through that camera, make ea
 (bar-like handles) a swept tube of its photo outline, and wrap the photo round the axis with the angle folded into
 the part the photo sees well (the back the front's mirror, the logo left off it); a cup's inside from what the
 opening shows. Read `references/single-photo-revolved.md` and skip steps 1-3 below; steps 4, 6 and 7 still apply.
-Two worked examples: `examples/pressure-cooker-revolved/` (a product shot on white, level camera read by hand) and
+Worked examples: `examples/pressure-cooker-revolved/` (a product shot on white, level camera read by hand) and
 `examples/mug-revolved/` (a phone photo on a table: GrabCut mask, pitched camera by least squares, hollow inside,
 tube handle, porcelain version), `examples/cologne-bottle-revolved/` (a clear PET spray bottle: a cropped photo
-from a level camera, transparent body, skewed label, a head askew on the body, real materials with a printed label).
+from a level camera, transparent body, skewed label, a head askew on the body, real materials with a printed label),
+`examples/vase-checker-revolved/` (a hand-painted checkered vase on a busy background: rim mask repaired by hand,
+foot and camera solved together, the pattern rebuilt 360 deg from the unwrapped photo, gold as metal bands).
 
 ## 1. Read the reference before anything else
 
@@ -204,4 +206,5 @@ motion, a reference made from nothing) are still offers.
 - `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)
 - `references/multi-photo-room.md` — a real room from many phone photos, walkable with the corridor and an openable door: joint room + camera solve (shared furniture, lens priors), late photos by PnP or vanishing point, rectified/homography textures, books as leaning prisms, devices from side profiles, colour calibration, viewer testing, and what the user rejected
 - `examples/office-room-multiphoto/` — the office + corridor pipeline (obs/fit bundle adjustment, camlib rectify, pnp, corridor solves, prep_* textures, build/build_detail Blender scene, shots/sheet/calib checks, finalize, three.js walk viewer)
+- `examples/vase-checker-revolved/` — a checkered porcelain vase from one product photo (GrabCut + hand-read rim, pitched camera with the foot fitted jointly, binned profile, unwrap to (angle, z), 360 deg checker albedo, gold bands, mirror tray, colour by measuring then by the user's eye)
 - `examples/cologne-bottle-revolved/` — a clear PET cologne spray bottle from one cropped phone photo (level camera with the principal point solved, edges only where the background differs, per-part tilt, de-shaded cylindrical label, double-walled glass with liquid, photo clean plate as refraction backdrop, exposure by measuring)

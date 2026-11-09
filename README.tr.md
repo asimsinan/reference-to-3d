@@ -49,6 +49,16 @@ silindire açılıp fotoğrafın gölgesi arındırıldı, yamuk takılı püsk�
 fotoğraf dokulu sürüm 0,966 (IoU) ve 2,3/255 ile, gerçek malzemeli sürümün etiketi, kapağı ve bileziği fotoğrafa 5
 seviye içinde uyuyor. Nasıl yapıldığı: [`examples/cologne-bottle-revolved/`](examples/cologne-bottle-revolved/).*
 
+![El boyaması damalı bir vazo: referans ürün fotoğrafı, ardından aynı kameradan, çaprazdan, arkadan ve üstten model](docs/showcase/vase.jpg)
+
+*Solda referans: altın ağızlı ve altın bantlı, el boyaması damalı porselen bir vazonun, kırmızı çiçeklerin önünde
+ayna tepsi üzerindeki 600 x 900'lük tek ürün fotoğrafı. Gerisi model, gerçek malzemelerle (sırlı porselen, metal
+olarak altın yaldız; Blender, Cycles): fotoğrafın kamerasından, sonra fotoğrafın hiç göstermediği yanlardan. Kamera
+ağızdan, altın banttan ve ayaktan birlikte çözüldü; vazonun üzerine açılan fotoğrafta on düz kare sütunu çıktı ve
+desen bunlardan, fotoğrafın ışığı ve yansımaları olmadan çepeçevre yeniden kuruldu. Fotoğrafın kamerasından silüet
+0,988 (IoU), fotoğraf dokulu gövde 1,0/255 ile örtüşüyor; kullanıcının iki düzeltmesi (dar kalan ağız, soluk renkler)
+örneğin README'sinde. Nasıl yapıldığı: [`examples/vase-checker-revolved/`](examples/vase-checker-revolved/).*
+
 ![Kalemleri, makası, kaşığı ve yapıştırıcısıyla tel kafes bir kalemlik: referans telefon fotoğrafı, ardından aynı kameradan, sağdan, arkadan ve üstten model](docs/showcase/pen-holder.jpg)
 
 *Solda referans: masadaki tel kafes bir kalemliğin tek telefon fotoğrafı. Gerisi model, gerçek malzemelerle (siyah
@@ -211,11 +221,12 @@ reference-to-3d/
 │   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte sekiz eksiksiz örnek
+└── examples/                    betikleriyle birlikte dokuz eksiksiz örnek
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
     ├── mug-revolved/            tek telefon fotoğrafından porselen bir kupa
     ├── cologne-bottle-revolved/ tek kırpılmış telefon fotoğrafından şeffaf bir kolonya spreyi
+    ├── vase-checker-revolved/   tek ürün fotoğrafından el boyaması damalı bir vazo
     ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
     ├── desk-phone-two-photos/   önden ve yandan iki telefon fotoğrafından kablolu bir masa telefonu
     ├── office-room-multiphoto/  on beş telefon fotoğrafından gezilebilir bir ofis ve koridor

@@ -6,7 +6,7 @@ and right edges. What it does not show is everything behind the silhouette and e
 build side parts (handles, spouts, knobs) as rounded slabs or swept tubes of their photo outlines, and wrap the photo
 round the axis with the angle folded into the part the photo sees well.**
 
-Three worked examples; where they differ, the steps below say which fits your photo:
+Four worked examples; where they differ, the steps below say which fits your photo:
 - **A product shot on white with a level camera**: a stainless pressure cooker, one 554 x 554 product photo, no size
   given. `examples/pressure-cooker-revolved/`. From the photo's camera: silhouette IoU 0.98, mean colour difference
   8.3/255 over the model (median 1.0, body 1.5); a second version in real materials (polished steel, plastic). About
@@ -21,6 +21,11 @@ Three worked examples; where they differ, the steps below say which fits your ph
   only where the background differs, the sprayer head's own tilt, a de-shaded cylindrical label. Photo-projected:
   IoU 0.966, 2.3/255; real materials (double-walled clear PET, liquid, printed label, smoked cap) within 5 levels of
   the photo on the label, cap and collar.
+- **A product photo of a hand-painted, patterned vase on a busy background**: a checkered porcelain vase with a gold
+  rim and a gold band on a pedestal foot, one 600 x 900 e-commerce photo (red flowers, gold tray, a mirror under it).
+  `examples/vase-checker-revolved/`. GrabCut mask repaired on the rim, pitched camera with the foot solved jointly,
+  the pattern rebuilt 360 deg from the unwrapped photo, gold as geometric metal bands. Photo-projected: IoU 0.988,
+  3.7/255 (body 1.0); real materials: body boxes within +-10 levels of the photo.
 
 ## Steps
 
@@ -188,6 +193,21 @@ rays landed on the floor. Use the Standard view transform: AgX dimmed the emissi
 the numbers (key from the photo's bright side, EXPO 1.0 -> 0.4 here) until the label, cap and collar boxes are
 within a few levels; the clear band will stay off, and that is right.
 
+**A painted repeating pattern** (the checkered vase): the fold mirrors the photo's glints and its one lit side onto
+the back, and the photo-divided-by-blur trick of the mug flattens big cells. Instead unwrap the photo onto
+(angle, z) through the camera (`unwrap.py`, 0.25 deg x 0.25 mm per pixel): if the camera is right the pattern's
+columns come out straight, which is itself a check. Count the repeat from the column spacing (10 columns of 36 deg),
+read the row boundaries from the vertical gradient, and rebuild the full 360 deg map cell by cell (`albedo.py`):
+take each row's two central cells as sources (the oblique ones are smeared), inpaint glints (brighter than the
+cell's blur), divide the cell's own blur out, and alternate source and mirror round the vase. Plain cells (the white
+glaze) as one colour with faint noise: the cleaned white cells kept ghost glints. Gold and other metals as their own
+faces (extra rings at the band's edges, read by projecting the photo's front rows to z), not a texture mask.
+Measured colour, then the user's eye: the boxes were within 15 levels and the user still said "the colour is
+livelier in the photo". AgX's Medium High Contrast look desaturates near-white glaze; AgX Punchy, a warmer albedo
+white and exposure re-measured (+0.6 here) brought it back. Gold on a white floor reads pale yellow, on a dark one
+black: a small mirror tray under the vase (as in the photo) gave the gold its dark reflections while the lights still
+lit it.
+
 ## Faults found only by looking (each fixed)
 
 - **The camera's shift came out with the wrong sign**: the model sat far down and to the right of the frame. With
@@ -213,6 +233,12 @@ within a few levels; the clear band will stay off, and that is right.
   where the mask said (step 2); the label's arcs were skewed (step 2); the glass refracted the photo's own bottle
   ("Real materials"); the smoked cap stays speckled in Blender's Material Preview whatever the render method, the
   sample count or the raytracing flag (EEVEE transmission); the Cycles render is clean: not fixed, told the user.
+
+- The vase's: the mouth 15 px narrower a side (the GrabCut mask dropped the dark gold rim against red; the user saw
+  it; `pitfalls.md`); the profile spline diverging into nonsense radii (fixed by a binned-median fit, smoothed); the
+  foot's sides 8-10 px too wide while its bottom fitted (the base's front contour pinned a camera the foot's sides
+  disagreed with: fit camera, rim, band and the foot's radii together, `fit_foot.py`); the lip's inner half mapped
+  with the outer fold (a separate tag); a lip read as 5 mm when the photo's opening needed 7.5.
 
 ## What this method cannot do (say so)
 

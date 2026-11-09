@@ -245,3 +245,9 @@
   pane stops requestAnimationFrame: step the viewer's `update(dt)` from javascript to test walking and collisions.
 - **The user finds defects from the walk viewer at odd angles**, never in the photo-camera views: render close-ups
   from low, oblique, side and below-shelf angles before delivering.
+
+## GrabCut dropped a gold rim against a red background (vase, 2026-11-09)
+The rim's dark gold edge next to saturated red was labelled background: the mask was 15 px narrower a side on the
+rim rows only, the camera solve (rim fixed as the size) then shrank the mouth and the user saw "the mouth is too
+narrow". The neck below was right. Check the rim rows of the mask on a zoomed grid against the photo before solving,
+and fill hand-read edge points where they differ (`fix_rim_mask.py` pattern).
