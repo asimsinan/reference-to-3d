@@ -41,6 +41,18 @@ gövdenin kademesi ve kablonun çıkışı yan fotoğraftan okundu. Ön fotoğra
 6.7/255 (medyan 0.3) farkla örtüşüyor; gerçek malzemeli sürümün ön yüzü %1 içinde. Nasıl:
 [`examples/desk-phone-two-photos/`](examples/desk-phone-two-photos/).*
 
+![Kırmızı çevirmeli bir masa telefonu: önden, yandan ve arkadan referans fotoğraflar, ardından her fotoğrafın kamerasından model](docs/showcase/rotary-phone.jpg)
+
+*Üst sıra referanslar: kırmızı çevirmeli bir telefonun, çekimler arasında döndürülerek alınmış üç telefon fotoğrafı;
+EXIF yok. Alt sıra model, gerçek malzemelerle (Blender, Cycles), her fotoğrafın çözülen kamerasından ve fotoğrafın
+üzerine yerleştirilmiş halde. Ölçek parmak çarkının 76,2 mm'lik çapı; kameralar kadranın çemberlerinden ve
+rakamlarından çözüldü, gövde kenarları yuvarlanan bir yükseklik alanı, ahize iki hazneli bir çubuk; ikisi de
+siluetlere parça parça uyduruldu (IoU gövde 0,89-0,97, ahize 0,87-0,91); rakamlar ve numara kartı ön fotoğrafın
+kadran düzlemine düzeltilmiş pikselleri. En pahalı ders: kırmızı renk maskeleri ışık alan her yüzü kesmişti ve
+onlara yapılan uydurmalar "yer değiştirmiş" bir ahize ile "yanlış" bir kamera uydurdu
+(`references/three-photo-object.md`). Henüz birebir değil: ahizenin uçları ve odanın yansımaları hâlâ farklı. Nasıl:
+[`examples/rotary-phone-three-photos/`](examples/rotary-phone-three-photos/).*
+
 ![Şeffaf bir kolonya spreyi: referans telefon fotoğrafı, ardından aynı kameradan, çaprazdan, arkadan ve üstten model](docs/showcase/cologne-bottle.jpg)
 
 *Solda referans: masadaki 100 ml'lik bir kolonya spreyinin tek telefon fotoğrafı. Gerisi model, gerçek malzemelerle
@@ -247,6 +259,7 @@ reference-to-3d/
 │   ├── single-photo-revolved.md dönel bir nesnenin tek fotoğrafı (tencere, şişe, vazo, kupa)
 │   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
 │   ├── two-photo-object.md      boyutu bilinmeyen bir ürünün önden ve yandan iki fotoğrafı (masa telefonu)
+│   ├── three-photo-object.md    türü bilinen kavisli bir ürünün üç fotoğrafı (çevirmeli telefon)
 │   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
 │   ├── single-photo-scene.md    üstünde eşyalar olan bir mobilya takımı ve odası, tek ürün fotoğrafından
 │   ├── single-photo-vehicle.md  tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı)
@@ -262,6 +275,7 @@ reference-to-3d/
     ├── dining-set-single-photo/ tek ürün fotoğrafından masa üstü eşyalarıyla bir yemek takımı ve odası
     ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
     ├── desk-phone-two-photos/   önden ve yandan iki telefon fotoğrafından kablolu bir masa telefonu
+    ├── rotary-phone-three-photos/ önden, yandan ve arkadan üç fotoğraftan kırmızı çevirmeli masa telefonu
     ├── office-room-multiphoto/  on beş telefon fotoğrafından gezilebilir bir ofis ve koridor
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```

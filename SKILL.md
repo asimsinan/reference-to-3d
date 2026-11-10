@@ -77,6 +77,13 @@ width; fit a part that moved between the shots to each photo and both. Read `ref
 side photo instead of shipping a prior. Every part's shape comes from a photo (plan, side arc, steps, where a cord
 leaves); nothing is added because such products "usually" have it.
 
+**Three photos (front, side, rear) of a curved product of a known type** (a rotary telephone, a kettle on its base:
+a moulded body with rolled edges, a part resting on it, a round printed part) is a ninth case: scale from a standard
+part, the cameras from the printed circle and shared points, the body a height field with rolled edges fitted to the
+silhouettes zone by zone, the resting part chosen on the shaded render and not on IoU. Read
+`references/three-photo-object.md` (worked example `examples/rotary-phone-three-photos/`), above all "Masks: the
+first thing to distrust": a colour mask cuts every lit face, and a fit to it invents moved parts and wrong cameras.
+
 **One product photo of a furniture set with things on it** (a table with chairs, a bench and stools; cups, a plate,
 candles, a plant on the table; a room around it) is a seventh case: a level camera with its principal point solved
 from the table top's edge lines and the leg feet, each seat fitted to its cushion's silhouette as a rounded box,
@@ -253,6 +260,8 @@ motion, a reference made from nothing) are still offers.
 - `examples/pressure-cooker-revolved/` — a pressure cooker from one product photo (masks, camera from ellipses, profile, handle slabs, folded UVs, compare, steel/plastic version)
 - `references/two-photo-object.md` — two photos (front, side) of a product of unknown size: joint two-camera solve from edge lines and shared features, parts that moved between shots, shapes read from the photos (plan, side arc, steps, parting-line ribbon), de-lit albedo without shadows, exposure by measuring
 - `examples/desk-phone-two-photos/` — a corded desk phone from a front and a side phone photo (edge-line and key measuring, joint solve, handset fit, side-photo features, match/final/PBR builds, Cycles showcase)
+- `references/three-photo-object.md` — three photos of a curved product of a known type: scale from a standard part, circle-anchored camera solve, colour masks that cut lit faces (patch by hand), per-part fit zones, rolled-edge height-field body, a resting part judged on the shaded render, rectified printed parts, clear plastic, light that follows the turned object
+- `examples/rotary-phone-three-photos/` — a red rotary desk phone from front, side and rear phone photos (solve, mask + maskfix, geom/fit/fitcam, ovpart overlays, prep_tex/mktex, Blender build, cmp, showcase)
 - `references/single-photo-container.md` — a container with contents from one photo: camera with roll, items by base-plane intersection, see-through mesh wall, one RGBA wall texture for glTF
 - `examples/pen-holder-mesh/` — a wire-mesh pen holder with four pens, scissors, a spoon and a glue stick from one phone photo (circle + wall-tangent camera solve, lattice pitch from the unwrapped photo, percentile un-meshing, real-material version)
 - `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)

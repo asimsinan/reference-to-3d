@@ -1,0 +1,15 @@
+{
+ "red": [
+  0.125,
+  0.006,
+  0.012
+ ],
+ "world": 0.07,
+ "fill": 15,
+ "window": 360,
+ "card_gain": 0.8,
+ "rough": 0.2,
+ "exp_side": -0.85,
+ "exp_front": 0.8,
+ "exp_rear": 0.45
+}

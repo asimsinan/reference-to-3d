@@ -42,6 +42,18 @@ the base's step and the cord's exit read off the side photo. From the front phot
 version matches to 6.7/255 (median 0.3); the real-material front face is within 1 %. How:
 [`examples/desk-phone-two-photos/`](examples/desk-phone-two-photos/).*
 
+![A red rotary desk phone: the front, side and rear reference photos, then the model from each photo's camera](docs/showcase/rotary-phone.jpg)
+
+*Top row, the references: three phone photos of a red rotary telephone, turned between the shots; no EXIF. Bottom
+row, the model in real materials (Blender, Cycles) from each photo's solved camera, set over the photo. The scale
+is the finger wheel's 76.2 mm; the cameras come from the dial's circles and digits, the body is a height field with
+rolled edges and the handset a bar with two cups, both fitted to the silhouettes part by part (IoU 0.89-0.97 body,
+0.87-0.91 handset); the digits and the number card are the front photo's pixels rectified onto the dial. The lesson
+that cost the most: the red colour masks had cut every lit face, and fits to them invented a handset that had
+"moved" and a "wrong" camera (`references/three-photo-object.md`). Not identical yet: the handset's ends and the
+room's reflections still differ. How:
+[`examples/rotary-phone-three-photos/`](examples/rotary-phone-three-photos/).*
+
 ![A clear cologne spray bottle: the reference phone photo, then the model from the same camera, from three-quarters, from behind and from above](docs/showcase/cologne-bottle.jpg)
 
 *Left, the reference: one phone photo of a 100 ml cologne spray bottle on a desk. The rest is the model in real
@@ -250,6 +262,7 @@ reference-to-3d/
 │   ├── single-photo-revolved.md one photo of a turned object (pot, bottle, vase, mug)
 │   ├── single-photo-container.md one photo of a container with things in it (a pen holder); see-through mesh walls
 │   ├── two-photo-object.md      two photos (front, side) of a product of unknown size (a desk phone)
+│   ├── three-photo-object.md    three photos of a curved product of a known type (a rotary phone)
 │   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
 │   ├── single-photo-scene.md    one product photo of a furniture set with things on it, and its room
 │   ├── single-photo-vehicle.md  one photo of a vehicle of a known type (an airliner)
@@ -265,6 +278,7 @@ reference-to-3d/
     ├── dining-set-single-photo/ a dining set with tabletop objects and its room from one product photo
     ├── pen-holder-mesh/         a wire-mesh pen holder with its contents from one phone photo
     ├── desk-phone-two-photos/   a corded desk phone from a front and a side phone photo
+    ├── rotary-phone-three-photos/ a red rotary desk phone from front, side and rear phone photos
     ├── office-room-multiphoto/  a walkable office and corridor from fifteen phone photos
     └── laundromat-room/         a walkable laundromat from one render
 ```
