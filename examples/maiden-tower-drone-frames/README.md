@@ -3,7 +3,7 @@
 See `../../references/drone-frames-landmark.md`. Six screenshots of a drone video taken all round the tower
 (1290-1586 px wide, each cropped and scaled differently, no EXIF). The frames are not included; put them in `ref/` as
 `r1.png` ... `r6.png` (RGB). The model's frame: +X the sunlit face with the fort's door, +Y the annex side, z = 0 the
-terrace, units x 1.05 = metres (doors measured at 2.0 units). The showcase is `docs/showcase/maiden-tower.jpg`.
+terrace, units x 1.05 = metres (doors measured at 2.0 units). The showcase (frames | model from their cameras | new views) is `docs/showcase/maiden-tower.jpg`.
 
 Run from this folder (Blender 5.2 at `/Applications/Blender.app`; Python with numpy, scipy, opencv; `PYX=...` for a
 ready interpreter if `uv` waits on its cache lock):
