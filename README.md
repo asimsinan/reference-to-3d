@@ -19,6 +19,22 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
 | One product photo of a furniture set with things on it, in its room (a table, a bench, stools, cups, a plate, candles, a plant) | Every piece fitted to the photo (seats to their cushions' outlines, splayed legs, each object standing where it stands and on what it stands), materials taken from the photo's own pixels, the room around it, and the light fitted to the photo's contrast as well as its colours |
 | One photo of a vehicle of a known type (an airliner, a car, a ship), even an AI image | The camera solved with the type's real dimensions as priors, every part (wings, winglets, tail cone, fin, engines, gear) fitted to the photo's outline, the photo unwrapped onto each part and mirrored to the side it does not show, then real materials, the ground and the sky taken from the photo, and the sun solved from the shadow |
+| Several frames of a drone video taken round a landmark (a tower on an island, a castle, a lighthouse) | Every frame's camera solved and refined on the frames' edges, the building and its island built to scale (from its doors), the waterline measured from the frames, the photos projected with their light divided out, then real materials, armour stones, the sun from a shadow |
+
+![The Maiden's Tower: top row, the model from three drone frames' solved cameras; bottom row, viewpoints no frame has](docs/showcase/maiden-tower.jpg)
+
+*The Maiden's Tower (Istanbul) from six screenshots of a drone video taken all round it (each cropped and scaled
+differently, no EXIF; the frames are not included here). Top row, the model in real materials (Blender, Cycles) from
+three of the frames' solved cameras; bottom row, viewpoints none of the frames has. The six cameras were solved
+together from hand-read points, then each refined on the frames' edges with those points held; the scale comes from
+two doors (2.1 m), the waterline from the six masks intersected on horizontal planes. The frames' pixels are
+projected through a depth test with the light divided out; the sunlit stone the frames clipped to white takes the
+same stone's pattern from its shaded side, the rocks are armour stones textured from the frames' rock band, the
+beacon's stripe is rebuilt level at its measured height. Silhouette IoU 0.887 over the six frames, mean colour
+difference 10/255. Not identical yet: the annex's windows are texture, the waterline's foam is missing, one back-lit
+frame stays darker in shade (its tone curve). The scale had first been guessed from people and was 24 % off
+(`references/drone-frames-landmark.md`). How:
+[`examples/maiden-tower-drone-frames/`](examples/maiden-tower-drone-frames/).*
 
 ![An office and its corridor: top row, phone photos; bottom row, the model rendered from each photo's solved camera](docs/showcase/office-room.jpg)
 
@@ -263,12 +279,13 @@ reference-to-3d/
 │   ├── single-photo-container.md one photo of a container with things in it (a pen holder); see-through mesh walls
 │   ├── two-photo-object.md      two photos (front, side) of a product of unknown size (a desk phone)
 │   ├── three-photo-object.md    three photos of a curved product of a known type (a rotary phone)
+│   ├── drone-frames-landmark.md several drone-video frames of a landmark (a tower on an island)
 │   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
 │   ├── single-photo-scene.md    one product photo of a furniture set with things on it, and its room
 │   ├── single-photo-vehicle.md  one photo of a vehicle of a known type (an airliner)
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    eleven complete worked examples with their scripts
+└── examples/                    thirteen complete worked examples with their scripts
     ├── airliner-single-photo/   a 737 airliner on an apron from one picture
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
@@ -279,6 +296,7 @@ reference-to-3d/
     ├── pen-holder-mesh/         a wire-mesh pen holder with its contents from one phone photo
     ├── desk-phone-two-photos/   a corded desk phone from a front and a side phone photo
     ├── rotary-phone-three-photos/ a red rotary desk phone from front, side and rear phone photos
+    ├── maiden-tower-drone-frames/ the Maiden's Tower from six drone-video frames
     ├── office-room-multiphoto/  a walkable office and corridor from fifteen phone photos
     └── laundromat-room/         a walkable laundromat from one render
 ```

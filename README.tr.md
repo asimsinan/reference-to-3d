@@ -19,6 +19,21 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
 | Üstünde eşyalar olan bir mobilya takımının, odasıyla birlikte tek ürün fotoğrafı (masa, bank, tabureler, bardaklar, tabak, mumlar, bitki) | Her parça fotoğrafa oturtulur (oturaklar minderlerinin silüetine, açılı ayaklar, her nesne durduğu yerde ve neyin üstünde duruyorsa onun üstünde), malzemeler fotoğrafın kendi piksellerinden alınır, çevresindeki oda kurulur ve ışık fotoğrafın renklerine olduğu kadar kontrastına da oturtulur |
 | Tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı, otomobil, gemi), yapay zekâ görseli bile olsa | Tipin gerçek ölçüleri ön bilgi olarak kullanılıp çözülen kamera; her parça (kanatlar, winglet'ler, kuyruk konisi, dikey stabilize, motorlar, iniş takımı) fotoğrafın silüetine oturtulur, fotoğraf her parçaya açılır ve görünmeyen tarafa aynalanır; ardından gerçek malzemeler, fotoğraftan alınan zemin ve gökyüzü, gölgeden çözülen güneş |
+| Bir yapının çevresinde dolaşan bir drone videosundan birkaç kare (adadaki bir kule, bir kale, bir fener) | Her karenin kamerası çözülüp karelerin kenarlarına göre inceltilir; yapı ve adası ölçeğinde kurulur (kapılarından), su hattı karelerden ölçülür, fotoğraflar ışıkları ayrılarak yansıtılır; ardından gerçek malzemeler, mendirek taşları, gölgeden güneş |
+
+![Kız Kulesi: üst sırada üç drone karesinin çözülen kamerasından model, alt sırada hiçbir karenin görmediği açılar](docs/showcase/maiden-tower.jpg)
+
+*Kız Kulesi (İstanbul), çevresinde dolaşan bir drone videosundan alınmış altı ekran görüntüsünden (her biri farklı
+kırpılmış ve ölçeklenmiş, EXIF yok; kareler burada yer almıyor). Üst sırada model, gerçek malzemelerle (Blender,
+Cycles), karelerden üçünün çözülen kamerasından; alt sırada hiçbir karenin görmediği açılar. Altı kamera elle okunan
+noktalardan birlikte çözüldü, sonra her biri bu noktalar sabit tutularak karelerin kenarlarına göre inceltildi; ölçek
+iki kapıdan (2,1 m), su hattı altı maskenin yatay düzlemlerde kesişiminden geliyor. Karelerin pikselleri derinlik
+testiyle ve ışıkları ayrılarak yansıtıldı; karelerin beyaza kırptığı güneşli taş, aynı taşın gölgedeki yüzünden
+desen alıyor, kayalar karelerin kayalık şeridinden dokulanmış mendirek taşları, fenerin kırmızı bandı ölçülen
+yüksekliğinde düz olarak yeniden kuruldu. Altı karede siluet IoU 0,887, ortalama renk farkı 10/255. Henüz birebir
+değil: ek binanın pencereleri doku, su hattındaki köpük yok, ters ışıklı bir kare gölgede koyu kalıyor (kendi ton
+eğrisi). Ölçek ilk başta insanlardan tahmin edilmişti ve %24 yanlıştı (`references/drone-frames-landmark.md`). Nasıl:
+[`examples/maiden-tower-drone-frames/`](examples/maiden-tower-drone-frames/).*
 
 ![Bir ofis ve koridoru: üst sırada telefon fotoğrafları, alt sırada her fotoğrafın çözülen kamerasından model](docs/showcase/office-room.jpg)
 
@@ -260,12 +275,13 @@ reference-to-3d/
 │   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
 │   ├── two-photo-object.md      boyutu bilinmeyen bir ürünün önden ve yandan iki fotoğrafı (masa telefonu)
 │   ├── three-photo-object.md    türü bilinen kavisli bir ürünün üç fotoğrafı (çevirmeli telefon)
+│   ├── drone-frames-landmark.md bir yapının drone videosundan birkaç karesi (adadaki bir kule)
 │   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
 │   ├── single-photo-scene.md    üstünde eşyalar olan bir mobilya takımı ve odası, tek ürün fotoğrafından
 │   ├── single-photo-vehicle.md  tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı)
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte on bir eksiksiz örnek
+└── examples/                    betikleriyle birlikte on üç eksiksiz örnek
     ├── airliner-single-photo/   apronda bir 737 yolcu uçağı, tek görselden
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
@@ -276,6 +292,7 @@ reference-to-3d/
     ├── pen-holder-mesh/         tek telefon fotoğrafından içindekileriyle tel kafes bir kalemlik
     ├── desk-phone-two-photos/   önden ve yandan iki telefon fotoğrafından kablolu bir masa telefonu
     ├── rotary-phone-three-photos/ önden, yandan ve arkadan üç fotoğraftan kırmızı çevirmeli masa telefonu
+    ├── maiden-tower-drone-frames/ altı drone karesinden Kız Kulesi
     ├── office-room-multiphoto/  on beş telefon fotoğrafından gezilebilir bir ofis ve koridor
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```

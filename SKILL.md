@@ -109,6 +109,15 @@ photo unwrapped onto the cylinder, the contents behind the mesh textured from a 
 wires. Read `references/single-photo-container.md` (worked example `examples/pen-holder-mesh/`) after the fourth
 case's reference; steps 4, 6 and 7 still apply.
 
+**Several frames of a drone video round a landmark** (a tower on an island, a castle, a lighthouse, a chapel: screenshots
+taken all round it from the air, no EXIF) is a tenth case: every frame its own camera (screenshots are cropped and
+scaled differently: never one shared focal), solved jointly from hand-read points and then refined on the photo's
+edges with those points held; the scale from a door; the waterline from the frames' masks intersected on horizontal
+planes, the sea held out of every silhouette, quay walls vertical and armour stones as rocks; the photos projected
+through a depth test with the light divided out, the sun from a shadow's length, a gradient sky, and clipped sunlit
+faces filled with the same material's pattern from its shaded side. Read `references/drone-frames-landmark.md`
+(worked example `examples/maiden-tower-drone-frames/`).
+
 **One photo of a turned object** (a pot, a bottle, a vase, a lamp, a cup; with handles, knobs or a spout on its
 sides) is a fourth case: the silhouette's two edges are its profile. Solve the camera from the ellipses of two of
 its circles (base, rim), lathe the profile measured through that camera, make each side part a rounded slab or
@@ -129,7 +138,10 @@ foot and camera solved together, the pattern rebuilt 360 deg from the unwrapped 
    them: they are the honest test of the result.
 2. Decide each side view's name by where the object's front is, and the top view's `--top-front`.
 3. Get one real size (height, length or width) from the user or from common sense (a mug ~0.1 m tall, a van ~1.9 m);
-   the rest follows from the views' proportions.
+   the rest follows from the views' proportions. When the picture shows a standard part, measure it there (a door
+   ~2.1 m, a step ~0.17 m, a railing ~1.05 m, a dial 76.2 mm) by intersecting its end pixels' rays with its plane;
+   never from people (shadows, foreshortening from above). A scale guessed from people on a tower's terrace was 24 %
+   off and was reported as a measurement (2026-11-10).
 4. Look for disagreements between the views, and expect them in AI concept sheets and photos: the same part at
    different widths or heights in different views, a top view out of proportion. These are usually **perspective**:
    a close camera makes near parts large (a van's front view showed its bumper 12 % wider than its top and rear
@@ -262,6 +274,8 @@ motion, a reference made from nothing) are still offers.
 - `examples/desk-phone-two-photos/` — a corded desk phone from a front and a side phone photo (edge-line and key measuring, joint solve, handset fit, side-photo features, match/final/PBR builds, Cycles showcase)
 - `references/three-photo-object.md` — three photos of a curved product of a known type: scale from a standard part, circle-anchored camera solve, colour masks that cut lit faces (patch by hand), per-part fit zones, rolled-edge height-field body, a resting part judged on the shaded render, rectified printed parts, clear plastic, light that follows the turned object
 - `examples/rotary-phone-three-photos/` — a red rotary desk phone from front, side and rear phone photos (solve, mask + maskfix, geom/fit/fitcam, ovpart overlays, prep_tex/mktex, Blender build, cmp, showcase)
+- `references/drone-frames-landmark.md` — a landmark from several drone-video frames: a camera per frame, joint point solve then edge refinement with the points held, scale from doors, GrabCut masks seeded by the model, the sea held out, the waterline from mask hulls on horizontal planes, quay walls and armour stones, orienting disconnected faces, sun from a shadow, gradient sky, low specular on photo albedo, clipped sunlit faces filled from the shaded side, per-frame tone
+- `examples/maiden-tower-drone-frames/` — the Maiden's Tower from six drone frames (solve, edgefit2, geom/params, bake/texbuild/irr/albedo, gcmask/iouf/footprint, rocktex/stonetex, stats/pcrop/novel, run2.sh/geoloop.sh, deliver2, showcase)
 - `references/single-photo-container.md` — a container with contents from one photo: camera with roll, items by base-plane intersection, see-through mesh wall, one RGBA wall texture for glTF
 - `examples/pen-holder-mesh/` — a wire-mesh pen holder with four pens, scissors, a spoon and a glue stick from one phone photo (circle + wall-tangent camera solve, lattice pitch from the unwrapped photo, percentile un-meshing, real-material version)
 - `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)
