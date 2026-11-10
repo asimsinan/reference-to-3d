@@ -21,11 +21,11 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One photo of a vehicle of a known type (an airliner, a car, a ship), even an AI image | The camera solved with the type's real dimensions as priors, every part (wings, winglets, tail cone, fin, engines, gear) fitted to the photo's outline, the photo unwrapped onto each part and mirrored to the side it does not show, then real materials, the ground and the sky taken from the photo, and the sun solved from the shadow |
 | Several frames of a drone video taken round a landmark (a tower on an island, a castle, a lighthouse) | Every frame's camera solved and refined on the frames' edges, the building and its island built to scale (from its doors), the waterline measured from the frames, the photos projected with their light divided out, then real materials, armour stones, the sun from a shadow |
 
-![The Maiden's Tower: top row, three drone frames; middle row, the model from the same frames' solved cameras; bottom row, viewpoints no frame has](docs/showcase/maiden-tower.jpg)
+![The Maiden's Tower: the six drone frames, each above the model from the same frame's solved camera](docs/showcase/maiden-tower.jpg)
 
 *The Maiden's Tower (Istanbul) from six screenshots of a drone video taken all round it (each cropped and scaled
-differently, no EXIF). Top row, three of the frames; middle row, the model in real materials (Blender, Cycles) from
-the same frames' solved cameras, same crops; bottom row, viewpoints none of the frames has. The six cameras were solved
+differently, no EXIF). Each frame is above the model in real materials (Blender, Cycles) from that frame's solved
+camera, same crop: frames 1-3 in the first row, 4-6 in the third. The six cameras were solved
 together from hand-read points, then each refined on the frames' edges with those points held; the scale comes from
 two doors (2.1 m), the waterline from the six masks intersected on horizontal planes. The frames' pixels are
 projected through a depth test with the light divided out; the sunlit stone the frames clipped to white takes the

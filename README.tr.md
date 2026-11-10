@@ -21,11 +21,11 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı, otomobil, gemi), yapay zekâ görseli bile olsa | Tipin gerçek ölçüleri ön bilgi olarak kullanılıp çözülen kamera; her parça (kanatlar, winglet'ler, kuyruk konisi, dikey stabilize, motorlar, iniş takımı) fotoğrafın silüetine oturtulur, fotoğraf her parçaya açılır ve görünmeyen tarafa aynalanır; ardından gerçek malzemeler, fotoğraftan alınan zemin ve gökyüzü, gölgeden çözülen güneş |
 | Bir yapının çevresinde dolaşan bir drone videosundan birkaç kare (adadaki bir kule, bir kale, bir fener) | Her karenin kamerası çözülüp karelerin kenarlarına göre inceltilir; yapı ve adası ölçeğinde kurulur (kapılarından), su hattı karelerden ölçülür, fotoğraflar ışıkları ayrılarak yansıtılır; ardından gerçek malzemeler, mendirek taşları, gölgeden güneş |
 
-![Kız Kulesi: üst sırada üç drone karesi, orta sırada aynı karelerin çözülen kameralarından model, alt sırada hiçbir karenin görmediği açılar](docs/showcase/maiden-tower.jpg)
+![Kız Kulesi: altı drone karesi, her birinin altında aynı karenin çözülen kamerasından model](docs/showcase/maiden-tower.jpg)
 
 *Kız Kulesi (İstanbul), çevresinde dolaşan bir drone videosundan alınmış altı ekran görüntüsünden (her biri farklı
-kırpılmış ve ölçeklenmiş, EXIF yok). Üst sırada karelerden üçü; orta sırada model, gerçek malzemelerle (Blender,
-Cycles), aynı karelerin çözülen kameralarından ve aynı kırpımla; alt sırada hiçbir karenin görmediği açılar. Altı kamera elle okunan
+kırpılmış ve ölçeklenmiş, EXIF yok). Her karenin altında, gerçek malzemelerle (Blender, Cycles), o karenin
+çözülen kamerasından ve aynı kırpımla model: birinci sırada 1-3. kareler, üçüncü sırada 4-6. Altı kamera elle okunan
 noktalardan birlikte çözüldü, sonra her biri bu noktalar sabit tutularak karelerin kenarlarına göre inceltildi; ölçek
 iki kapıdan (2,1 m), su hattı altı maskenin yatay düzlemlerde kesişiminden geliyor. Karelerin pikselleri derinlik
 testiyle ve ışıkları ayrılarak yansıtıldı; karelerin beyaza kırptığı güneşli taş, aynı taşın gölgedeki yüzünden
