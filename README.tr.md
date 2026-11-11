@@ -19,7 +19,23 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
 | Üstünde eşyalar olan bir mobilya takımının, odasıyla birlikte tek ürün fotoğrafı (masa, bank, tabureler, bardaklar, tabak, mumlar, bitki) | Her parça fotoğrafa oturtulur (oturaklar minderlerinin silüetine, açılı ayaklar, her nesne durduğu yerde ve neyin üstünde duruyorsa onun üstünde), malzemeler fotoğrafın kendi piksellerinden alınır, çevresindeki oda kurulur ve ışık fotoğrafın renklerine olduğu kadar kontrastına da oturtulur |
 | Tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı, otomobil, gemi), yapay zekâ görseli bile olsa | Tipin gerçek ölçüleri ön bilgi olarak kullanılıp çözülen kamera; her parça (kanatlar, winglet'ler, kuyruk konisi, dikey stabilize, motorlar, iniş takımı) fotoğrafın silüetine oturtulur, fotoğraf her parçaya açılır ve görünmeyen tarafa aynalanır; ardından gerçek malzemeler, fotoğraftan alınan zemin ve gökyüzü, gölgeden çözülen güneş |
+| Bir taşıtın internetten bulunmuş, dışından ve içinden çok sayıda fotoğrafı (nostaljik tramvay, otobüs, vagon) | Her fotoğrafın kamerası ve gövde birlikte çözülür, fotoğraflardaki araçlar arasından doğru olanı seçilir; kavisli uçlar, arkasındaki makaslı kapıyla camlı kapılar, fotoğraftaki gibi açık yürüyen aksam, koltukları iç mekân fotoğrafının kamerasından ölçülmüş salon, ekranlarıyla sürücü kabini, yeniden çizilmiş net yazılar, ardından fotoğraflarda ölçülen gerçek malzemeler |
 | Bir yapının çevresinde dolaşan bir drone videosundan birkaç kare (adadaki bir kule, bir kale, bir fener, yuvarlak bir kule) | Her karenin kamerası çözülüp karelerin kenarlarına göre inceltilir; yapı ve adası ölçeğinde kurulur (kapılarından ya da yayımlanmış bir ölçüden), su hattı karelerden ölçülür, fotoğraflar ışıkları ayrılarak yansıtılır, hiçbir karenin göstermediği taraf görünen taşlardan sentezlenir; ardından gerçek malzemeler, mendirek taşları, gölgeden güneş |
+
+![İstanbul'un 34 numaralı nostaljik tramvayı: üç fotoğraf ve altlarında her fotoğrafın çözülen kamerasından model, ardından hiçbir fotoğrafta olmayan görünüşler](docs/showcase/tram.jpg)
+
+*İstanbul'un Taksim–Tünel nostaljik tramvayı, 34 numara (bataryalı, havai hatsız), farklı araç ve dönemlere ait
+yirmi internet fotoğrafından. Üst sıra fotoğraflardan üçü: önden çapraz, tam önden, salon; ikinci sıra her
+fotoğrafın çözülen kamerasından, aynı kırpımla gerçek malzemeli model (Blender, Cycles; salonda karşılaştırma için
+camların ardında fotoğrafın kendisi); alt sıra hiçbir fotoğrafta olmayan görünüşler: arkadan çapraz, yürüyen aksam,
+sürücü kabini. Bütün kameralar ve gövde elle okunan noktalardan birlikte çözüldü (her fotoğrafa serbest odak ve asal
+nokta), salonun kamerası kaçış noktalarından; ölçek ray açıklığından (1 m varsayıldı). Koltuklar salon fotoğrafından
+ölçüldü, kabindeki beş ekran fotoğrafından düzleştirildi, yazılar Clarendon tarzı bir yazı tipiyle yeniden çizildi,
+kapılar arkalarındaki makaslı kafesle camlı. Fotoğrafların kameralarından ortalama renk farkı 37.7, 40.7 ve
+40.9/255. Birebir değil: camlar (her fotoğrafta arkalarında insanlar ve yansımalar var), çamurluğun düz üstü, yürüyen
+aksam fotoğraflardakinden seyrek. İlk teslim, ilk fotoğraflardaki havai hatlı 115 numaraydı; kullanıcı 34'ü
+istiyordu (`references/multi-photo-vehicle.md`, "What the user rejected"). Nasıl:
+[`examples/tram-multi-photo/`](examples/tram-multi-photo/).*
 
 ![Galata Kulesi: bugüne ait üç drone karesi ve altlarında her karenin çözülen kamerasından model, bütün ve yakın](docs/showcase/galata-tower.jpg)
 
@@ -296,9 +312,11 @@ reference-to-3d/
 │   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
 │   ├── single-photo-scene.md    üstünde eşyalar olan bir mobilya takımı ve odası, tek ürün fotoğrafından
 │   ├── single-photo-vehicle.md  tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı)
+│   ├── multi-photo-vehicle.md   bir taşıtın dışından ve içinden çok sayıda internet fotoğrafı (nostaljik tramvay)
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte on dört eksiksiz örnek
+└── examples/                    betikleriyle birlikte on beş eksiksiz örnek
+    ├── tram-multi-photo/        34 numaralı nostaljik tramvay, dışı ve içi, yirmi internet fotoğrafından
     ├── airliner-single-photo/   apronda bir 737 yolcu uçağı, tek görselden
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere

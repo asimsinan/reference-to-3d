@@ -284,3 +284,17 @@ and fill hand-read edge points where they differ (`fix_rim_mask.py` pattern).
 - **Smart-UV bakes: unused texels have alpha 1 and P = 0**; filter on |P| before statistics by angle or position.
 - **Flattening light towards a median of everything** pulls the well-seen part towards the poorly-seen part: take
   the target from the part the frames see best.
+
+## A heritage tram from twenty web photos (2026-11-11)
+- **Web photos of one line show several units and eras** (No. 115 under the wire, No. 34 on batteries, No. 47): the
+  first delivery modelled the wrong car. Read fleet numbers and details on every photo; ask which unit.
+- **Front-only points leave a camera's yaw free** (the rectified side smeared); a free focal without a prior went to
+  208 px. Points along the side and a log-focal prior per photo.
+- **Neither facets nor one oval** for a rounded end: soft joints between panels, the roof edge rolled, measured on the
+  frontal photo; the all-oval version raised the frontal error 37.5 -> 42.8/255.
+- **Flat door panels, a black box under the floor, glossy leather, seats facing the wrong way, lettering cut from a
+  slanted photo**: each rejected; see `multi-photo-vehicle.md`.
+- **A palette box over a floor takes hatch frames and glare** (white streaks in the wood): filter wood pixels by hue
+  and saturation first; a rectified floor tile ran across the car instead of along it (check the tile's axis).
+- **An edit that did not apply, then a measurement of the previous render**: the number "did not move". Delete the
+  output before rendering, check the log for Error/Traceback, grep the edit.

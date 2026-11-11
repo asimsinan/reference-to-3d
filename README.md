@@ -19,7 +19,23 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
 | One product photo of a furniture set with things on it, in its room (a table, a bench, stools, cups, a plate, candles, a plant) | Every piece fitted to the photo (seats to their cushions' outlines, splayed legs, each object standing where it stands and on what it stands), materials taken from the photo's own pixels, the room around it, and the light fitted to the photo's contrast as well as its colours |
 | One photo of a vehicle of a known type (an airliner, a car, a ship), even an AI image | The camera solved with the type's real dimensions as priors, every part (wings, winglets, tail cone, fin, engines, gear) fitted to the photo's outline, the photo unwrapped onto each part and mirrored to the side it does not show, then real materials, the ground and the sky taken from the photo, and the sun solved from the shadow |
+| Many photos of a vehicle found on the web, from outside and inside (a heritage tram, a bus, a train car) | Every photo's camera and the body solved together, the right unit picked among the cars the photos show, curved ends, glazed doors with the gate behind them, the running gear open as in the photos, the saloon with its seats measured through the interior photo's camera, the cab with its screens, lettering redrawn sharp, then real materials measured on the photos |
 | Several frames of a drone video taken round a landmark (a tower on an island, a castle, a lighthouse, a round tower) | Every frame's camera solved and refined on the frames' edges, the building and its island built to scale (from its doors or a published dimension), the waterline measured from the frames, the photos projected with their light divided out, the side no frame shows synthesised from the seen stones, then real materials, armour stones, the sun from a shadow |
+
+![Istanbul's nostalgic tram No. 34: three photos above the model rendered through each photo's solved camera, then views no photo has](docs/showcase/tram.jpg)
+
+*Istanbul's nostalgic Taksim–Tünel tram No. 34 (battery-powered, no overhead wire) from twenty web photos of
+different cars and eras. Top row, three of the photos: the front three-quarter, the front, the saloon; second row,
+the model in real materials (Blender, Cycles) through each photo's solved camera, same crop (in the saloon the photo
+is shown behind the panes, as the comparison needs); bottom row, views no photo has: the rear three-quarter, the
+running gear, the cab. All cameras and the body were solved together from hand-read points (focal and principal
+point free per photo), the saloon's camera from its vanishing points; the scale from the rail gauge (assumed 1 m).
+The seats are measured on the saloon photo, the cab's five screens rectified from a photo of it, the lettering
+redrawn in a Clarendon face, the doors glazed with the scissor gate behind them. Mean colour difference from the
+photos' cameras 37.7, 40.7 and 40.9/255. Not identical: the glass (people and reflections in every photo), the
+fender's flat top, a running gear sparser than the photos'. The first delivery was car No. 115 under the wire, from the
+first batch of photos; the user wanted 34 (`references/multi-photo-vehicle.md`, "What the user rejected"). How:
+[`examples/tram-multi-photo/`](examples/tram-multi-photo/).*
 
 ![The Galata Tower: three present-day drone frames above the model rendered through each frame's solved camera, whole and closer](docs/showcase/galata-tower.jpg)
 
@@ -300,9 +316,11 @@ reference-to-3d/
 │   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
 │   ├── single-photo-scene.md    one product photo of a furniture set with things on it, and its room
 │   ├── single-photo-vehicle.md  one photo of a vehicle of a known type (an airliner)
+│   ├── multi-photo-vehicle.md   a vehicle from many web photos, outside and inside (a heritage tram)
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    fourteen complete worked examples with their scripts
+└── examples/                    fifteen complete worked examples with their scripts
+    ├── tram-multi-photo/        Istanbul's nostalgic tram No. 34, outside and inside, from twenty web photos
     ├── airliner-single-photo/   a 737 airliner on an apron from one picture
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
