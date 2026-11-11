@@ -2,3 +2,7 @@
 __pycache__/
 *.pyc
 *.blend1
+
+# local working copies of a session (frames, renders, deliveries)
+/galata/
+/ref/
