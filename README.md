@@ -19,7 +19,23 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One photo of a container with things in it (a pen holder with pens and scissors, a basket, a jar) | The container as above, its contents placed from the photo and standing on its base, a wire-mesh wall you can see through, the contents behind the mesh textured from what the photo shows between the wires |
 | One product photo of a furniture set with things on it, in its room (a table, a bench, stools, cups, a plate, candles, a plant) | Every piece fitted to the photo (seats to their cushions' outlines, splayed legs, each object standing where it stands and on what it stands), materials taken from the photo's own pixels, the room around it, and the light fitted to the photo's contrast as well as its colours |
 | One photo of a vehicle of a known type (an airliner, a car, a ship), even an AI image | The camera solved with the type's real dimensions as priors, every part (wings, winglets, tail cone, fin, engines, gear) fitted to the photo's outline, the photo unwrapped onto each part and mirrored to the side it does not show, then real materials, the ground and the sky taken from the photo, and the sun solved from the shadow |
-| Several frames of a drone video taken round a landmark (a tower on an island, a castle, a lighthouse) | Every frame's camera solved and refined on the frames' edges, the building and its island built to scale (from its doors), the waterline measured from the frames, the photos projected with their light divided out, then real materials, armour stones, the sun from a shadow |
+| Several frames of a drone video taken round a landmark (a tower on an island, a castle, a lighthouse, a round tower) | Every frame's camera solved and refined on the frames' edges, the building and its island built to scale (from its doors or a published dimension), the waterline measured from the frames, the photos projected with their light divided out, the side no frame shows synthesised from the seen stones, then real materials, armour stones, the sun from a shadow |
+
+![The Galata Tower: three present-day drone frames, each beside the model from the same frame's solved camera; below, the side no frame shows](docs/showcase/galata-tower.jpg)
+
+*The Galata Tower (Istanbul) from four screenshots of drone videos, 250-456 px wide, no EXIF. Top, the three
+present-day frames, each beside the model in real materials (Blender, Cycles) from that frame's solved camera, same
+crop. Bottom, the side none of them shows (all three look at it from the Golden Horn's side): the shaft from behind,
+the upper storeys and the cone from behind, the tower from the plaza. The profile and every camera were solved
+together from the finial, the rings' extremes and fronts and the tracked silhouettes; the frames' angles round the
+tower from the shaft's windows as shared points; the scale from the published 16.45 m base, which puts the cone's
+apex 61.9 m above the ground (published 62.59 m). The fourth frame shows the tower before its 2020 restoration and
+was used for the unchanged shaft only. The unseen side is synthesised from the seen stones (full-height strips joined
+by minimum-error cuts, windows kept apart; whole bays for the 14 arches), after the first delivery's rotated copies
+read as patches. Mean colour difference from the frames' cameras 4.8/255 (3.9 for the photo-projected version). Not
+identical: the people on the balcony are not modelled, two frames had a soft sun the delivered overcast light lacks,
+the unseen side's windows are where the synthesis put them. How:
+[`examples/galata-tower-drone-frames/`](examples/galata-tower-drone-frames/).*
 
 ![The Maiden's Tower: the six drone frames, each above the model from the same frame's solved camera](docs/showcase/maiden-tower.jpg)
 
@@ -270,7 +286,8 @@ reference-to-3d/
 │   ├── compare.py               outline overlap and colour difference per view, comparison sheets
 │   ├── solve_camera_vp.py       a room photo's camera from its lines (focal length, tilt, scale)
 │   ├── rectify_plane.py         one wall/floor of a room straightened out of the photo
-│   └── shot_ui.py               screenshots a .blend as it opens, to check what you will see
+│   ├── shot_ui.py               screenshots a .blend as it opens, to check what you will see
+│   └── quilt.py                 the side no picture shows, synthesised seamlessly from the seen part (a tower's back)
 ├── docs/showcase/               the images shown in this README
 ├── references/                  detailed guides Claude reads when a case needs them
 │   ├── single-view-interior.md  one picture of an inside; rooms made walkable
@@ -279,13 +296,13 @@ reference-to-3d/
 │   ├── single-photo-container.md one photo of a container with things in it (a pen holder); see-through mesh walls
 │   ├── two-photo-object.md      two photos (front, side) of a product of unknown size (a desk phone)
 │   ├── three-photo-object.md    three photos of a curved product of a known type (a rotary phone)
-│   ├── drone-frames-landmark.md several drone-video frames of a landmark (a tower on an island)
+│   ├── drone-frames-landmark.md several drone-video frames of a landmark (a tower on an island, a round tower)
 │   ├── multi-photo-room.md      a real room from many phone photos, walkable with the corridor and a door
 │   ├── single-photo-scene.md    one product photo of a furniture set with things on it, and its room
 │   ├── single-photo-vehicle.md  one photo of a vehicle of a known type (an airliner)
 │   ├── game-export.md           names, pivots and settings for game engines
 │   └── pitfalls.md              what went wrong before and why
-└── examples/                    thirteen complete worked examples with their scripts
+└── examples/                    fourteen complete worked examples with their scripts
     ├── airliner-single-photo/   a 737 airliner on an apron from one picture
     ├── laptop-single-photo/     a laptop from one photo
     ├── pressure-cooker-revolved/ a pressure cooker from one product photo
@@ -297,6 +314,7 @@ reference-to-3d/
     ├── desk-phone-two-photos/   a corded desk phone from a front and a side phone photo
     ├── rotary-phone-three-photos/ a red rotary desk phone from front, side and rear phone photos
     ├── maiden-tower-drone-frames/ the Maiden's Tower from six drone-video frames
+    ├── galata-tower-drone-frames/ the Galata Tower from four drone-video frames
     ├── office-room-multiphoto/  a walkable office and corridor from fifteen phone photos
     └── laundromat-room/         a walkable laundromat from one render
 ```

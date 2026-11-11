@@ -7,6 +7,15 @@ round it, 1290-1586 px wide, no EXIF). Built on `multi-photo-room.md` (joint sol
 `single-photo-vehicle.md` (bake, project, light divided out); this file is what an outdoor landmark seen from the
 air changes, and what went wrong.
 
+Second worked example: `examples/galata-tower-drone-frames/` (the Galata Tower in Istanbul: a round stone shaft, an
+arcade storey, a corbelled balcony with an iron railing, an upper storey, a flared lead cone with four dormers and a
+gilded finial; four screenshots of drone videos, 250-456 px wide, all but one from the same side). A round tower
+changes the cameras, the angles and above all the side no frame shows: section "A round tower" at the end.
+
+**Before anything else, look at every surface no frame shows, from close, the way the user will** (render views all
+round, on the unseen side, at the distance a viewer stands). The Galata Tower's frame-camera numbers were good while
+its back was rotated copies of the front: the user saw patches at once.
+
 ## Cameras
 
 - **Screenshots of a video are not one camera.** Each frame was cropped and scaled differently by the screenshot
@@ -110,3 +119,98 @@ along the waterline is not modelled; the annex's quay side and the fort's courty
   environment's python directly (`pyx.env`) when that happens.
 - `run2.sh` is the whole chain (geometry -> bake -> project -> irradiance x2 -> albedo -> extras -> renders); a shape
   change needs `geoloop.sh` (geometry -> index renders -> IoU) first, three minutes against ten.
+
+## A round tower (the Galata Tower)
+
+Four frames, three of them present-day and from the same side, one older. What a turned landmark changes:
+
+### Frames, eras and scale
+
+- **Check that every frame shows the same building.** A landmark gets restored: frame 1 showed the Galata Tower before
+  2020 (a lighter cone without the flared eave, an older finial). Use such a frame only for what did not change (the
+  shaft), never for the changed part or for textures, and tell the user which state the model shows.
+- **Scale from a published dimension of a part the frames measure well** (the base diameter, 16.45 m), then check it
+  against another published figure (the apex height: 61.9 m here, 62.59 m published). A round tower has no door in
+  view; its radius is what the solve measures best.
+
+### Cameras and profile
+
+- **Solve the lathe and the cameras together** from: axis points (finial tip, ball, apex), each ring's left and right
+  extremes (x only) and its front point (y at the axis), and silhouette points (x at a row). Project the rings
+  numerically (1440 samples a ring, a silhouette as the extreme of rings at many heights, vectorised): extremes and
+  silhouettes of a circle under perspective are not its diameter's ends. 1.8 px RMS over the four frames.
+- **Bound every height and keep their order**: the first solve put the balcony above the eave. A ring with extremes
+  only has no height; give it its front point.
+- **One feature, one edge.** The cornice's extremes were read on its wide top and its front on its bottom: the solve
+  could satisfy neither. Read the same edge in every frame or drop the observation.
+- **Read edges by number, not by eye**: the strongest gradient peaks along a row or a column (`peaks.py`), and a
+  silhouette followed row by row from a seed (`track.py`). Grids drawn every 2 px hide the picture; every 10 px at
+  2-3x is the readable density.
+- **The profile from the silhouettes**: invert each tracked silhouette point to (radius, height) through its frame's
+  camera (`invert.py`) and fit the cone to them (quadratic here, not straight); the flare to the eave as a curve
+  tangent to the cone, ending at the eave ring the solve measured.
+- **A turned object's azimuth is a gauge freedom.** Cross-correlating the frames unwrapped onto the cylinder did not
+  find the frames' relative angles (NCC 0.06-0.13: stone is noise). Windows did: dark blobs on the unwrapped shaft,
+  matched by order across frames, as shared 3D points with unknown angle and height in the joint solve. The arches
+  of two storeys then lined up across the frames, which is the check.
+- **Count and place repeated parts on the unwrap**: 14 arches in both arcaded storeys (25.7 deg), the dormers every
+  90 deg, all on one angle (-8 deg). The unwrap (angle, height) through each frame's camera shows them level and
+  aligned when the cameras are right.
+
+### Projection
+
+- **Weight each view by its resolution as well as its angle** ((f/z)^2 x cos^2, then ^6 to pick): the closest frame
+  then dominates where it sees (10-17/255 per pixel from its own camera, against 24-35 for an equal-weight blend).
+- **A blend cannot match every frame.** Two low-resolution frames rendered from a texture the close frame dominates
+  stay ~24/255 per pixel: their own sharpening, light and 1-2 px registration. A photometric registration of their
+  cameras to the texture found them already at the minimum: the rest is local, not a camera error.
+- **Mask what stands in front of the building**: a lamp post, a sign and people at the foot came out as ghosts on the
+  shaft (from the other frames' parallax).
+- **No denoiser and a 1 px pixel filter on renders that are compared with photos**: the denoiser softened every stone.
+- **People on a balcony are not the building.** For the material version, mirror the clean wall above the railing's
+  top down over them; say that the photo version keeps them and that this costs ~15/255 on that storey.
+
+### The side no frame shows
+
+- **Never fill it by rotating copies of the seen side** (here by the arches' 25.7 deg): every copy's edge is a
+  vertical seam, a window column repeats at the copy's period, and the foot band's copy made a sawtooth. The user
+  saw it from one look: "sanki yama yapmis gibi".
+- **A non-periodic surface on a lathe (the shaft, the cone): image quilting** (`scripts/quilt.py`). Full-height
+  strips from the crisp, best-seen angles, rows kept level (courses and bands continue), each joined by a vertical
+  minimum-error cut; the last strip also cut into the seen texture on its right. The foot band no frame sees: one copy
+  of the stones just above, joined by a horizontal cut.
+- What each variant of the strips did:
+  - too strict a source (cos > 0.76): two distinct strips repeated round 270 deg, as visible as the rotation;
+  - mirrored strips: kaleidoscope symmetries where a strip met its mirror;
+  - mixing the photo's coarse tone with synthesised fine detail on the slanted band: doubled, ghost windows;
+  - no window rule: windows bunched every 20 deg; a minimum gap of 30 deg between big windows fixed it;
+  - the lightning-rod cable copied with every strip: exclude such columns from the sources (one is real).
+  What worked: strips 160 px wide with a 56 px overlap, sources cos > 0.7, one of the five best matches at random,
+  none from the last four, no mirroring, the window gap.
+- **Keep and source are two thresholds, and there are two textures.** Texels seen only at a slant (cos 0.4-0.7) are
+  stretched and soft: in the photo version keep them (it is compared from the frames' cameras: 3.9/255), in the
+  material version synthesise everything outside the crisp core (cos > 0.68) so the model looks the same from every
+  side (4.8/255 from the frames' cameras).
+- **A periodic structure (arcades, a corbel course, posts, dormers): copy whole bays** from the best-seen bay, the
+  bay boundaries at the pier centres (at the arch centres for posts that stand on the piers), so seams fall where
+  the structure changes anyway.
+- **Light left in the frames across the angle** (a soft sun on one side in two frames): flatten it in the material
+  albedo per row, towards the best-seen angles' row median, not the median of all angles (that darkened the front
+  and doubled the difference to 10.3/255).
+- **Smart-UV bakes leave the unused texels with alpha 1 and position 0**: exclude |P| = 0 before any per-angle
+  statistics (they counted as one huge bay at angle 0 and chose the wrong source bays).
+
+### Materials and light
+
+- An **albedo floor of 0.01** lifts every window and recess to 25/255 in sRGB: use 0.002.
+- **Lead under an overcast sky**: specular 0.06, roughness 0.6. A brighter specular reflected the sky and lifted the
+  cone 12-25/255.
+- **An iron railing's density decides its band's tone**: bars every 13 cm matched the closest frame and not the two
+  farther ones, every 5.5 cm the reverse; 9 cm splits it. Its paint is dark and rough (albedo 0.015, roughness 0.7).
+- **Per-frame light from linear passes**: renders of the sky alone and of 16 soft suns, fitted to each frame by
+  non-negative least squares on the blurred tower pixels. It measured the soft sun in two frames (from the side the
+  shaft is brighter on) but improved the mean only from 5.4 to 4.7/255; the delivered light stays overcast.
+
+Numbers reached: mean colour difference 3.9/255 (photo version) and 4.8/255 (material version) over the three
+present-day frames, per part 1-15. Open: the people on the balcony, the railing's pattern (bars, not its ornament),
+frames 2-3's soft sun, close-ups (~18 px per metre), the window positions on the unseen side.

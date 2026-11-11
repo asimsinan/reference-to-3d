@@ -19,7 +19,23 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | İçinde eşya olan bir kabın tek fotoğrafı (kalemli ve makaslı bir kalemlik, sepet, kavanoz) | Yukarıdaki gibi kap, fotoğraftan yerleştirilip tabanına oturtulmuş içindekiler, içinden görülen tel kafes duvar, kafesin arkasındakiler fotoğrafın teller arasında gösterdiğiyle kaplanmış |
 | Üstünde eşyalar olan bir mobilya takımının, odasıyla birlikte tek ürün fotoğrafı (masa, bank, tabureler, bardaklar, tabak, mumlar, bitki) | Her parça fotoğrafa oturtulur (oturaklar minderlerinin silüetine, açılı ayaklar, her nesne durduğu yerde ve neyin üstünde duruyorsa onun üstünde), malzemeler fotoğrafın kendi piksellerinden alınır, çevresindeki oda kurulur ve ışık fotoğrafın renklerine olduğu kadar kontrastına da oturtulur |
 | Tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı, otomobil, gemi), yapay zekâ görseli bile olsa | Tipin gerçek ölçüleri ön bilgi olarak kullanılıp çözülen kamera; her parça (kanatlar, winglet'ler, kuyruk konisi, dikey stabilize, motorlar, iniş takımı) fotoğrafın silüetine oturtulur, fotoğraf her parçaya açılır ve görünmeyen tarafa aynalanır; ardından gerçek malzemeler, fotoğraftan alınan zemin ve gökyüzü, gölgeden çözülen güneş |
-| Bir yapının çevresinde dolaşan bir drone videosundan birkaç kare (adadaki bir kule, bir kale, bir fener) | Her karenin kamerası çözülüp karelerin kenarlarına göre inceltilir; yapı ve adası ölçeğinde kurulur (kapılarından), su hattı karelerden ölçülür, fotoğraflar ışıkları ayrılarak yansıtılır; ardından gerçek malzemeler, mendirek taşları, gölgeden güneş |
+| Bir yapının çevresinde dolaşan bir drone videosundan birkaç kare (adadaki bir kule, bir kale, bir fener, yuvarlak bir kule) | Her karenin kamerası çözülüp karelerin kenarlarına göre inceltilir; yapı ve adası ölçeğinde kurulur (kapılarından ya da yayımlanmış bir ölçüden), su hattı karelerden ölçülür, fotoğraflar ışıkları ayrılarak yansıtılır, hiçbir karenin göstermediği taraf görünen taşlardan sentezlenir; ardından gerçek malzemeler, mendirek taşları, gölgeden güneş |
+
+![Galata Kulesi: bugüne ait üç drone karesi, her birinin yanında aynı karenin çözülen kamerasından model; altta hiçbir karenin göstermediği taraf](docs/showcase/galata-tower.jpg)
+
+*Galata Kulesi (İstanbul), drone videolarından alınmış dört ekran görüntüsünden (250-456 px genişlik, EXIF yok).
+Üstte bugüne ait üç kare, her birinin yanında o karenin çözülen kamerasından, aynı kırpımla, gerçek malzemeli model
+(Blender, Cycles). Altta hiçbirinin göstermediği taraf (üçü de kuleye Haliç tarafından bakıyor): arkadan gövde,
+arkadan üst katlar ve külah, meydandan kule. Profil ve bütün kameralar alemden, halkaların uçlarından ve ön
+noktalarından ve izlenen silüetlerden birlikte çözüldü; karelerin kule etrafındaki açıları gövdedeki pencerelerden
+ortak noktalar olarak; ölçek yayımlanmış 16,45 m taban çapından, bu da külah tepesini zeminden 61,9 m yukarı koyuyor
+(yayımlanan 62,59 m). Dördüncü kare kulenin 2020 restorasyonundan önceki hâlini gösteriyor ve yalnızca değişmeyen
+gövde için kullanıldı. Görülmeyen taraf görünen taşlardan sentezlendi (en az hata veren kesimlerle birleşen tam boy
+şeritler, pencereler aralıklı; 14 kemer için bütün bölmeler); ilk teslimdeki döndürülmüş kopyalar yama gibi
+okunmuştu. Karelerin kameralarından ortalama renk farkı 4,8/255 (fotoğraf-projeksiyonlu sürümde 3,9). Birebir
+değil: balkondaki insanlar modellenmedi, iki karede teslim edilen bulutlu ışıkta olmayan yumuşak bir güneş var,
+görülmeyen taraftaki pencereler sentezin koyduğu yerde. Nasıl:
+[`examples/galata-tower-drone-frames/`](examples/galata-tower-drone-frames/).*
 
 ![Kız Kulesi: altı drone karesi, her birinin altında aynı karenin çözülen kamerasından model](docs/showcase/maiden-tower.jpg)
 
@@ -266,7 +282,8 @@ reference-to-3d/
 │   ├── compare.py               görünüm başına çizgi örtüşmesi ve renk farkı, karşılaştırma görüntüleri
 │   ├── solve_camera_vp.py       bir oda fotoğrafının kamerasını çizgilerinden çözer (odak, eğim, ölçek)
 │   ├── rectify_plane.py         odanın bir duvarını/zeminini fotoğraftan düz görünecek şekilde çıkarır
-│   └── shot_ui.py               .blend dosyasını açıldığı haliyle ekran görüntüsüne alır
+│   ├── shot_ui.py               .blend dosyasını açıldığı haliyle ekran görüntüsüne alır
+│   └── quilt.py                 hiçbir resmin göstermediği tarafı görünen kısımdan dikişsiz sentezler (bir kulenin arkası)
 ├── docs/showcase/               bu README'deki görseller
 ├── references/                  Claude'un gerektiğinde okuduğu ayrıntılı rehberler
 │   ├── single-view-interior.md  tek resimden iç mekân; dolaşılabilir odalar
@@ -275,13 +292,13 @@ reference-to-3d/
 │   ├── single-photo-container.md içinde eşya olan bir kabın tek fotoğrafı (kalemlik); içinden görülen kafes duvarlar
 │   ├── two-photo-object.md      boyutu bilinmeyen bir ürünün önden ve yandan iki fotoğrafı (masa telefonu)
 │   ├── three-photo-object.md    türü bilinen kavisli bir ürünün üç fotoğrafı (çevirmeli telefon)
-│   ├── drone-frames-landmark.md bir yapının drone videosundan birkaç karesi (adadaki bir kule)
+│   ├── drone-frames-landmark.md bir yapının drone videosundan birkaç karesi (adadaki bir kule, yuvarlak bir kule)
 │   ├── multi-photo-room.md      birçok telefon fotoğrafından gerçek bir oda; koridor ve kapıyla gezilebilir
 │   ├── single-photo-scene.md    üstünde eşyalar olan bir mobilya takımı ve odası, tek ürün fotoğrafından
 │   ├── single-photo-vehicle.md  tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı)
 │   ├── game-export.md           oyun motorları için adlar, pivotlar ve ayarlar
 │   └── pitfalls.md              daha önce neyin, neden yanlış gittiği
-└── examples/                    betikleriyle birlikte on üç eksiksiz örnek
+└── examples/                    betikleriyle birlikte on dört eksiksiz örnek
     ├── airliner-single-photo/   apronda bir 737 yolcu uçağı, tek görselden
     ├── laptop-single-photo/     tek fotoğraftan bir dizüstü bilgisayar
     ├── pressure-cooker-revolved/ tek ürün fotoğrafından bir düdüklü tencere
@@ -293,6 +310,7 @@ reference-to-3d/
     ├── desk-phone-two-photos/   önden ve yandan iki telefon fotoğrafından kablolu bir masa telefonu
     ├── rotary-phone-three-photos/ önden, yandan ve arkadan üç fotoğraftan kırmızı çevirmeli masa telefonu
     ├── maiden-tower-drone-frames/ altı drone karesinden Kız Kulesi
+    ├── galata-tower-drone-frames/ dört drone karesinden Galata Kulesi
     ├── office-room-multiphoto/  on beş telefon fotoğrafından gezilebilir bir ofis ve koridor
     └── laundromat-room/         tek render'dan dolaşılabilir bir çamaşırhane
 ```

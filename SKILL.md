@@ -1,6 +1,6 @@
 ---
 name: reference-to-3d
-description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or several phone photos of a real room taken from different places, made walkable with the corridor outside and an openable door; or one ordinary photo of a real product of known size, such as a laptop on a table; or two photos (front and side) of a product whose size is unknown, such as a desk phone; or one photo of a turned object such as a pot, bottle or vase; or one photo of a container with things in it, such as a pen holder with pens; or one product photo of a furniture set with objects on it and its room, such as a table with a bench, stools, cups and a plate) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "klasörde odanın fotoları var, 3d modelle, gezinebilir olsun", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
+description: Turn reference images of an object (a multi-view turnaround sheet, or separate front/side/rear/top pictures, photos or AI concept art; or one picture of an interior such as a vehicle cockpit seen from one place; or one photo or render of a room, also made walkable; or several phone photos of a real room taken from different places, made walkable with the corridor outside and an openable door; or one ordinary photo of a real product of known size, such as a laptop on a table; or two photos (front and side) of a product whose size is unknown, such as a desk phone; or one photo of a turned object such as a pot, bottle or vase; or one photo of a container with things in it, such as a pen holder with pens; or one product photo of a furniture set with objects on it and its room, such as a table with a bench, stools, cups and a plate; or several frames of a drone video round a landmark, such as a tower or a castle) into a 3D model in Blender that looks like the reference ("birebir", "exactly like the picture"): shape fitted to the reference silhouettes, the reference's own pixels projected on as its texture, measured view by view against the reference, then saved as a .blend and/or baked and exported (glTF) for a game engine with moving parts (wheels, doors) that keep their texture. Use this whenever someone wants a 3D model made from or matching images of a product, vehicle, prop, furniture, gadget, building element or character sheet, wants an existing model to match a reference more closely, or says things like "referanstaki aracın aynısını yap", "bu görselden 3B model", "resimdeki bilgisayarı 3d modelle", "ekteki resmi 3d modelle", "klasörde odanın fotoları var, 3d modelle, gezinebilir olsun", "make a 3D model from this concept art", "model this from these views", "photoreal model from the picture", even when they do not mention Blender or textures.
 ---
 
 # Reference to 3D
@@ -35,8 +35,14 @@ kalmayıncaya, gerçeğiyle birebir eşlene kadar devam etmeliydi"):
    its numbers and why, never "close enough".
 
 The user checks what you skipped: a cup standing off its coaster, a handle turned the wrong way, a plate, muffins and
-a plant in the wrong shape, a matte sphere that is glossy in the photo, a whole render paler than the photo. Each was
-visible in a side-by-side crop that had not been made. Make it before they do.
+a plant in the wrong shape, a matte sphere that is glossy in the photo, a whole render paler than the photo, the back
+of a tower that was the front rotated in slices ("sanki yama yapmis gibi", 2026-11-11). Each was visible in a
+side-by-side crop or a close view that had not been made. Make it before they do.
+
+**The sides no reference shows are part of the model too.** Fill them from the reference's own pixels so that they
+read as the same surface: a repeating structure by whole repeats (bays, panels) with the seams where the structure
+changes, anything else by synthesis (`scripts/quilt.py`: strips of the best-seen part joined by minimum-error cuts),
+never by rotated or shifted copies whose edges are seams. Then render those sides from close, all round, and look.
 
 The scripts are in `scripts/`. Every one takes `--help`-style docs in its header; read the header before first use.
 Python ones run with `uv run --with ...` (the header names the packages); `project.py` runs inside Blender
@@ -116,7 +122,13 @@ edges with those points held; the scale from a door; the waterline from the fram
 planes, the sea held out of every silhouette, quay walls vertical and armour stones as rocks; the photos projected
 through a depth test with the light divided out, the sun from a shadow's length, a gradient sky, and clipped sunlit
 faces filled with the same material's pattern from its shaded side. Read `references/drone-frames-landmark.md`
-(worked example `examples/maiden-tower-drone-frames/`).
+(worked example `examples/maiden-tower-drone-frames/`). **A round tower** (a minaret, a lighthouse, the Galata Tower)
+seen in drone frames is the same case with a lathe: the profile and every camera solved together from axis points,
+ring extremes and front points and tracked silhouettes, the frames' azimuths from windows as shared points, the scale
+from a published diameter; when the frames all look from one side, the side they miss is synthesised from the seen
+side's own pixels (`scripts/quilt.py`, whole bays for repeated arches), never rotated copies. Check every frame
+shows the same state of the building (restorations). Read the reference's section "A round tower" (worked example
+`examples/galata-tower-drone-frames/`).
 
 **One photo of a turned object** (a pot, a bottle, a vase, a lamp, a cup; with handles, knobs or a spout on its
 sides) is a fourth case: the silhouette's two edges are its profile. Solve the camera from the ellipses of two of
@@ -260,6 +272,7 @@ motion, a reference made from nothing) are still offers.
 - `scripts/project.py` — Blender: projection material, renders, .blend, bake + glTF export
 - `scripts/compare.py` — IoU and colour difference per view, comparison sheets
 - `scripts/shot_ui.py` — opens a .blend with the interface, screenshots what the user will see, quits
+- `scripts/quilt.py` — the side no picture shows on a lathe texture (columns = angle): full-height strips of the best-seen part joined by minimum-error cuts, the foot band from just above, window spacing, excluded columns
 - `scripts/solve_camera_vp.py` — a room photo/render's camera from its vanishing points (f, pitch, yaw, scale) -> cam.json
 - `scripts/rectify_plane.py` — one plane of the room rectified out of the picture through cam.json (textures, measuring)
 - `references/pitfalls.md` — what went wrong before and why (read when stuck)
@@ -274,8 +287,9 @@ motion, a reference made from nothing) are still offers.
 - `examples/desk-phone-two-photos/` — a corded desk phone from a front and a side phone photo (edge-line and key measuring, joint solve, handset fit, side-photo features, match/final/PBR builds, Cycles showcase)
 - `references/three-photo-object.md` — three photos of a curved product of a known type: scale from a standard part, circle-anchored camera solve, colour masks that cut lit faces (patch by hand), per-part fit zones, rolled-edge height-field body, a resting part judged on the shaded render, rectified printed parts, clear plastic, light that follows the turned object
 - `examples/rotary-phone-three-photos/` — a red rotary desk phone from front, side and rear phone photos (solve, mask + maskfix, geom/fit/fitcam, ovpart overlays, prep_tex/mktex, Blender build, cmp, showcase)
-- `references/drone-frames-landmark.md` — a landmark from several drone-video frames: a camera per frame, joint point solve then edge refinement with the points held, scale from doors, GrabCut masks seeded by the model, the sea held out, the waterline from mask hulls on horizontal planes, quay walls and armour stones, orienting disconnected faces, sun from a shadow, gradient sky, low specular on photo albedo, clipped sunlit faces filled from the shaded side, per-frame tone
+- `references/drone-frames-landmark.md` — a landmark from several drone-video frames: a camera per frame, joint point solve then edge refinement with the points held, scale from doors, GrabCut masks seeded by the model, the sea held out, the waterline from mask hulls on horizontal planes, quay walls and armour stones, orienting disconnected faces, sun from a shadow, gradient sky, low specular on photo albedo, clipped sunlit faces filled from the shaded side, per-frame tone; a round tower: lathe + cameras solved together, azimuth from windows as shared points, frames of another era, the unseen side by quilting and whole bays, two textures (photo / material)
 - `examples/maiden-tower-drone-frames/` — the Maiden's Tower from six drone frames (solve, edgefit2, geom/params, bake/texbuild/irr/albedo, gcmask/iouf/footprint, rocktex/stonetex, stats/pcrop/novel, run2.sh/geoloop.sh, deliver2, showcase)
+- `examples/galata-tower-drone-frames/` — the Galata Tower from four drone frames (peaks/track edge reading, obs/model/solve lathe + cameras, invert profile, unwrap/blobs azimuth from windows, geom/params, bake/texbuild + quilt, irr/albedo/final, lightpass/lightfit, stats, backviews/topviews, deliver, showcase)
 - `references/single-photo-container.md` — a container with contents from one photo: camera with roll, items by base-plane intersection, see-through mesh wall, one RGBA wall texture for glTF
 - `examples/pen-holder-mesh/` — a wire-mesh pen holder with four pens, scissors, a spoon and a glue stick from one phone photo (circle + wall-tangent camera solve, lattice pitch from the unwrapped photo, percentile un-meshing, real-material version)
 - `examples/mug-revolved/` — a porcelain mug from one phone photo on a table (GrabCut mask, pitched camera solve, tangent-ray profile, base fit, swept-tube handle, inside texture, compare, porcelain version)

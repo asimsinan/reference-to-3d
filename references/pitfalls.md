@@ -269,3 +269,18 @@ and fill hand-read edge points where they differ (`fix_rim_mask.py` pattern).
   with underscores (a space split the argument).
 - **`json.dump` refuses numpy float32**: cast before saving a tuner's results, or the run's last minutes are lost.
 - **A room changes the showcase cameras**: views placed outside the walls render the walls' backs.
+
+## A round landmark from drone frames (Galata Tower, 2026-11-11)
+- **Rotated copies of the seen side are patches**, whatever the frame-camera numbers say: vertical seams at every
+  copy's edge, a window column repeating at the copy's period, a sawtooth where the foot band was copied. The user
+  saw it from one look. Fill a non-periodic surface by quilting (`scripts/quilt.py`), a periodic one by whole bays,
+  and render the unseen side from close before handing over.
+- **Quilting's failure modes, each seen once**: one strip repeated (source pool too strict), kaleidoscopes (mirrored
+  strips), ghost windows (photo tone mixed with synthesised detail), windows bunched (no spacing rule), a cable
+  copied (no excluded columns). See `drone-frames-landmark.md`, "The side no frame shows".
+- **A frame from another era** (before a restoration) solves into a different building: check each frame's state.
+- **The denoiser blurs projected textures** in renders compared with photos; so does a 1.5 px pixel filter.
+- **An albedo floor of 0.01** becomes 25/255 in sRGB: every dark opening turns grey.
+- **Smart-UV bakes: unused texels have alpha 1 and P = 0**; filter on |P| before statistics by angle or position.
+- **Flattening light towards a median of everything** pulls the well-seen part towards the poorly-seen part: take
+  the target from the part the frames see best.
