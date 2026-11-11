@@ -21,12 +21,12 @@ resmin çizgilerini, yüzey için piksellerini, sonucu kontrol etmek için de iz
 | Tipi bilinen bir taşıtın tek fotoğrafı (yolcu uçağı, otomobil, gemi), yapay zekâ görseli bile olsa | Tipin gerçek ölçüleri ön bilgi olarak kullanılıp çözülen kamera; her parça (kanatlar, winglet'ler, kuyruk konisi, dikey stabilize, motorlar, iniş takımı) fotoğrafın silüetine oturtulur, fotoğraf her parçaya açılır ve görünmeyen tarafa aynalanır; ardından gerçek malzemeler, fotoğraftan alınan zemin ve gökyüzü, gölgeden çözülen güneş |
 | Bir yapının çevresinde dolaşan bir drone videosundan birkaç kare (adadaki bir kule, bir kale, bir fener, yuvarlak bir kule) | Her karenin kamerası çözülüp karelerin kenarlarına göre inceltilir; yapı ve adası ölçeğinde kurulur (kapılarından ya da yayımlanmış bir ölçüden), su hattı karelerden ölçülür, fotoğraflar ışıkları ayrılarak yansıtılır, hiçbir karenin göstermediği taraf görünen taşlardan sentezlenir; ardından gerçek malzemeler, mendirek taşları, gölgeden güneş |
 
-![Galata Kulesi: bugüne ait üç drone karesi, her birinin yanında aynı karenin çözülen kamerasından model; altta hiçbir karenin göstermediği taraf](docs/showcase/galata-tower.jpg)
+![Galata Kulesi: bugüne ait üç drone karesi ve altlarında her karenin çözülen kamerasından model, bütün ve yakın](docs/showcase/galata-tower.jpg)
 
 *Galata Kulesi (İstanbul), drone videolarından alınmış dört ekran görüntüsünden (250-456 px genişlik, EXIF yok).
-Üstte bugüne ait üç kare, her birinin yanında o karenin çözülen kamerasından, aynı kırpımla, gerçek malzemeli model
-(Blender, Cycles). Altta hiçbirinin göstermediği taraf (üçü de kuleye Haliç tarafından bakıyor): arkadan gövde,
-arkadan üst katlar ve külah, meydandan kule. Profil ve bütün kameralar alemden, halkaların uçlarından ve ön
+Her çift aynı görüntünün iki hâli: bugüne ait bir kare ve altında o karenin çözülen kamerasından, aynı kırpımla
+render edilmiş gerçek malzemeli model (Blender, Cycles); önce kulenin tamamı, sonra üst kısım yakından. Üç kare de
+kuleye Haliç tarafından bakıyor. Profil ve bütün kameralar alemden, halkaların uçlarından ve ön
 noktalarından ve izlenen silüetlerden birlikte çözüldü; karelerin kule etrafındaki açıları gövdedeki pencerelerden
 ortak noktalar olarak; ölçek yayımlanmış 16,45 m taban çapından, bu da külah tepesini zeminden 61,9 m yukarı koyuyor
 (yayımlanan 62,59 m). Dördüncü kare kulenin 2020 restorasyonundan önceki hâlini gösteriyor ve yalnızca değişmeyen

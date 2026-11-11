@@ -21,12 +21,12 @@ shape, its pixels for the surface, and numbers (not impressions) to check the re
 | One photo of a vehicle of a known type (an airliner, a car, a ship), even an AI image | The camera solved with the type's real dimensions as priors, every part (wings, winglets, tail cone, fin, engines, gear) fitted to the photo's outline, the photo unwrapped onto each part and mirrored to the side it does not show, then real materials, the ground and the sky taken from the photo, and the sun solved from the shadow |
 | Several frames of a drone video taken round a landmark (a tower on an island, a castle, a lighthouse, a round tower) | Every frame's camera solved and refined on the frames' edges, the building and its island built to scale (from its doors or a published dimension), the waterline measured from the frames, the photos projected with their light divided out, the side no frame shows synthesised from the seen stones, then real materials, armour stones, the sun from a shadow |
 
-![The Galata Tower: three present-day drone frames, each beside the model from the same frame's solved camera; below, the side no frame shows](docs/showcase/galata-tower.jpg)
+![The Galata Tower: three present-day drone frames above the model rendered through each frame's solved camera, whole and closer](docs/showcase/galata-tower.jpg)
 
-*The Galata Tower (Istanbul) from four screenshots of drone videos, 250-456 px wide, no EXIF. Top, the three
-present-day frames, each beside the model in real materials (Blender, Cycles) from that frame's solved camera, same
-crop. Bottom, the side none of them shows (all three look at it from the Golden Horn's side): the shaft from behind,
-the upper storeys and the cone from behind, the tower from the plaza. The profile and every camera were solved
+*The Galata Tower (Istanbul) from four screenshots of drone videos, 250-456 px wide, no EXIF. Every pair is one
+view twice: a present-day frame, and below it the model in real materials (Blender, Cycles) rendered through that
+frame's solved camera with the same crop; first the whole tower, then the upper tower closer. All three frames look
+at the tower from the Golden Horn's side. The profile and every camera were solved
 together from the finial, the rings' extremes and fronts and the tracked silhouettes; the frames' angles round the
 tower from the shaft's windows as shared points; the scale from the published 16.45 m base, which puts the cone's
 apex 61.9 m above the ground (published 62.59 m). The fourth frame shows the tower before its 2020 restoration and
